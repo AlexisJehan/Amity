@@ -1,0 +1,39 @@
+<Files ~ ".*\.(ht*|log|phtml|cache|sql)$">
+	Deny from all
+</Files>
+
+Order Allow,Deny
+Allow from all
+
+Options -Indexes +FollowSymLinks
+
+<IfModule mod_rewrite.c>
+	# Activation du moteur de réécriture d'URL
+	RewriteEngine On
+
+	# Faire fonctionner l'authentification avec PHP en CGI
+	RewriteCond %{HTTP:Authorization} ^(.*)
+	RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
+
+	# Détermine le RewriteBase dynamiquement
+	RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2/*$
+	RewriteRule (.*) - [E=BASE:%1]
+
+	# Redirection vers le contrôleur si "/index.php" est spécifié
+	RewriteCond %{ENV:REDIRECT_STATUS} ^$
+	RewriteRule ^index\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]
+
+	# Si c'est un sous-dossier, on redirige vers la page d'erreur 403
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteCond %{ENV:BASE}/:%{REQUEST_URI} !^(.+):\1$
+	RewriteRule .? %{ENV:BASE}/error403 [L]
+
+	# Si ce n'est pas un fichier, on redirige vers le contrôleur frontal
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule .? %{ENV:BASE}/index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+	# Si le module n'est pas installé on simule une erreur 404 vers le contrôleur frontal
+	ErrorDocument 404 /index.php
+</IfModule>

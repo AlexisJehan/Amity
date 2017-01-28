@@ -1,0 +1,43 @@
+<?php
+	/**
+	 * ☺ Amity Framework
+	 * © Copyright Alexis Jehan
+	 */
+	/**
+	 * Template squelette et principal du site
+	 * 
+	 * Ce template encadre chaque page du site et définit donc la structure générale de chacune d'elles, il est aussi utilisé lors du rendu de n'importe quel contrôleur.
+	 * 
+	 * @package    application
+	 * @subpackage templates
+	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
+	 * @version    20/07/2015
+	 * @since      01/08/2014
+	 */
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $language; ?>">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="generator" content="<?php echo __NAME__.' '.__VERSION__; ?>" />
+		<link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/images/logo-amity.png" />
+		<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/style.css" />
+		<title><?php echo 'home' !== $controller ? $title.' &ndash; '.APP_NAME : APP_NAME; ?></title>
+	</head>
+	<body>
+		<header>
+			<h1><?php echo $title; ?></h1>
+		</header>
+		<section>
+			<?php echo $content; ?>
+		</section>
+		<footer>
+			<?php
+				if(DEV_MODE):
+					echo __('Page generated in %s seconds.', '<b>'.chrono().'</b>');
+				endif;
+			?>
+		</footer>
+		<script type="text/javascript" src="<?php echo ASSETS_URL; ?>/js/script.js"></script>
+	</body>
+</html>

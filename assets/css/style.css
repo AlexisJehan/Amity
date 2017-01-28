@@ -1,0 +1,52 @@
+/* This is the style of the default content, you can remove or customize it */
+
+@font-face {
+	font-family: 'Aftasans';
+	src: url('../fonts/Aftasans.eot');
+	src: url('../fonts/Aftasans.eot?#iefix')   format('embedded-opentype'),
+		 url('../fonts/Aftasans.woff')         format('woff'),
+		 url('../fonts/Aftasans.ttf')          format('truetype'),
+		 url('../fonts/Aftasans.svg#Aftasans') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+	background: radial-gradient(#fff, #33719A);
+	background-attachment: fixed;
+	font-family: 'Aftasans';
+	text-align: center;
+	color: #043866;
+}
+
+p {
+	font-size: 20px;
+}
+
+section > div {
+	max-width: 500px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: left;
+}
+
+section div.icon {
+	width: 200px;
+	height: 200px;
+	padding-right: 10px;
+	background-image: url('../images/logo-amity.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+footer {
+	padding-top: 20px;
+	font-style: italic;
+	text-align: right;
+}
