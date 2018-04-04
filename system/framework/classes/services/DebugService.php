@@ -406,6 +406,8 @@
 					// Si le tableau n'est pas vide
 					} else if(0 < count($variable)) {
 
+						$content = array();
+
 						// Tableau associatif, on affiche les clefs devant
 						if($variable !== array_values($variable)) {
 							foreach($variable as $key => $value) {

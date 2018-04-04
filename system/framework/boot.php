@@ -12,11 +12,12 @@
 	 * 
 	 * @package framework
 	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version 19/07/2015
+	 * @version 04/04/2018
 	 * @since   01/08/2014
 	 */
 	/*
 	 * CHANGELOG:
+	 * 04/04/2018: Amélioration de la fonction « path() »
 	 * 19/07/2015: Meilleure gestion de la configuration de l'application, avec la définition des globales personnalisées
 	 * 01/07/2015: - Ajout du service de débogage
 	 *             - Ajout des liens vers le nouveau dossier « contents »
@@ -345,15 +346,18 @@
 	}
 
 	/**
-	 * Retourne le chemin d'un fichier ou dossier depuis la racine du projet
+	 * Retourne le chemin d'un emplacement depuis la racine du projet
 	 *
 	 * @package framework
 	 *
-	 * @param  string $path Le chemin d'un fichier ou dossier
-	 * @return string       Le chemin depuis la racine du projet
+	 * @param  string $locations Le chemin, avec éventuellement plusieurs sous-chemins [optionnel]
+	 * @return string            Le chemin de l'emplacement depuis la racine du projet
 	 */
-	function path($path) {
-		$path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
+	function path($locations = '') {
+		$path = '';
+		if(0 < func_num_args()) {
+			$path .= str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, implode('/', func_get_args()));
+		}
 		if(0 === strpos($path, BASE_DIR)) {
 			$path = '.'.substr($path, strlen(BASE_DIR));
 		}
@@ -361,12 +365,12 @@
 	}
 
 	/**
-	 * Retourne l'URL d'un emplacement depuis la base
+	 * Retourne l'URL d'un emplacement depuis la base du projet
 	 *
 	 * @package framework
 	 *
 	 * @param  string $locations L'emplacement, avec éventuellement plusieurs sous-emplacements [optionnel]
-	 * @return string            L'URL de l'emplacement depuis la base
+	 * @return string            L'URL de l'emplacement depuis la base du projet
 	 */
 	function url($locations = '') {
 		$url = BASE_URL.'/';
