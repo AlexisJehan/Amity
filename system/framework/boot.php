@@ -12,11 +12,12 @@
 	 * 
 	 * @package framework
 	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version 04/04/2018
+	 * @version 10/06/2020
 	 * @since   01/08/2014
 	 */
 	/*
 	 * CHANGELOG:
+	 * 10/06/2020: Compatibilité avec PHP 7.4.0
 	 * 04/04/2018: Amélioration de la fonction « path() »
 	 * 19/07/2015: Meilleure gestion de la configuration de l'application, avec la définition des globales personnalisées
 	 * 01/07/2015: - Ajout du service de débogage
@@ -51,7 +52,7 @@
 	 * 
 	 * @package framework
 	 */
-	define('__VERSION__', '0.2.2');
+	define('__VERSION__', '0.2.3');
 
 	/**
 	 * Temps de lancement de la génération de la page (timestamp avec micro-secondes)
@@ -65,8 +66,8 @@
 	 *                           DÉBUT DU LANCEMENT                            *
 	 **************************************************************************/
 
-	// Suppression des « magic quotes » si activées
-	if(get_magic_quotes_gpc()) {
+	// Suppression des « magic quotes » si activées (déprécié depuis PHP 7.4.0)
+	if(version_compare(PHP_VERSION, '7.4.0', '<') && get_magic_quotes_gpc()) {
 		$stripslashes = function(&$value) {
 			$value = stripslashes($value);
 		};

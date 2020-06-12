@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/services
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    26/03/2016
+	 * @version    10/06/2020
 	 * @since      24/07/2015
 	 */
 	final class DebugService implements IService {
 		/*
 		 * CHANGELOG:
+		 * 10/06/2020: Compatibilité avec PHP 7.4.0
 		 * 26/03/2016: Compatibilité avec PHP 7, « ErrorException » dérivant non plus de « Exception » mais de « Throwable » le type du paramètre de « exceptionHandler() » n'est plus fixé
 		 * 31/07/2015: Améliorations internes à la classe, avec notamment l'utilisation de « ErrorException » et des paramètres d'affichage et de journalisation
 		 * 28/07/2015: Amélioration du style des fenêtres d'erreur, et...
@@ -218,7 +219,7 @@
 			$error = error_get_last();
 
 			// Si elle est fatale, on l'affiche car elle a provoqué la fermeture
-			if($error['type'] & (E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_COMPILE_WARNING)) {
+			if(NULL !== $error && ($error['type'] & (E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_COMPILE_WARNING))) {
 				$this->errorHandler($error['type'], $error['message'], $error['file'], $error['line']);
 			}
 		}

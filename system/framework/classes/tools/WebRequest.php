@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/tools
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    30/05/2016
+	 * @version    10/06/2020
 	 * @since      22/08/2015
 	 */
 	final class WebRequest {
 		/*
 		 * CHANGELOG:
+		 * 10/06/2020: Compatibilité avec PHP 7.4.0
 		 * 30/05/2016: Ajout d'accesseurs manquant ainsi qu'une méthode permettant de falsifier l'agent utilisateur plutôt qu'utiliser celui de la classe par défaut
 		 * 28/09/2015: Changement mineur de l'utilisation complémentaire de « list() » et « explode() » en renseignant la dimension attendue en troisième paramètre de « explode() »
 		 * 22/08/2015: Version initiale
@@ -745,7 +746,10 @@
 
 			// Si la ligne commence par « HTTP/ » c'est celle indiquant le protocôle, le status et le message
 			if(0 === strpos($line, 'HTTP/')) {
-				list($this->responseProtocol, $this->responseStatus, $this->responseStatusMessage) = explode(' ', $line, 3);
+				$lineParts = explode(' ', $line, 3);
+				$this->responseProtocol = $lineParts[0];
+				$this->responseStatus = $lineParts[1];
+				$this->responseStatusMessage = isset($lineParts[2]) ? $lineParts[2] : NULL;
 
 			// Sinon c'est une ligne d'entête classique
 			} else if(!empty($line)) {
@@ -779,7 +783,10 @@
 
 					// Si la ligne commence par « HTTP/ » c'est celle indiquant le protocôle, le status et le message
 					if(0 === strpos($line, 'HTTP/')) {
-						list($this->responseProtocol[$i], $this->responseStatus[$i], $this->responseStatusMessage[$i]) = explode(' ', $line, 3);
+						$lineParts = explode(' ', $line, 3);
+						$this->responseProtocol = $lineParts[0];
+						$this->responseStatus = $lineParts[1];
+						$this->responseStatusMessage = isset($lineParts[2]) ? $lineParts[2] : NULL;
 
 					// Sinon c'est une ligne d'entête classique
 					} else if(!empty($line)) {
