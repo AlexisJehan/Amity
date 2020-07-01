@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    26/03/2016
+	 * @version    01/07/2020
 	 * @since      24/09/2014
 	 */
 	class MySQLDatabaseService extends DatabaseService {
 		/*
 		 * CHANGELOG:
+		 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 		 * 26/03/2016: Lancement d'une exception si l'extension n'est pas disponible (Par exemple avec PHP 7)
 		 * 22/06/2015: Utilisation de « mysql_set_charset »
 		 * 05/06/2015: Amélioration des différentes expressions régulières pour ne pas faire correspondre les jetons entre apostrophes ou guillemets
@@ -77,15 +78,16 @@
 		 * @param  string  $user     Le nom de l'utilisateur
 		 * @param  string  $password Le mot de passe
 		 * @param  string  $encoding L'encodage de connexion
+		 * @param  array   $options  Les options de connexion
 		 * @return boolean           Vrai si la connexion a été effectuée
 		 */
-		protected final function __connect($host, $port, $database, $user, $password, $encoding) {
+		protected final function __connect($host, $port, $database, $user, $password, $encoding, array $options) {
 
 			// Tentative de connexion au serveur
 			if(!$this->connection = @mysql_pconnect($host.(!empty($port) ? ':'.$port : ''), $user, $password)) {
 
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
-				// En mode de développement une exception sera lancée, autrement la connection échouera et une page d'erreur d'affichera
+				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
 				if(DEV_MODE) {
 					$this->throwException();
 				}

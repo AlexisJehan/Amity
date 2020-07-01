@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    06/06/2015
+	 * @version    01/07/2020
 	 * @since      06/06/2015
 	 */
 	class MySQLiDatabaseService extends DatabaseService {
 		/*
 		 * CHANGELOG:
+		 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 		 * 06/06/2015: Version initiale
 		 */
 
@@ -65,17 +66,23 @@
 		 * @param  string  $user     Le nom de l'utilisateur
 		 * @param  string  $password Le mot de passe
 		 * @param  string  $encoding L'encodage de connexion
+		 * @param  array   $options  Les options de connexion
 		 * @return boolean           Vrai si la connexion a été effectuée
 		 */
-		protected final function __connect($host, $port, $database, $user, $password, $encoding) {
+		protected final function __connect($host, $port, $database, $user, $password, $encoding, array $options) {
+			$this->connection = mysqli_init();
+
+			foreach ($options as $option => $value) {
+				$this->connection->options($option, $value);
+			}
 
 			// Tentative de connexion au serveur
-			$this->connection = @new MySQLi($host, $user, $password, $database, empty($port) ? NULL : $port);
+			$this->connection->real_connect($host, $user, $password, $database, empty($port) ? NULL : $port);
 
 			if($this->connection->connect_error) {
 
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
-				// En mode de développement une exception sera lancée, autrement la connection échouera et une page d'erreur d'affichera
+				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
 				if(DEV_MODE) {
 					$this->throwException($this->connection->connect_error, $this->connection->connect_errno);
 				}

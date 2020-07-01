@@ -13,12 +13,13 @@
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    06/06/2015
+	 * @version    01/07/2020
 	 * @since      16/12/2014
 	 */
 	abstract class DatabaseService implements IService {
 		/*
 		 * CHANGELOG:
+		 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 		 * 06/06/2015: - Ajout de l'encoding personnalisé
 		 *             - Support des placeholders marqués par "?"
 		 *             - Ajout de la configuration de l'auto-commit
@@ -134,6 +135,13 @@
 		private $encoding;
 
 		/**
+		 * Options de connexion à la base de données
+		 * 
+		 * @var array
+		 */
+		private $options;
+
+		/**
 		 * Indique si la connexion a été effectuée avec succès à la base de données
 		 * 
 		 * @var boolean
@@ -164,14 +172,16 @@
 		 * @param string $user     Le nom de l'utilisateur
 		 * @param string $password Le mot de passe
 		 * @param string $encoding L'encodage de connexion [« utf8 » par défaut]
+		 * @param array  $options  Les options de connexion [vide par défaut]
 		 */
-		public function __construct($host, $port, $database, $user, $password, $encoding = 'utf8') {
+		public function __construct($host, $port, $database, $user, $password, $encoding = 'utf8', array $options = array()) {
 			$this->host = $host;
 			$this->port = $port;
 			$this->database = $database;
 			$this->user = $user;
 			$this->password = $password;
 			$this->encoding = $encoding;
+			$this->options = $options;
 		}
 
 		/**
@@ -180,7 +190,7 @@
 		 * @return DatabaseService L'instance courante
 		 */
 		public final function connect() {
-			$this->isConnected = $this->__connect($this->host, $this->port, $this->database, $this->user, $this->password, $this->encoding);
+			$this->isConnected = $this->__connect($this->host, $this->port, $this->database, $this->user, $this->password, $this->encoding, $this->options);
 
 			return $this;
 		}
@@ -193,10 +203,11 @@
 		 * @param  string  $database Le nom de la base de données
 		 * @param  string  $user     Le nom de l'utilisateur
 		 * @param  string  $password Le mot de passe
-		 * @param  string  $encoding L'encodage de connexion [« utf8 » par défaut]
+		 * @param  string  $encoding L'encodage de connexion
+		 * @param  array   $options  Les options de connexion
 		 * @return boolean           Vrai si la connexion a été effectuée
 		 */
-		protected abstract function __connect($host, $port, $database, $user, $password, $encoding);
+		protected abstract function __connect($host, $port, $database, $user, $password, $encoding, array $options);
 
 		/**
 		 * Méthode générale de déconnexion de la base de données

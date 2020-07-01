@@ -12,11 +12,12 @@
 	 * 
 	 * @package framework
 	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version 10/06/2020
+	 * @version 01/07/2020
 	 * @since   01/08/2014
 	 */
 	/*
 	 * CHANGELOG:
+	 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 	 * 10/06/2020: Compatibilité avec PHP 7.4.0
 	 * 04/04/2018: Amélioration de la fonction « path() »
 	 * 19/07/2015: Meilleure gestion de la configuration de l'application, avec la définition des globales personnalisées
@@ -52,7 +53,7 @@
 	 * 
 	 * @package framework
 	 */
-	define('__VERSION__', '0.2.3');
+	define('__VERSION__', '0.2.4');
 
 	/**
 	 * Temps de lancement de la génération de la page (timestamp avec micro-secondes)
@@ -224,6 +225,7 @@
 			'DEV_MODE'         =>         FALSE,
 			'FILE_PREFIX'      =>            '',
 			'DB_ENCODING'      =>        'utf8',
+			'DB_OPTIONS'       =>       array(),
 			'DB_ACCESS'        =>         'PDO'
 		),
 

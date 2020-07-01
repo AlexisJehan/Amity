@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    08/06/2015
+	 * @version    01/07/2020
 	 * @since      23/09/2014
 	 */
 	final class PDODatabaseService extends DatabaseService {
 		/*
 		 * CHANGELOG:
+		 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 		 * 06/06/2015: Gestion du charset personnalisé, compatible selon la version de PHP
 		 * 23/09/2014: Version initiale
 		 */
@@ -38,10 +39,11 @@
 		 * @param  string  $user     Le nom de l'utilisateur
 		 * @param  string  $password Le mot de passe
 		 * @param  string  $encoding L'encodage de connexion
+		 * @param  array   $options  Les options de connexion
 		 * @param  string  $driver   Le driver spécifique à la base de données [« mysql » par défaut]
 		 * @return boolean           Vrai si la connexion a été effectuée
 		 */
-		protected function __connect($host, $port, $database, $user, $password, $encoding, $driver = 'mysql') {
+		protected function __connect($host, $port, $database, $user, $password, $encoding, array $options, $driver = 'mysql') {
 
 			// Paramètres par défaut
 			$settings = array(
@@ -55,13 +57,15 @@
 				$settings[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES '.$encoding;
 			}
 
+			$settings = $options + $settings;
+
 			// Tentative de connexion via le DSN généré avec les paramètres
 			try {
 				$this->connection = new PDO($driver.':host='.$host.(!empty($port) ? ';port='.$port : '').';dbname='.$database.';charset='.$encoding, $user, $password, $settings);
 			} catch(PDOException $exception) {
 
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
-				// En mode de développement une exception sera lancée, autrement la connection échouera et une page d'erreur d'affichera
+				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
 				if(DEV_MODE) {
 					$this->throwException($exception);
 				}

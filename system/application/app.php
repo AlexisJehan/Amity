@@ -10,7 +10,7 @@
 	 * 
 	 * @package application
 	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version 03/09/2015
+	 * @version 01/07/2020
 	 * @since   01/08/2014
 	 */
 	if(!defined('__SYSTEM__')) exit('<h2>Error</h2><p>You cannot directly access this file.</p>');
@@ -44,7 +44,8 @@
 			'DB_USER'      => '',
 			'DB_PASSWORD'  => '',
 			'DB_ENCODING'  => 'utf8',
-			'DB_ACCESS'    => 'PDO'
+			'DB_OPTIONS'   => array(),
+			'DB_ACCESS'    => 'PDO',
 		),
 
 		// Environnement de production [« my-online-website.com », à personnaliser]
@@ -58,8 +59,9 @@
 			'DB_USER'      => '',
 			'DB_PASSWORD'  => '',
 			'DB_ENCODING'  => 'utf8',
-			'DB_ACCESS'    => 'PDO'
-		)
+			'DB_OPTIONS'   => array(),
+			'DB_ACCESS'    => 'PDO',
+		),
 	);
 
 
@@ -76,6 +78,6 @@
 		// Crochet s'exécutant après l'instanciation du contrôleur frontal
 		'afterRun'  => function() {
 			
-		}
+		},
 	);
 ?>

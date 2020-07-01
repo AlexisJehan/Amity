@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    06/06/2015
+	 * @version    01/07/2020
 	 * @since      16/12/2014
 	 */
 	final class DatabaseFactory extends StaticClass {
 		/*
 		 * CHANGELOG:
+		 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 		 * 06/06/2015: Ajout des drivers PDO
 		 * 16/12/2014: Version initiale
 		 */
@@ -69,7 +70,7 @@
 				throw new SystemException('Unable to create the database service because "%s" is missing from the configuration', 'DB_HOST');
 			}
 
-			// Port de connection au serveur de base de données [vide par défaut]
+			// Port de connexion au serveur de base de données [vide par défaut]
 			$port = isset($config['DB_PORT']) ? $config['DB_PORT'] : '';
 
 			// Nom de la base de données
@@ -93,8 +94,11 @@
 				throw new SystemException('Unable to create the database service because "%s" is missing from the configuration', 'DB_PASSWORD');
 			}
 
-			// Encodage de connection au serveur de base de données [« utf8 » par défaut]
+			// Encodage de connexion au serveur de base de données [« utf8 » par défaut]
 			$encoding = isset($config['DB_ENCODING']) ? $config['DB_ENCODING'] : 'utf8';
+
+			// Options de connexion au serveur de base de données [vide par défaut]
+			$options = isset($config['DB_OPTIONS']) ? $config['DB_OPTIONS'] : array();
 
 			// Accès à la base de données [« PDO » par défaut]
 			$access = isset($config['DB_ACCESS']) ? strtoupper($config['DB_ACCESS']) : 'PDO';
@@ -105,11 +109,11 @@
 
 				// On l'instancie avec les paramètres et on le retourne
 				$databaseService = self::$databaseServices[$access];
-				return new $databaseService($host, $port, $database, $user, $password, $encoding);
+				return new $databaseService($host, $port, $database, $user, $password, $encoding, $options);
 
 			// Sinon si c'est un accès PDO avec le driver de renseigné
 			} else if(in_array($access, array_keys(self::$pdoDrivers))) {
-				return new PDODatabaseService($host, $port, $database, $user, $password, $encoding, self::$pdoDrivers[$access]);
+				return new PDODatabaseService($host, $port, $database, $user, $password, $encoding, $options, self::$pdoDrivers[$access]);
 
 			// Sinon le service n'est pas disponible à l'instanciation
 			} else {
