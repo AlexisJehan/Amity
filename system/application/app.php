@@ -75,7 +75,7 @@
 		},
 
 		// Crochet s'exécutant après l'instanciation du contrôleur frontal
-		'afterRun'  => function() {
+		'afterRun' => function() {
 			// ...
 		},
 	);
