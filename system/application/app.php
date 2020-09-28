@@ -10,10 +10,10 @@
 	 * 
 	 * @package application
 	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version 01/07/2020
+	 * @version 28/09/2020
 	 * @since   01/08/2014
 	 */
-	if(!defined('__SYSTEM__')) exit('<h2>Error</h2><p>You cannot directly access this file.</p>');
+	if (!defined('__SYSTEM__')) exit('<h2>Error</h2><p>You cannot directly access this file.</p>');
 
 
 	/***************************************************************************
@@ -35,49 +35,48 @@
 
 		// Environnement de développement [« localhost »]
 		'localhost|127.0.0.1|::1' => array(
-			'DEV_MODE'     => TRUE,
-			'FILE_PREFIX'  => 'dev_',
+			'DEV_MODE'    => TRUE,
+			'FILE_PREFIX' => 'dev_',
 
-			'DB_HOST'      => 'localhost',
-			'DB_PORT'      => '',
-			'DB_DATABASE'  => '',
-			'DB_USER'      => '',
-			'DB_PASSWORD'  => '',
-			'DB_ENCODING'  => 'utf8',
-			'DB_OPTIONS'   => array(),
-			'DB_ACCESS'    => 'PDO',
+			'DB_HOST'     => 'localhost',
+			'DB_PORT'     => '',
+			'DB_DATABASE' => '',
+			'DB_USER'     => '',
+			'DB_PASSWORD' => '',
+			'DB_ENCODING' => 'utf8mb4',
+			'DB_OPTIONS'  => array(),
+			'DB_ACCESS'   => 'PDO',
 		),
 
-		// Environnement de production [« my-online-website.com », à personnaliser]
+		// Environnement de production [« example.com »]
 		'my-online-website.com' => array(
-			'DEV_MODE'     => FALSE,
-			'FILE_PREFIX'  => '',
+			'DEV_MODE'    => FALSE,
+			'FILE_PREFIX' => '',
 
-			'DB_HOST'      => '',
-			'DB_PORT'      => '',
-			'DB_DATABASE'  => '',
-			'DB_USER'      => '',
-			'DB_PASSWORD'  => '',
-			'DB_ENCODING'  => 'utf8',
-			'DB_OPTIONS'   => array(),
-			'DB_ACCESS'    => 'PDO',
+			'DB_HOST'     => '',
+			'DB_PORT'     => '',
+			'DB_DATABASE' => '',
+			'DB_USER'     => '',
+			'DB_PASSWORD' => '',
+			'DB_ENCODING' => 'utf8mb4',
+			'DB_OPTIONS'  => array(),
+			'DB_ACCESS'   => 'PDO',
 		),
 	);
 
 
 	/***************************************************************************
-	 *                          CROCHET PERSONNALISÉS                          *
+	 *                                CROCHETS                                 *
 	 **************************************************************************/
 	$hooks = array(
-
 		// Crochet s'exécutant avant l'instanciation du contrôleur frontal
 		'beforeRun' => function() {
-			
+			// ...
 		},
 
 		// Crochet s'exécutant après l'instanciation du contrôleur frontal
 		'afterRun'  => function() {
-			
+			// ...
 		},
 	);
 ?>
