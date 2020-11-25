@@ -53,7 +53,7 @@
 	 * 
 	 * @package framework
 	 */
-	define('__VERSION__', '0.2.4');
+	define('__VERSION__', '0.2.5');
 
 	/**
 	 * Temps de lancement de la génération de la page (timestamp avec micro-secondes)
@@ -358,13 +358,15 @@
 	 */
 	function path($locations = '') {
 		$path = '';
-		if(0 < func_num_args()) {
-			$path .= str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, implode('/', func_get_args()));
+		if (0 < func_num_args()) {
+			foreach (func_get_args() as $i => $location) {
+				$path .= (0 < $i ? DIRECTORY_SEPARATOR : '') . str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $location);
+			}
 		}
-		if(0 === strpos($path, BASE_DIR)) {
-			$path = '.'.substr($path, strlen(BASE_DIR));
+		if (0 === strpos($path, BASE_DIR)) {
+			$path = substr($path, strlen(BASE_DIR) + 1);
 		}
-		return $path;
+		return !empty($path) ? '.' . DIRECTORY_SEPARATOR . $path : '.';
 	}
 
 	/**
@@ -376,22 +378,25 @@
 	 * @return string            L'URL de l'emplacement depuis la base du projet
 	 */
 	function url($locations = '') {
-		$url = BASE_URL.'/';
-		
+		$url = '';
+
 		// Si on utilise le service de langues et que la langue est différente de celle par défaut
-		if(USE_LANGUAGE) {
+		if (USE_LANGUAGE) {
 			$language = Service::language()->getLanguage();
-			if(DEFAULT_LANGUAGE !== $language) {
-				$url .= $language.'/';
+			if (DEFAULT_LANGUAGE !== $language) {
+				$url .= $language . '/';
 			}
 		}
 
-		// Si des arguments sont renseignés on les ajoute à l'URL
-		if(0 < func_num_args()) {
-			$url .= implode('/', array_map('trim', func_get_args(), array_fill(0, func_num_args(), '/')));
+		if (0 < func_num_args()) {
+			foreach (func_get_args() as $i => $location) {
+				$url .= (0 < $i ? '/' : '') . str_replace('\\', '/', trim($location, '/\\'));
+			}
 		}
-
-		return $url;
+		if (0 === strpos($url, BASE_URL)) {
+			$url = substr($url, strlen(BASE_URL) + 1);
+		}
+		return !empty($url) ? BASE_URL . '/' . $url : BASE_URL;
 	}
 
 	/**
