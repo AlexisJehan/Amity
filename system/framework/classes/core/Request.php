@@ -18,6 +18,7 @@
 	class Request {
 		/*
 		 * CHANGELOG:
+		 * 02/08/2021: Possibilité de forcer l'usage de HTTPS
 		 * 29/12/2015: Correction d'une exception pouvant se produire lors de la présence de deux slashs d'affilé dans l'URL
 		 * 26/07/2015: Compatibilité avec la nouvelle méthode « getTypeName() » qui indique le nom public du type du contrôleur
 		 * 23/07/2015: Décodage des arguments de l'URL

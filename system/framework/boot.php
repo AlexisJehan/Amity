@@ -17,6 +17,7 @@
 	 */
 	/*
 	 * CHANGELOG:
+	 * 02/08/2021: Possibilité de forcer l'usage de HTTPS
 	 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 	 * 10/06/2020: Compatibilité avec PHP 7.4.0
 	 * 04/04/2018: Amélioration de la fonction « path() »
