@@ -30,7 +30,6 @@
 		 */
 		protected static $extension = '.phtml';
 
-
 		/**
 		 * {@inheritdoc}
 		 * 

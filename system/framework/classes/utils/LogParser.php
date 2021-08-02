@@ -30,8 +30,8 @@
 		public static function parse($file) {
 
 			// Si le fichier n'existe pas, on lance une exception
-			if(!is_file($file) || !is_readable($file)) {
-				throw new InvalidArgumentException('"'.$file.'" is not a valid file or it cannot be read.');
+			if (!is_file($file) || !is_readable($file)) {
+				throw new InvalidArgumentException('"' . $file . '" is not a valid file or it cannot be read.');
 			}
 
 			// Initialisation du tableau à retourner
@@ -40,18 +40,18 @@
 			$log['rows'] = array();
 
 			// Lecture dans le fichier selon si c'est une archive ou non
-			if(substr($file, -3) !== '.gz') {
+			if ('.gz' !== substr($file, -3)) {
 				$handle = fopen($file, 'r');
 			} else {
 				$handle = gzopen($file, 'r');
 			}
-			while(FALSE !== ($line = fgets($handle))) {
+			while (FALSE !== ($line = fgets($handle))) {
 
 				// Si la ligne commence par un « + » c'est une bordure ou un séparateur d'entête
-				if(0 === strpos($line, '+')) {
+				if (0 === strpos($line, '+')) {
 
 					// Si le « + » est suivi par des « = » alors c'est un séparateur, et la ligne parsée juste avant est les entêtes
-					if(1 === strpos($line, '=')) {
+					if (1 === strpos($line, '=')) {
 						$log['headers'] = $log['rows'][0];
 						$log['rows'] = array();
 					}
@@ -66,12 +66,12 @@
 				$columns = array_map('trim', $columns);
 
 				// Si la première colonne est vide, alors c'est que la ligne courante est la suite de la précédente, qui a dû être coupée car une colonne devait être trop longue
-				if('' === $columns[0]) {
+				if ('' === $columns[0]) {
 					$nbRows = count($log['rows']) - 1;
 					$nbColumns = count($columns);
-					for($i = 0; $i < $nbColumns; ++$i) {
-						if('' !== $columns[$i]) {
-							$log['rows'][$nbRows][$i] .= ' '.$columns[$i];
+					for ($i = 0; $i < $nbColumns; ++$i) {
+						if ('' !== $columns[$i]) {
+							$log['rows'][$nbRows][$i] .= ' ' . $columns[$i];
 						}
 					}
 					continue;
@@ -80,14 +80,14 @@
 			}
 
 			// Fermeture du pointeur vers le fichier selon si c'est une archive ou non
-			if(substr($file, -3) !== '.gz') {
+			if ('.gz' !== substr($file, -3)) {
 				fclose($handle);
 			} else {
 				gzclose($handle);
 			}
 
 			// Si on a pas d'entêtes, on retourne seulement les lignes
-			if(empty($log['headers'])) {
+			if (empty($log['headers'])) {
 				return $log['rows'];
 			}
 

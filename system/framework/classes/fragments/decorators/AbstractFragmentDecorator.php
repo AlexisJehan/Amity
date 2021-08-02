@@ -28,7 +28,6 @@
 		 */
 		protected $fragment;
 
-
 		/**
 		 * Constructeur du décorateur
 		 *

@@ -14,7 +14,7 @@
 	 * @version    05/08/2015
 	 * @since      01/08/2014
 	 */
-	class HomePage extends Page {
+	final class HomePage extends Page {
 
 		/**
 		 * Action principale (Le contenu doit être personnalisé)

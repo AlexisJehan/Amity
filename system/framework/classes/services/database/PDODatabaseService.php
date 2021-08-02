@@ -29,7 +29,6 @@
 		 */
 		protected $statement;
 
-
 		/**
 		 * {@inheritdoc}
 		 *
@@ -47,26 +46,26 @@
 
 			// Paramètres par défaut
 			$settings = array(
-				PDO::ATTR_PERSISTENT => TRUE,
+				PDO::ATTR_PERSISTENT       => TRUE,
 				PDO::ATTR_EMULATE_PREPARES => TRUE,
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+				PDO::ATTR_ERRMODE          => PDO::ERRMODE_EXCEPTION,
 			);
 
 			// Pour les versions inférieures de MySQL, on définit le charset manuellement
-			if('mysql' === $driver && version_compare(PHP_VERSION, '5.3.6', '<') && defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
-				$settings[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES '.$encoding;
+			if ('mysql' === $driver && version_compare(PHP_VERSION, '5.3.6', '<') && defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
+				$settings[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES ' . $encoding;
 			}
 
 			$settings = $options + $settings;
 
 			// Tentative de connexion via le DSN généré avec les paramètres
 			try {
-				$this->connection = new PDO($driver.':host='.$host.(!empty($port) ? ';port='.$port : '').';dbname='.$database.';charset='.$encoding, $user, $password, $settings);
+				$this->connection = new PDO($driver . ':host=' . $host . (!empty($port) ? ';port=' . $port : '') . ';dbname=' . $database . ';charset=' . $encoding, $user, $password, $settings);
 			} catch(PDOException $exception) {
 
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
 				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
-				if(DEV_MODE) {
+				if (DEV_MODE) {
 					$this->throwException($exception);
 				}
 
@@ -74,14 +73,14 @@
 			}
 
 			// Seconde tentative du forçage de charset avec les serveurs MySQL
-			if('mysql' === $driver && version_compare(PHP_VERSION, '5.3.6', '<') && !defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
-				$this->connection->exec('SET NAMES '.$encoding);
+			if ('mysql' === $driver && version_compare(PHP_VERSION, '5.3.6', '<') && !defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
+				$this->connection->exec('SET NAMES ' . $encoding);
 			}
 
 			// Bug: La désactivation de l'émulation des requêtes préparées produit une exception lors de l'utilisation d'un même placeholder nommé plusieurs fois
 			// Exemple: SELECT * FROM users WHERE name = :login OR email = :login
 			//                                           ------            ------
-			/*if('mysql' === $driver) {
+			/*if ('mysql' === $driver) {
 				$this->connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, version_compare($this->connection->getAttribute(PDO::ATTR_SERVER_VERSION), '5.1.17', '<'));
 			}*/
 
@@ -96,7 +95,6 @@
 		protected function __disconnect() {
 			$this->statement = NULL;
 			$this->connection = NULL;
-
 			return TRUE;
 		}
 
@@ -112,7 +110,6 @@
 			} catch(PDOException $exception) {
 				$this->throwException($exception);
 			}
-
 			return $this;
 		}
 
@@ -127,17 +124,23 @@
 		public function bind($key, $value, $type = NULL) {
 
 			// Si le type n'est pas renseigné on le détermine
-			if(NULL === $type) {
-				switch(TRUE) {
-					case is_int ($value): $type = self::PARAM_INT;  break;
-					case is_bool($value): $type = self::PARAM_BOOL; break;
-					case NULL === $value: $type = self::PARAM_NULL; break;
-					default: $type = self::PARAM_STR;
+			if (NULL === $type) {
+				switch (TRUE) {
+					case is_int($value):
+						$type = self::PARAM_INT;
+						break;
+					case is_bool($value):
+						$type = self::PARAM_BOOL;
+						break;
+					case NULL === $value:
+						$type = self::PARAM_NULL;
+						break;
+					default:
+						$type = self::PARAM_STR;
 				}
 			}
 
 			$this->statement->bindValue($key, $value, $type);
-
 			return $this;
 		}
 
@@ -225,7 +228,6 @@
 		 */
 		public function autoCommit($enabled = TRUE) {
 			$this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT , $enabled);
-
 			return $this;
 		}
 
@@ -236,7 +238,6 @@
 		 */
 		public function beginTransaction() {
 			$this->connection->beginTransaction();
-
 			return $this;
 		}
 
@@ -247,7 +248,6 @@
 		 */
 		public function commit() {
 			$this->connection->commit();
-
 			return $this;
 		}
 
@@ -258,7 +258,6 @@
 		 */
 		public function rollback() {
 			$this->connection->rollBack();
-
 			return $this;
 		}
 
@@ -268,7 +267,7 @@
 		 * @return string Le nom spécifique du service utilisé
 		 */
 		public function getAccessName() {
-			return 'PDO ['.$this->connection->getAttribute(PDO::ATTR_DRIVER_NAME).']';
+			return 'PDO [' . $this->connection->getAttribute(PDO::ATTR_DRIVER_NAME) . ']';
 		}
 
 		/**
@@ -279,8 +278,7 @@
 		protected function throwException(PDOException $exception) {
 			$code = $exception->getCode();
 			$message = $exception->getMessage();
-
-			if(0 === strpos($message, 'SQLSTATE[')) {
+			if (0 === strpos($message, 'SQLSTATE[')) {
 				preg_match('/^SQLSTATE\[\w+\]:\s*(?:[^:]+:\s*(\d*)\s*)?(.*)/', $message, $matches) || preg_match('/^SQLSTATE\[\w+\]\s*\[(\d+)\]\s*(.*)/', $message, $matches);
 				$code = !empty($matches[1]) ? $matches[1] : 0;
 				$message = $matches[2];
@@ -292,7 +290,7 @@
 	}
 
 	// On vérifie que l'extension est disponible
-	if(!extension_loaded('PDO')) {
+	if (!extension_loaded('PDO')) {
 		throw new SystemException('"%s" extension is not available', 'PDO');
 	}
 ?>

@@ -16,10 +16,6 @@
 	 */
 	if (!defined('__SYSTEM__')) exit('<h2>Error</h2><p>You cannot directly access this file.</p>');
 
-
-	/***************************************************************************
-	 *               DICTIONNAIRE DE TRADUCTIONS DE L'APPLICATION              *
-	 **************************************************************************/
 	$dictionary['fr'] = array(
 
 		// Traduction dans la classe « HomePage »

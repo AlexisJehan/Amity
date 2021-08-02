@@ -29,7 +29,6 @@
 		 */
 		protected $value;
 
-
 		/**
 		 * Vérifie si on envoit une valeur
 		 * 
@@ -45,7 +44,7 @@
 		public function send() {
 
 			// Si c'est une réponse spécifique, c'est-à-dire un contenu à envoyer en JSON
-			if($this->isSpecific()) {
+			if ($this->isSpecific()) {
 
 				// Le contenu est du JSON
 				$this->setHeader('Content-type', 'application/json');
@@ -79,7 +78,6 @@
 		 */
 		public function setValue($value) {
 			$this->value = $value;
-
 			return $this;
 		}
 
@@ -92,7 +90,7 @@
 	}
 
 	// On vérifie que l'extension est disponible
-	if(!extension_loaded('json')) {
+	if (!extension_loaded('json')) {
 		throw new SystemException('"%s" extension is not available', 'json');
 	}
 ?>

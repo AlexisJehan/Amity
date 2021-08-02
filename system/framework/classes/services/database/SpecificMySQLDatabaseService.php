@@ -30,7 +30,6 @@
 		public function query($query) {
 			$this->query = $query;
 			$this->result = NULL;
-
 			return $this;
 		}
 
@@ -53,7 +52,7 @@
 
 			// Exécution de la requête
 			$this->result = mysql_query($this->query, $this->connection);
-			if(!$this->result) {
+			if (!$this->result) {
 				$this->throwException();
 			}
 

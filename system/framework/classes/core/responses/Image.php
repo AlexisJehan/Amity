@@ -28,7 +28,6 @@
 		 */
 		protected $image;
 
-
 		/**
 		 * Vérifie si on envoi une image ou un contenu de type parent
 		 * 
@@ -44,7 +43,7 @@
 		public function send() {
 
 			// Si c'est une réponse spécifique, c'est-à-dire une image
-			if($this->isSpecific()) {
+			if ($this->isSpecific()) {
 
 				// Le contenu est une image PNG
 				$this->setHeader('Content-type', 'image/png');
@@ -82,12 +81,11 @@
 		public function setImage($image) {
 
 			// L'image doit être une ressource
-			if('gd' !== get_resource_type($image)) {
+			if ('gd' !== get_resource_type($image)) {
 				throw new InvalidParameterException('The image "%s" is not a valid resource, it must be a "gd" resource', get_resource_type($image));
 			}
 
 			$this->image = $image;
-
 			return $this;
 		}
 
@@ -100,7 +98,7 @@
 	}
 
 	// On vérifie que l'extension est disponible
-	if(!extension_loaded('gd')) {
+	if (!extension_loaded('gd')) {
 		throw new SystemException('"%s" extension is not available', 'gd');
 	}
 ?>

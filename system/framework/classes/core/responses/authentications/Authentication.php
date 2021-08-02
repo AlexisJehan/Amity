@@ -43,33 +43,33 @@
 		 */
 		protected $auth;
 
-
 		/**
 		 * Prépare l'authentification en récupérant les données de l'utilisateur
 		 */
 		protected function prepare() {
 
 			// Contenu de l'entête à envoyer
-			$this->header = 'Basic realm="'.$this->realm.'"';
+			$this->header = 'Basic realm="' . $this->realm . '"';
 
 			// Permet une compatibilité avec les serveurs sous FastCGI
-			if(isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+			if (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
 				$_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
 				unset($_SERVER['REDIRECT_HTTP_AUTHORIZATION']);
 			}
 
 			// Récupération via les valeurs « PHP_AUTH_USER » et « PHP_AUTH_PW » [méthode 1]
-			if(isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
+			if (isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
 				$this->auth['username'] = $_SERVER['PHP_AUTH_USER'];
 				$this->auth['password'] = $_SERVER['PHP_AUTH_PW'];
 
 			// Récupération depuis « HTTP_AUTHORIZATION », cette valeur commence par la méthode suivie des identifiants encodés en base 64 [méthode 2]
-			} else if(isset($_SERVER['HTTP_AUTHORIZATION']) && 0 === stripos($_SERVER['HTTP_AUTHORIZATION'], 'basic')) {
+			} else if (isset($_SERVER['HTTP_AUTHORIZATION']) && 0 === stripos($_SERVER['HTTP_AUTHORIZATION'], 'basic')) {
 				$authentication = base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6));
 
 				// On récupère le nom d'utilisateur et le mot de passe selon la position du « : » dans la chaîne des identifiants
-				if(FALSE !== strpos($authentication, ':')) {
+				if (FALSE !== strpos($authentication, ':')) {
 					list($this->auth['username'], $this->auth['password']) = explode(':', $authentication, 2);
+
 				} else {
 					$this->auth['username'] = $authentication;
 					$this->auth['password'] = '';
@@ -103,7 +103,7 @@
 			$this->prepare();
 
 			// Journalisation de l'authentification si activé
-			if(ENABLE_LOGS && NULL !== $this->auth) {
+			if (ENABLE_LOGS && NULL !== $this->auth) {
 				$logger = new Logger('http_authentications');
 				$logger->setDate();
 				$logger->setIPAddress();
@@ -115,16 +115,15 @@
 			}
 
 			// Si l'authentification n'est pas valide on affiche une erreur
-			if(!$this->isValid()) {
+			if (!$this->isValid()) {
 
-				// FIXME: HTTP/1.0 uniquement ?
+				// FIXME HTTP/1.0 uniquement ?
 				$this->setProtocol('HTTP/1.0');
 
 				$this->setStatus(401);
 				$this->setHeader('WWW-Authenticate', $this->header);
-
-				$title = __('Error').' '.$this->getStatus().' &ndash; '.__($this->getStatusMessage());
-				$content = '<p>'.__('You need to provide a valid username and password.').'</p>';
+				$title = __('Error') . ' ' . $this->getStatus() . ' &ndash; ' . __($this->getStatusMessage());
+				$content = '<p>' . __('You need to provide a valid username and password.') . '</p>';
 				$this->render($title, $content);
 			}
 
@@ -149,7 +148,6 @@
 		 */
 		public function setRealm($realm) {
 			$this->realm = $realm;
-
 			return $this;
 		}
 

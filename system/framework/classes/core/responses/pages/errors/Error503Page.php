@@ -27,7 +27,7 @@
 		public function indexAction() {
 
 			// Si l'erreur a été spécifiée dans l'URL on redirige vers l'accueil
-			if(FALSE !== strpos($_SERVER['REQUEST_URI'], 'error503')) {
+			if (FALSE !== strpos($_SERVER['REQUEST_URI'], 'error503')) {
 				$this->redirect('home');
 
 			// Sinon on affiche l'erreur

@@ -28,7 +28,6 @@
 		 */
 		protected static $extension = '.lang.php';
 
-
 		/**
 		 * {@inheritdoc}
 		 * 

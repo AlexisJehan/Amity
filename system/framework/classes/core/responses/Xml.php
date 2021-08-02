@@ -27,7 +27,6 @@
 		 */
 		protected $value;
 
-
 		/**
 		 * Vérifie si on envoit une valeur
 		 * 
@@ -43,7 +42,7 @@
 		public function send() {
 
 			// Si c'est une réponse spécifique, c'est-à-dire un contenu à envoyer en XML
-			if($this->isSpecific()) {
+			if ($this->isSpecific()) {
 
 				// Le contenu est du XML
 				$this->setHeader('Content-type', 'application/xml');
@@ -69,21 +68,21 @@
 
 			// Fonction anonyme récursive
 			$toXml = function($value, &$xml) use(&$toXml) {
-				if(!is_array($value)) {
+				if (!is_array($value)) {
 					$value = array('item' => $value);
 				}
-				foreach($value as $key => $child) {
-					if(!preg_match('/\A(?!XML)[a-z][\w0-9-]*/i', $key)) {
+				foreach ($value as $key => $child) {
+					if (!preg_match('/\A(?!XML)[a-z][\w0-9-]*/i', $key)) {
 						$key = 'item';
 					}
-					if(is_object($child)) {
+					if (is_object($child)) {
 						$child = get_object_vars($child);
 					}
-					if(is_array($child)) {
+					if (is_array($child)) {
 						$node = $xml->addChild($key);
 						$toXml($child, $node);
 					} else {
-						if(is_bool($child)) {
+						if (is_bool($child)) {
 							$child = $child ? 'true' : 'false';
 						}
 						$xml->addChild($key, htmlspecialchars($child));
@@ -113,7 +112,6 @@
 		 */
 		public function setValue($value) {
 			$this->value = $value;
-
 			return $this;
 		}
 

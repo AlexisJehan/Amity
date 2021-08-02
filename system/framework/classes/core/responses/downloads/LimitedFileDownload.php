@@ -27,14 +27,13 @@
 		 */
 		protected $rate = 50;
 
-
 		/**
 		 * {@inheritdoc}, on affiche le contenu du fichier de façon ralentie
 		 */
 		protected function sendDownload() {
 			flush();
-			if($handle = @fopen($this->file, 'r')) {
-				while(!feof($handle)) {
+			if ($handle = @fopen($this->file, 'r')) {
+				while (!feof($handle)) {
 
 					// On affiche seulement un certain nombre d'octets
 					echo fread($handle, round($this->rate * 1024));
@@ -65,7 +64,6 @@
 		 */
 		public function setRate($rate) {
 			$this->rate = (int) $rate;
-
 			return $this;
 		}
 	}

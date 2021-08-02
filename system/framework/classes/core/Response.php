@@ -68,7 +68,7 @@
 			502 => 'Bad Gateway',
 			503 => 'Service Unavailable',
 			504 => 'Gateway Time-out',
-			505 => 'HTTP Version not supported'
+			505 => 'HTTP Version not supported',
 		);
 
 		/**
@@ -120,7 +120,6 @@
 		 */
 		protected $content = array();
 
-
 		/**
 		 * Constructeur de la réponse
 		 *
@@ -132,60 +131,59 @@
 			$this->protocol = $_SERVER['SERVER_PROTOCOL'];
 		}
 
-
 		/**
 		 * Envoi des headers HTTP
 		 */
 		protected final function sendHeaders() {
 
 			// Si du contenu a déjà été envoyé, on ne peut plus envoyer les headers et on affiche une erreur
-			if(headers_sent($file, $line)) {
+			if (headers_sent($file, $line)) {
 				throw new CoreException('Unable to send HTTP headers because some content has already been sent from "%s" on line %s', path($file), $line);
 			}
 
 			// Header du protocôle, du status et du message HTTP
-			header($this->protocol.' '.$this->status.' '.$this->statusMessage);
+			header($this->protocol . ' ' . $this->status . ' ' . $this->statusMessage);
 
 			// Ces deux headers ne sont pas compatibles
-			if(NULL !== $this->getHeader('Transfer-Encoding')) {
+			if (NULL !== $this->getHeader('Transfer-Encoding')) {
 				$this->removeHeader('Content-Length');
 			}
 
 			// Si on est en HTTP 1.0, le header « Cache-Control » n'existe pas et on utilise l'équivalent
-			if('HTTP/1.0' === $this->protocol && 'no-cache' === $this->getHeader('Cache-Control')) {
+			if ('HTTP/1.0' === $this->protocol && 'no-cache' === $this->getHeader('Cache-Control')) {
 				$this->setHeader('Pragma', 'no-cache');
 				$this->setHeader('Expires', 0);
 			}
 
 			// Si on a au moins un header personnalisé on les ajoute
-			if(0 < count($this->headers)) {
+			if (0 < count($this->headers)) {
 
 				// Drapeau renseignant si on stop après l'envoi des headers ou non
 				$exitFlag = FALSE;
-				foreach($this->headers as $key => $value) {
+				foreach ($this->headers as $key => $value) {
 
 					// On convertit les clés en les affichant proprement, avec une majuscule
 					$key = implode('-', array_map('ucfirst', explode('-', $key)));
 
 					// Si ce n'est pas un tableau, on n'a qu'une seule ligne à ajouter
-					if(!is_array($value)) {
-						header($key.': '.$value, TRUE, $this->status);
+					if (!is_array($value)) {
+						header($key . ': ' . $value, TRUE, $this->status);
 
 					// Sinon on ajoute chacune des lignes avec la même clé
 					} else {
-						foreach($value as $element) {
-							header($key.': '.$element, FALSE, $this->status);
+						foreach ($value as $element) {
+							header($key . ': ' . $element, FALSE, $this->status);
 						}
 					}
 
 					// Si c'est une redirection on change le drapeau
-					if(0 === strcasecmp($key, 'Location')) {
+					if (0 === strcasecmp($key, 'Location')) {
 						$exitFlag = TRUE;
 					}
 				}
 
 				// Si le drapeau est vrai, on arrête l'exécution pour envoyer la réponse
-				if($exitFlag) {
+				if ($exitFlag) {
 					exit;
 				}
 			}
@@ -197,7 +195,7 @@
 		protected final function sendContent() {
 
 			// On affiche simplement le contenu s'il n'est pas vide, ce dernier va alors être envoyé au client
-			if(!empty($this->content)) {
+			if (!empty($this->content)) {
 				echo implode(PHP_EOL, $this->content);
 			}
 		}
@@ -232,7 +230,7 @@
 		public final function redirect($location, $status = 301) {
 
 			// Si ce n'est pas une URL, on ajoute la base du site devant l'emplacement
-			if(!preg_match('/(http|https):\/\/(.*?)$/i', $location)) {
+			if (!preg_match('/(http|https):\/\/(.*?)$/i', $location)) {
 				$location = url($location);
 			}
 
@@ -260,11 +258,14 @@
 			$template->bindArray($this->request->getInfos());
 
 			// Si on utilise le module multilingue, on ajoute la langue utilisée ainsi qu'un tableau de l'ensemble des langues proposées
-			if(USE_LANGUAGE) {
+			if (USE_LANGUAGE) {
 				$language = Service::language();
-				$template
-					->bind('language', $language->getLanguage())
-					->bind('languages', $language->getLanguages());
+				$template->bindArray(
+					array(
+						'language'  => $language->getLanguage(),
+						'languages' => $language->getLanguages(),
+					)
+				);
 
 			// Sinon on se contente de la langue par défaut du site
 			} else {
@@ -307,12 +308,11 @@
 		public function setProtocol($protocol) {
 
 			// Le protocôle doit être une chaîne de la forme « HTTP/x.x »
-			if(!preg_match('/^HTTP\/\d\.\d$/', $protocol)) {
+			if (!preg_match('/^HTTP\/\d\.\d$/', $protocol)) {
 				throw new InvalidParameterException('The value "%s" is not valid for the HTTP protocol, it must match "HTTP/x.x"', $protocol);
 			}
 
 			$this->protocol = $protocol;
-
 			return $this;
 		}
 
@@ -342,21 +342,20 @@
 		 * @return Response                L'instance courante
 		 */
 		public function setStatus($status, $statusMessage = NULL) {
-
 			$status = (int) $status;
 
 			// Pour être valide il doit être entre 100 et 599 inclus
-			if(100 > $status || 600 <= $status) {
+			if (100 > $status || 600 <= $status) {
 				throw new InvalidParameterException('The value "%s" is not valid for the HTTP status, it must be between 100 and 599', $status);
 			}
 
 			$this->status = $status;
 
 			// Si le message du contenu n'est pas renseigné
-			if(NULL === $statusMessage) {
+			if (NULL === $statusMessage) {
 
 				// Si le statut n'est pas dans le tableau de la classe, alors on lance une erreur demandant à en mettre un personnalisé
-				if(!isset(self::$statusMessages[$status])) {
+				if (!isset(self::$statusMessages[$status])) {
 					throw new InvalidParameterException('A custom status message is expected for the "%s" HTTP status', $status);
 				}
 
@@ -382,7 +381,7 @@
 			$key = strtolower($key);
 
 			// Si elle existe bel et bien, on retourne le contenu associé
-			if(isset($this->headers[$key]) || array_key_exists($key, $this->headers)) {
+			if (isset($this->headers[$key]) || array_key_exists($key, $this->headers)) {
 				return $this->headers[$key];
 			}
 		}
@@ -400,10 +399,10 @@
 			$key = strtolower($key);
 
 			// Si un header a déjà été ajouté avec cette clé
-			if(isset($this->headers[$key]) || array_key_exists($key, $this->headers)) {
+			if (isset($this->headers[$key]) || array_key_exists($key, $this->headers)) {
 
 				// Si la clé n'est pas associée à un tableau, c'est qu'on a rentré qu'un seul élément et donc on le transforme en liste pour contenir plusieurs éléments
-				if(!is_array($this->headers[$key])) {
+				if (!is_array($this->headers[$key])) {
 					$this->headers[$key] = array($this->headers[$key]);
 				}
 
@@ -431,7 +430,7 @@
 			$key = strtolower($key);
 
 			// Si on ne retire que la dernière entrée, et qu'au moins une a été ajouté, et si c'est une liste à plusieurs éléments
-			if($onlyLast && (isset($this->headers[$key]) || array_key_exists($key, $this->headers)) && is_array($this->headers[$key]) && 1 < count($this->headers[$key])) {
+			if ($onlyLast && (isset($this->headers[$key]) || array_key_exists($key, $this->headers)) && is_array($this->headers[$key]) && 1 < count($this->headers[$key])) {
 
 				// On dépile la liste
 				array_pop($this->headers[$key]);
@@ -461,7 +460,6 @@
 		 */
 		public function setContent($content) {
 			$this->content = (array) $content;
-
 			return $this;
 		}
 
@@ -473,7 +471,6 @@
 		 */
 		public function addContent($content = '') {
 			$this->content[] = $content;
-
 			return $this;
 		}
 
@@ -487,10 +484,10 @@
 		public static final function controllerNameToClass($name, $type = '') {
 
 			// Conversion en « StudlyCaps »
-			//return preg_replace('/(?:^|-)(.?)/e', 'strtoupper("$1")', trim($name.'-'.$type, '-'));
+			//return preg_replace('/(?:^|-)(.?)/e', 'strtoupper("$1")', trim($name . '-' . $type, '-'));
 			return preg_replace_callback('/(?:^|-)(.?)/', function($matches) {
 				return strtoupper($matches[1]);
-			}, trim($name.'-'.$type, '-'));
+			}, trim($name . '-' . $type, '-'));
 		}
 
 		/**
@@ -514,10 +511,10 @@
 		public static final function actionNameToMethod($name) {
 
 			// Conversion en « camelCase »
-			//return preg_replace('/-(.?)/e', 'strtoupper("$1")', trim($name, '-')).'Action';
+			//return preg_replace('/-(.?)/e', 'strtoupper("$1")', trim($name, '-')) . 'Action';
 			return preg_replace_callback('/-(.?)/', function($matches) {
 				return strtoupper($matches[1]);
-			}, trim($name, '-')).'Action';
+			}, trim($name, '-')) . 'Action';
 		}
 
 		/**

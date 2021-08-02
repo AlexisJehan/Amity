@@ -44,7 +44,6 @@
 		 */
 		protected $forwards = array();
 
-
 		/**
 		 * Constructeur du contrôleur frontal
 		 *
@@ -70,11 +69,11 @@
 		public function indexAction() {
 
 			// Si la maintenance est activée, on forward vers l'erreur 503
-			if(MAINTENANCE) {
+			if (MAINTENANCE) {
 				$this->forward('Error503Page');
 
 			// Sinon si on utilise la base de données mais qu'elle n'est pas accessible, on affiche l'erreur 500
-			} else if(USE_DATABASE && !Service::database()->isConnected()) {
+			} else if (USE_DATABASE && !Service::database()->isConnected()) {
 				$this->forward('Error500Page');
 
 			// Sinon on utilise le contrôleur normalement
@@ -93,15 +92,15 @@
 		public final function forward($controllerClass = 'HomePage', $actionMethod = 'indexAction', array $args = NULL) {
 
 			// Si des arguments spécifiques ne sont pas renseignés, on récupère ceux de la requête
-			if(NULL === $args) {
+			if (NULL === $args) {
 				$args = $this->request->getArgs();
 			}
 
 			// On crée une référence à partir du contrôleur et de l'action
-			$reference = $controllerClass.':'.$actionMethod;
+			$reference = $controllerClass . ':' . $actionMethod;
 
 			// Si celle-ci est dans notre pile, alors c'est qu'un forward a déjà été effectué vers cette action de ce contrôleur
-			if(in_array($reference, $this->forwards)) {
+			if (in_array($reference, $this->forwards)) {
 				throw new CoreException('Responses forwards loop detected, unable to handle the request');
 			}
 

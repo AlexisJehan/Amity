@@ -33,7 +33,7 @@
 		public function register($register = TRUE) {
 
 			// Si vrai, on enregistre
-			if($register) {
+			if ($register) {
 				spl_autoload_register(array($this, 'loadClass'), TRUE, TRUE);
 
 			// Sinon on retire
@@ -52,8 +52,8 @@
 		public function loadClass($name) {
 
 			// Tentative de récupération du fichier qui correspond au nom de classe
-			if($file = $this->getFile($name)) {
-				require($file);
+			if ($file = $this->getFile($name)) {
+				require ($file);
 			}
 		}
 

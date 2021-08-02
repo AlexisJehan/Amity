@@ -27,26 +27,25 @@
 		 */
 		protected $delay = 5;
 
-
 		/**
 		 * {@inheritdoc}
 		 */
 		public function send() {
 
 			// Si l'emplacement de redirection n'est pas vide, on ajoute les headers correspondants
-			if(!empty($this->location)) {
+			if (!empty($this->location)) {
 
 				// Si ce n'est pas une URL, alors c'est un emplacement du site et on en crée une depuis la base
-				if(!preg_match('/(http|https):\/\/(.*?)$/i', $this->location)) {
+				if (!preg_match('/(http|https):\/\/(.*?)$/i', $this->location)) {
 					$this->location = url($this->location);
 				}
 
 				$this->setStatus($this->isPermanent ? 301 : 302);
-				$this->setHeader('Refresh', $this->delay.'; url='.$this->location);
+				$this->setHeader('Refresh', $this->delay . '; url=' . $this->location);
 
 				// On crée un rendu affichant une page de délai avant la redirection
-				$title = $this->getStatus().' &ndash; '.__($this->getStatusMessage());
-				$content = '<p>'.__('This location has moved. You will be automatically redirected to its new location in %s seconds. If you aren\'t forwarded to the new page, %sclick here%s.', '<b>'.$this->delay.'</b>', '<b><a href="'.$this->location.'">', '</a></b>').'</p>';
+				$title = $this->getStatus() . ' &ndash; ' . __($this->getStatusMessage());
+				$content = '<p>' . __('This location has moved. You will be automatically redirected to its new location in %s seconds. If you aren\'t forwarded to the new page, %sclick here%s.', '<b>' . $this->delay . '</b>', '<b><a href="' . $this->location . '">', '</a></b>') . '</p>';
 				$this->render($title, $content);
 
 				// On n'utilise pas la méthode par défaut car celle de la classe « Redirect » enverrait le header « Location » qui perturberai le bon fonctionnement du délai
@@ -76,7 +75,6 @@
 		 */
 		public function setDelay($delay) {
 			$this->delay = (int) $delay;
-
 			return $this;
 		}
 	}

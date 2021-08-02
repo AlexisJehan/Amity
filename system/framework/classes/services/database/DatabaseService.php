@@ -91,7 +91,6 @@
 		 */
 		const FETCH_NAMED = 11;
 
-
 		/**
 		 * Hôte de la base de données
 		 * 
@@ -162,7 +161,6 @@
 		 */
 		protected $connection;
 
-
 		/**
 		 * Constructeur du service de base de données
 		 *
@@ -191,7 +189,6 @@
 		 */
 		public final function connect() {
 			$this->isConnected = $this->__connect($this->host, $this->port, $this->database, $this->user, $this->password, $this->encoding, $this->options);
-
 			return $this;
 		}
 
@@ -250,14 +247,14 @@
 		public final function bindArray(array $array) {
 
 			// Tableau associatif
-			if($array !== array_values($array)) {
-				foreach($array as $key => $value) {
+			if ($array !== array_values($array)) {
+				foreach ($array as $key => $value) {
 					$this->bind($key, $value);
 				}
 
 			// Tableau non associatif (Forçage du binding avec points d'interrogation)
 			} else {
-				foreach($array as $key => $value) {
+				foreach ($array as $key => $value) {
 					$this->bind($key + 1, $value);
 				}
 			}
@@ -274,13 +271,12 @@
 		public final function execute(array $binding = NULL) {
 
 			// Si une association est renseignée on la fait avant d'exécuter la requête
-			if(is_array($binding)) {
+			if (is_array($binding)) {
 				$this->bindArray($binding);
 			}
 
 			$this->__execute();
-			$this->statementCount++;
-
+			++$this->statementCount;
 			return $this;
 		}
 

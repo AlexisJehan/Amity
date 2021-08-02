@@ -41,7 +41,6 @@
 		 */
 		protected $templateName = 'main';
 
-
 		/**
 		 * {@inheritdoc}
 		 */
@@ -70,7 +69,6 @@
 		 */
 		public function setTitle($title) {
 			$this->title = $title;
-
 			return $this;
 		}
 
@@ -91,7 +89,6 @@
 		 */
 		public function setTemplateName($templateName) {
 			$this->templateName = $templateName;
-
 			return $this;
 		}
 

@@ -31,7 +31,6 @@
 		 */
 		protected static $extension = '.var.cache';
 
-
 		/**
 		 * Tentative de récupération de la variable depuis le cache
 		 * 
@@ -40,8 +39,8 @@
 		public function fetch() {
 
 			// Si le fichier de cache existe, on récupère la variable
-			if($this->exists()) {
-				return @require($this->file);
+			if ($this->exists()) {
+				return @require ($this->file);
 			}
 		}
 
@@ -54,7 +53,7 @@
 		public function store($value) {
 
 			// Écriture de la variable exportée dans le fichier de cache
-			file_put_contents($this->file, '<?php return '.var_export($value, TRUE).'; ?>', LOCK_EX);
+			file_put_contents($this->file, '<?php return ' . var_export($value, TRUE) . '; ?>', LOCK_EX);
 
 			// On retourne la variable stockée
 			return $value;

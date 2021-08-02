@@ -82,7 +82,6 @@
 		 */
 		protected $args;
 
-
 		/**
 		 * Constructeur de la requête
 		 *
@@ -91,13 +90,13 @@
 		public function __construct($route = NULL) {
 
 			// Si la route n'est pas une pile il faut la générer
-			if(!is_array($route)) {
+			if (!is_array($route)) {
 
 				// Si la route est vide, on la récupère de la variable globale du serveur
-				if(NULL === $route) {
+				if (NULL === $route) {
 
 					// Si « REDIRECT_URL » est définie et valide on l'utilise pour récupérer les arguments
-					if(isset($_SERVER['REDIRECT_URL']) && '/index.php' !== $_SERVER['REDIRECT_URL']) {
+					if (isset($_SERVER['REDIRECT_URL']) && '/index.php' !== $_SERVER['REDIRECT_URL']) {
 						$route = $_SERVER['REDIRECT_URL'];
 
 					// Sinon on les récupère depuis le classique « REQUEST_URI »
@@ -111,7 +110,7 @@
 
 				// On retire l'éventuelle base du site
 				$base = dirname($_SERVER['SCRIPT_NAME']);
-				if(0 === strpos($route, $base)) {
+				if (0 === strpos($route, $base)) {
 					$route = substr($route, strlen($base));
 				}
 
@@ -123,22 +122,22 @@
 			}
 
 			// On crée l'URL associée à la requête
-			$this->url = BASE_URL.(!empty($route) ? '/'.implode('/', $route) : '');
+			$this->url = BASE_URL . (!empty($route) ? '/' . implode('/', $route) : '');
 
 			// Si la route n'est pas vide
-			if(!empty($route)) {
+			if (!empty($route)) {
 
 				// Si la requête est « favicon.ico », on arrête immédiatement
-				if('favicon.ico' === $route[0]) {
+				if ('favicon.ico' === $route[0]) {
 					header('Content-Type: image/vnd.microsoft.icon');
 					header('Content-Length: 0');
 					exit;
 				}
 
 				// Extraction de la langue si renseignée et disponible à la traduction
-				if(USE_LANGUAGE) {
+				if (USE_LANGUAGE) {
 					$language = Service::language();
-					if(in_array($route[0], $language->getLanguages())) {
+					if (in_array($route[0], $language->getLanguages())) {
 						$language->setLanguage($route[0]);
 						array_shift($route);
 					}
@@ -146,7 +145,7 @@
 			}
 
 			// Si la route n'est toujours pas vide on l'analyse pour rechercher le contrôleur
-			if(!empty($route)) {
+			if (!empty($route)) {
 				$foundFlag = TRUE;
 
 				$controllerName = strtolower($route[0]);
@@ -155,7 +154,7 @@
 
 				// Si le nom correspond à un contrôleur de type par défaut et que ce dernier n'est pas renseigné
 				// Exemple: /home -> HomePage extends Page
-				if(Response::isControllerClass($controllerClassWithType)) {
+				if (Response::isControllerClass($controllerClassWithType)) {
 					$this->controllerName = $controllerName;
 					$this->controllerClass = $controllerClassWithType;
 					array_shift($route);
@@ -163,11 +162,11 @@
 				// Sinon, si le nom correspond directement à la classe d'un contrôleur
 				// Exemples: /home-page -> HomePage extends Page
 				//           /move      -> Move     extends Redirect
-				} else if(Response::isControllerClass($controllerClass)) {
+				} else if (Response::isControllerClass($controllerClass)) {
 					$this->controllerType = Response::controllerClassToName($controllerClass::getTypeName());
 
 					// On retire le type du nom du contrôleur si on le trouve à la fin
-					if($this->controllerType === substr($controllerName, -strlen($this->controllerType))) {
+					if ($this->controllerType === substr($controllerName, -strlen($this->controllerType))) {
 						$this->controllerName = rtrim(substr($controllerName, 0, strlen($controllerName) - strlen($this->controllerType)), '-');
 					} else {
 						$this->controllerName = $controllerName;
@@ -177,7 +176,7 @@
 					array_shift($route);
 
 				// Sinon s'il y a au moins deux arguments, c'est peut être un type suivi d'un nom
-				} else if(2 <= count($route)) {
+				} else if (2 <= count($route)) {
 					$controllerType = strtolower($route[0]);
 					$controllerName = strtolower($route[1]);
 					$controllerClassWithType = Response::controllerNameToClass($controllerName, $controllerType);
@@ -185,7 +184,7 @@
 
 					// Si c'est le type, suivi du nom sans le type à la fin
 					// Exemple: /page/home -> HomePage extends Page
-					if(Response::isControllerClass($controllerClassWithType)) {
+					if (Response::isControllerClass($controllerClassWithType)) {
 						$this->controllerType = $controllerType;
 						$this->controllerName = $controllerName;
 						$this->controllerClass = $controllerClassWithType;
@@ -195,7 +194,7 @@
 					// Sinon, si c'est le type suivi du nom, avec éventuellement le type à la fin du nom
 					// Exemples: /page/home-page -> HomePage extends Page
 					//           /redirect/move  -> Move     extends Redirect
-					} else if(Response::isControllerClassWithType($controllerClass, Response::controllerNameToClass($controllerType))) {
+					} else if (Response::isControllerClassWithType($controllerClass, Response::controllerNameToClass($controllerType))) {
 						$this->controllerType = $controllerType;
 						$this->controllerName = $controllerName;
 						$this->controllerClass = $controllerClass;
@@ -212,12 +211,12 @@
 			}
 
 			// S'il y a encore au moins un élément, on peut supposer qu'il s'agisse de l'action du contrôleur déterminé
-			if(!empty($route)) {
+			if (!empty($route)) {
 				$actionName = strtolower($route[0]);
 				$actionMethod = Response::actionNameToMethod($actionName);
 
 				// Si c'est effectivement une action qui correspond au contrôleur trouvé plus haut
-				if(Response::isActionMethod($actionMethod, $this->controllerClass)) {
+				if (Response::isActionMethod($actionMethod, $this->controllerClass)) {
 					$this->actionName = $actionName;
 					$this->actionMethod = $actionMethod;
 					array_shift($route);
@@ -226,7 +225,7 @@
 				} else {
 
 					// Si aucun contrôleur n'avait été trouvé, on affichera l'erreur 404
-					if(!$foundFlag) {
+					if (!$foundFlag) {
 						$this->controllerType = 'page';
 						$this->controllerName = 'error404';
 						$this->controllerClass = 'Error404Page';
@@ -262,16 +261,15 @@
 		 * @return array Le tableau d'informations
 		 */
 		public final function getInfos() {
-			return
-				array(
-					'url'        => $this->url,
-					'type'       => $this->controllerType,
-					'controller' => $this->controllerName,
-					'class'      => $this->controllerClass,
-					'action'     => $this->actionName,
-					'method'     => $this->actionMethod,
-					'args'       => $this->args
-				);
+			return array(
+				'url'        => $this->url,
+				'type'       => $this->controllerType,
+				'controller' => $this->controllerName,
+				'class'      => $this->controllerClass,
+				'action'     => $this->actionName,
+				'method'     => $this->actionMethod,
+				'args'       => $this->args,
+			);
 		}
 
 		/**

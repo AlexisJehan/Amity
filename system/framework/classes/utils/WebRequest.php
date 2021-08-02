@@ -30,19 +30,15 @@
 		 */
 		protected $options = array(
 			CURLOPT_USERAGENT      => 'Mozilla/5.0 (compatible; WebRequest/1.0)',
-
 			CURLOPT_AUTOREFERER    => TRUE,
-
 			CURLOPT_FOLLOWLOCATION => TRUE,
 			CURLOPT_MAXREDIRS      => 10,
-
 			CURLOPT_CONNECTTIMEOUT => 30,
 			CURLOPT_TIMEOUT        => 60,
-
 			CURLOPT_HEADER         => FALSE,
 			CURLOPT_COOKIESESSION  => FALSE,
 			CURLOPT_SSL_VERIFYPEER => FALSE,
-			CURLOPT_RETURNTRANSFER => TRUE
+			CURLOPT_RETURNTRANSFER => TRUE,
 		);
 
 		/**
@@ -140,7 +136,7 @@
 		public function __construct($url = NULL, array $datas = array(), array $headers = array(), array $cookies = array()) {
 
 			// Si l'URL n'est pas vide on la remplace, sinon on conserve celle par défaut
-			if(NULL !== $url) {
+			if (NULL !== $url) {
 				$this->url = $url;
 			}
 
@@ -157,7 +153,6 @@
 		 */
 		public function setUrl($url) {
 			$this->url = $url;
-
 			return $this;
 		}
 
@@ -170,7 +165,6 @@
 		 */
 		public function setData($key, $value = '') {
 			$this->datas[$key] = $value;
-
 			return $this;
 		}
 
@@ -182,7 +176,6 @@
 		 */
 		public function setDatas(array $datas) {
 			$this->datas = $datas;
-
 			return $this;
 		}
 
@@ -195,7 +188,6 @@
 		 */
 		public function setHeader($key, $value = '') {
 			$this->headers[$key] = $value;
-
 			return $this;
 		}
 
@@ -207,7 +199,6 @@
 		 */
 		public function setHeaders(array $headers) {
 			$this->headers = $headers;
-
 			return $this;
 		}
 
@@ -220,7 +211,6 @@
 		 */
 		public function setCookie($key, $value = '') {
 			$this->cookies[$key] = $value;
-
 			return $this;
 		}
 
@@ -232,7 +222,6 @@
 		 */
 		public function setCookies(array $cookies) {
 			$this->cookies = $cookies;
-
 			return $this;
 		}
 
@@ -245,7 +234,6 @@
 		 */
 		public function setOption($key, $value = TRUE) {
 			$this->options[$key] = $value;
-
 			return $this;
 		}
 
@@ -257,7 +245,6 @@
 		 */
 		public function setOptions(array $options) {
 			$this->options = $this->options + $options;
-
 			return $this;
 		}
 
@@ -269,7 +256,6 @@
 		 */
 		public function setUserAgent($userAgent) {
 			$this->options[CURLOPT_USERAGENT] = $userAgent;
-
 			return $this;
 		}
 
@@ -280,7 +266,6 @@
 		 */
 		public function setFakeUserAgent() {
 			$this->options[CURLOPT_USERAGENT] = 'Mozilla/5.0 (Windows NT 5.1; rv:13.0) Gecko/20100101 Firefox/13.0.1';
-
 			return $this;
 		}
 
@@ -293,7 +278,6 @@
 		public function setReferer($referer) {
 			$this->options[CURLOPT_AUTOREFERER] = FALSE;
 			$this->options[CURLOPT_REFERER] = $referer;
-
 			return $this;
 		}
 
@@ -307,7 +291,6 @@
 		public function setFollow($followLocation = TRUE, $maxRedirs = 0) {
 			$this->options[CURLOPT_FOLLOWLOCATION] = $followLocation;
 			$this->options[CURLOPT_MAXREDIRS] = (int) $maxRedirs;
-
 			return $this;
 		}
 
@@ -331,7 +314,6 @@
 		public function setTimeout($timeout = 0, $connectTimeout = 0) {
 			$this->options[CURLOPT_TIMEOUT] = (int) $timeout;
 			$this->options[CURLOPT_CONNECTTIMEOUT] = (int) $connectTimeout;
-
 			return $this;
 		}
 
@@ -344,7 +326,6 @@
 		public function setFresh($fresh = TRUE) {
 			$this->options[CURLOPT_FORBID_REUSE] = $fresh;
 			$this->options[CURLOPT_FRESH_CONNECT] = $fresh;
-
 			return $this;
 		}
 
@@ -357,14 +338,13 @@
 		public function setCookieFile($file = NULL) {
 
 			// Si aucun fichier n'est spécifié, on utilise celui par défaut à l'emplacement de la classe
-			if(NULL === $file) {
-				$file = __DIR__.'/cookies.txt'; 
+			if (NULL === $file) {
+				$file = __DIR__ . '/cookies.txt'; 
 			}
 
 			$this->options[CURLOPT_COOKIESESSION] = TRUE;
 			$this->options[CURLOPT_COOKIEFILE] = $file;
 			$this->options[CURLOPT_COOKIEJAR] = $file;
-
 			return $this;
 		}
 
@@ -377,8 +357,7 @@
 		 */
 		public function setBasicAuthentication($username, $password = '') {
 			$this->options[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
-			$this->options[CURLOPT_USERPWD] = $username.':'.$password;
-
+			$this->options[CURLOPT_USERPWD] = $username . ':' . $password;
 			return $this;
 		}
 
@@ -391,8 +370,7 @@
 		 */
 		public function setDigestAuthentication($username, $password = '') {
 			$this->options[CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
-			$this->options[CURLOPT_USERPWD] = $username.':'.$password;
-
+			$this->options[CURLOPT_USERPWD] = $username . ':' . $password;
 			return $this;
 		}
 
@@ -405,16 +383,16 @@
 			$url = $this->url;
 
 			// Si on a des données, on les ajoute en paramètres à la fin de l'URL
-			if(count($this->datas) > 0) {
+			if (0 < count($this->datas)) {
 				$parseUrl = parse_url($url);
-				$url .= (empty($parseUrl['query']) ? '?' : '&').http_build_query($this->datas);
+				$url .= (empty($parseUrl['query']) ? '?' : '&') . http_build_query($this->datas);
 			}
 
 			$this->send(
 				$url,
 				array(
 					//CURLOPT_CUSTOMREQUEST => 'GET',
-					CURLOPT_HTTPGET => TRUE
+					CURLOPT_HTTPGET       => TRUE,
 				)
 			);
 			return $this->response;
@@ -430,7 +408,7 @@
 				$this->url,
 				array(
 					//CURLOPT_CUSTOMREQUEST => 'HEAD',
-					CURLOPT_NOBODY => TRUE
+					CURLOPT_NOBODY        => TRUE,
 				)
 			);
 			return $this->responseHeaders;
@@ -444,11 +422,11 @@
 		public function post() {
 			$options = array(
 				//CURLOPT_CUSTOMREQUEST => 'POST',
-				CURLOPT_POST => TRUE
+				CURLOPT_POST          => TRUE,
 			);
 
 			// Si on a des données on les ajoute en champs POST
-			if(count($this->datas) > 0) {
+			if (0 < count($this->datas)) {
 				$options[CURLOPT_POSTFIELDS] = http_build_query($this->datas);
 
 			// Sinon on retire l'entête de taille du contenu
@@ -468,11 +446,11 @@
 		public function put() {
 			$options = array(
 				CURLOPT_CUSTOMREQUEST => 'PUT',
-				//CURLOPT_PUT => TRUE
+				//CURLOPT_PUT           => TRUE,
 			);
 
 			// Si on a des données on les ajoute en champs POST
-			if(count($this->datas) > 0) {
+			if (0 < count($this->datas)) {
 				$options[CURLOPT_POSTFIELDS] = http_build_query($this->datas);
 			}
 
@@ -495,8 +473,8 @@
 		public function putFile($file) {
 
 			// Si le fichier n'existe pas, on lance une exception
-			if(!is_file($file) || !is_readable($file)) {
-				throw new InvalidArgumentException('"'.$file.'" is not a valid file or it cannot be read.');
+			if (!is_file($file) || !is_readable($file)) {
+				throw new InvalidArgumentException('"' . $file . '" is not a valid file or it cannot be read.');
 			}
 
 			// On ajoute un entête pour simuler une requête PUT avec les serveurs qui ne l'acceptent pas
@@ -506,9 +484,9 @@
 				$this->url,
 				array(
 					//CURLOPT_CUSTOMREQUEST => 'PUT',
-					CURLOPT_PUT => TRUE,
-					CURLOPT_INFILE => fopen($file, 'r'),
-					CURLOPT_INFILESIZE => filesize($file)
+					CURLOPT_PUT           => TRUE,
+					CURLOPT_INFILE        => fopen($file, 'r'),
+					CURLOPT_INFILESIZE    => filesize($file),
 				)
 			);
 			return $this->response;
@@ -520,12 +498,10 @@
 		 * @return string Le contenu renvoyé par la requête
 		 */
 		public function delete() {
-			$options = array(
-				CURLOPT_CUSTOMREQUEST => 'DELETE'
-			);
+			$options = array(CURLOPT_CUSTOMREQUEST => 'DELETE');
 
 			// Si on a des données on les ajoute en champs POST
-			if(count($this->datas) > 0) {
+			if (0 < count($this->datas)) {
 				$options[CURLOPT_POSTFIELDS] = http_build_query($this->datas);
 			}
 
@@ -544,9 +520,7 @@
 		public function trace() {
 			$this->send(
 				$this->url,
-				array(
-					CURLOPT_CUSTOMREQUEST => 'TRACE'
-				)
+				array(CURLOPT_CUSTOMREQUEST => 'TRACE')
 			);
 			return $this->response;
 		}
@@ -563,9 +537,7 @@
 
 			$this->send(
 				$this->url,
-				array(
-					CURLOPT_CUSTOMREQUEST => 'OPTIONS'
-				)
+				array(CURLOPT_CUSTOMREQUEST => 'OPTIONS')
 			);
 			return $this->responseHeaders;
 		}
@@ -576,12 +548,10 @@
 		 * @return boolean Vrai si la requête a réussie
 		 */
 		public function connect() {
-			$options = array(
-				CURLOPT_CUSTOMREQUEST => 'CONNECT'
-			);
+			$options = array(CURLOPT_CUSTOMREQUEST => 'CONNECT');
 
 			// Seulement disponible avec PHP 5.5.0
-			if(defined('CURLOPT_CONNECT_ONLY')) {
+			if (defined('CURLOPT_CONNECT_ONLY')) {
 				$options[CURLOPT_CONNECT_ONLY] = TRUE;
 			}
 
@@ -600,9 +570,7 @@
 
 			$this->send(
 				$this->url,
-				array(
-					CURLOPT_CUSTOMREQUEST => 'PATCH'
-				)
+				array(CURLOPT_CUSTOMREQUEST => 'PATCH')
 			);
 			return $this->response;
 		}
@@ -623,14 +591,14 @@
 			$options[CURLOPT_URL] = $url;
 
 			// Si on a des entêtes on les ajoute
-			if(count($this->headers) > 0) {
+			if (0 < count($this->headers)) {
 				$options[CURLOPT_HTTPHEADER] = array_map(function($key, $value) {
-					return $key.': '.$value;
+					return $key . ': ' . $value;
 				}, array_keys($this->headers), $this->headers);
 			}
 
 			// Si on a des cookies on les ajoute
-			if(count($this->cookies) > 0) {
+			if (0 < count($this->cookies)) {
 				$options[CURLOPT_COOKIE] = http_build_query($this->cookies, NULL, '; ');
 			}
 
@@ -661,21 +629,21 @@
 			$options[CURLOPT_HEADERFUNCTION] = array($this, 'headerMultiHandler');
 
 			// Si on a des entêtes on les ajoute
-			if(count($this->headers) > 0) {
+			if (0 < count($this->headers)) {
 				$options[CURLOPT_HTTPHEADER] = array_map(function($key, $value) {
-					return $key.': '.$value;
+					return $key . ': ' . $value;
 				}, array_keys($this->headers), $this->headers);
 			}
 
 			// Si on a des cookies on les ajoute
-			if(count($this->cookies) > 0) {
+			if (0 < count($this->cookies)) {
 				$options[CURLOPT_COOKIE] = http_build_query($this->cookies, NULL, '; ');
 			}
 
 			// Préparation des chaînes selon les URLs et les options
 			$handler = curl_multi_init();
 			$this->channels = array();
-			foreach($urls as $i => $url) {
+			foreach ($urls as $i => $url) {
 				$this->channels[$i] = curl_init();
 				$options[CURLOPT_URL] = $url;
 				curl_setopt_array($this->channels[$i], $options);
@@ -689,17 +657,17 @@
 				curl_multi_exec($handler, $running);
 
 				// Si une requête est achevée
-				if(FALSE !== ($infos = curl_multi_info_read($handler))) {
-					//if(CURLMSG_DONE === $infos['msg']) {
+				if (FALSE !== ($infos = curl_multi_info_read($handler))) {
+					//if (CURLMSG_DONE === $infos['msg']) {
 
 						// On cherche son numéro de chaîne pour enregistrer les données de la réponse
-						foreach($this->channels as $i => $channel) {
-							if($channel === $infos['handle']) {
+						foreach ($this->channels as $i => $channel) {
+							if ($channel === $infos['handle']) {
 								$this->response[$i] = curl_multi_getcontent($channel);
 								$this->errorCode[$i] = $infos['result'];
 
 								// « curl_multi_strerror » n'est disponible que depuis PHP 5.5.0
-								if(version_compare(PHP_VERSION, '5.5.0', '>=')) {
+								if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
 									$this->errorMessage[$i] = 0 < $infos['result'] ? curl_multi_strerror($infos['result']) : '';
 								} else {
 									$this->errorMessage[$i] = 0 < $infos['result'] ? 'Error' : '';
@@ -713,7 +681,7 @@
 				}
 
 			// Tant qu'il en reste
-			} while($running);
+			} while ($running);
 
 			curl_multi_close($handler);
 
@@ -745,15 +713,15 @@
 			$line = trim($header);
 
 			// Si la ligne commence par « HTTP/ » c'est celle indiquant le protocôle, le status et le message
-			if(0 === strpos($line, 'HTTP/')) {
+			if (0 === strpos($line, 'HTTP/')) {
 				$lineParts = explode(' ', $line, 3);
 				$this->responseProtocol = $lineParts[0];
 				$this->responseStatus = $lineParts[1];
 				$this->responseStatusMessage = isset($lineParts[2]) ? $lineParts[2] : NULL;
 
 			// Sinon c'est une ligne d'entête classique
-			} else if(!empty($line)) {
-				if(FALSE !== strpos($line, ': ')) {
+			} else if (!empty($line)) {
+				if (FALSE !== strpos($line, ': ')) {
 					list($key, $value) = explode(': ', $line, 2);
 				} else {
 					$key = trim($line, ':');
@@ -775,22 +743,22 @@
 		protected function headerMultiHandler($handler, $header) {
 
 			// On détermine le numéro de la chaîne
-			foreach($this->channels as $i => $channel) {
-				if($channel === $handler) {
+			foreach ($this->channels as $i => $channel) {
+				if ($channel === $handler) {
 
 					// On trim pour retirer le retour à la ligne à la fin
 					$line = trim($header);
 
 					// Si la ligne commence par « HTTP/ » c'est celle indiquant le protocôle, le status et le message
-					if(0 === strpos($line, 'HTTP/')) {
+					if (0 === strpos($line, 'HTTP/')) {
 						$lineParts = explode(' ', $line, 3);
 						$this->responseProtocol = $lineParts[0];
 						$this->responseStatus = $lineParts[1];
 						$this->responseStatusMessage = isset($lineParts[2]) ? $lineParts[2] : NULL;
 
 					// Sinon c'est une ligne d'entête classique
-					} else if(!empty($line)) {
-						if(FALSE !== strpos($line, ': ')) {
+					} else if (!empty($line)) {
+						if (FALSE !== strpos($line, ': ')) {
 							list($key, $value) = explode(': ', $line, 2);
 						} else {
 							$key = trim($line, ':');
@@ -901,7 +869,7 @@
 		 * @return string      La valeur de l'entête de la réponse
 		 */
 		public function getResponseHeader($key) {
-			if(isset($this->responseHeaders[$key]) || array_key_exists($key, $this->responseHeaders)) {
+			if (isset($this->responseHeaders[$key]) || array_key_exists($key, $this->responseHeaders)) {
 				return $this->responseHeaders[$key];
 			}
 		}
@@ -917,7 +885,7 @@
 	}
 
 	// On vérifie que l'extension est disponible
-	if(!extension_loaded('curl')) {
+	if (!extension_loaded('curl')) {
 		throw new SystemException('"%s" extension is not available', 'curl');
 	}
 ?>

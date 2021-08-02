@@ -29,7 +29,7 @@
 		/**
 		 * Alignement à gauche [identique à STR_PAD_RIGHT]
 		 */
-		const ALIGN_LEFT   = STR_PAD_RIGHT;
+		const ALIGN_LEFT = STR_PAD_RIGHT;
 
 		/**
 		 * Alignement au milieu [identique à STR_PAD_BOTH]
@@ -39,7 +39,7 @@
 		/**
 		 * Alignement à droite [identique à STR_PAD_LEFT]
 		 */
-		const ALIGN_RIGHT  = STR_PAD_LEFT;
+		const ALIGN_RIGHT = STR_PAD_LEFT;
 
 		/**
 		 * Nombre de caractères maximum de la date
@@ -65,7 +65,6 @@
 		 * Nombre de caractères maximum de la requête (valeur arbitraire)
 		 */
 		const REQUEST_MAX_SIZE = 100;
-
 
 		/**
 		 * Emplacement où stocker les fichiers de journalisation
@@ -170,14 +169,13 @@
 		 */
 		protected $columnsAlignment = array();
 
-
 		/**
 		 * Initialisation de la classe
 		 */
 		public static function init() {
 
 			// Utilisation ou non des fonctions multi-bytes
-			if(self::$useMbString = extension_loaded('mbstring')) {
+			if (self::$useMbString = extension_loaded('mbstring')) {
 				mb_internal_encoding('UTF-8');
 			}
 		}
@@ -191,16 +189,16 @@
 		 */
 		public function __construct($filename, $limit = 10485760, $displayHeaders = TRUE) {
 			$filename = trim(str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $filename), DIRECTORY_SEPARATOR);
-			$this->file = self::$location.DIRECTORY_SEPARATOR.('.' !== dirname($filename) ? dirname($filename).DIRECTORY_SEPARATOR : '').self::$prefix.basename($filename).static::$extension;
+			$this->file = self::$location . DIRECTORY_SEPARATOR . ('.' !== dirname($filename) ? dirname($filename) . DIRECTORY_SEPARATOR : '') . self::$prefix . basename($filename) . static::$extension;
 			$this->name = basename($filename);
 			$this->limit = (int) $limit;
 			$this->displayHeaders = $displayHeaders;
 
 			// Si le répertoire de journalisation n'existe pas on le crée récursivement
-			if(!is_dir(dirname($this->file))) {
+			if (!is_dir(dirname($this->file))) {
 
 				// Si on ne peut pas écrire le dossier, on lance une exception
-				if(!mkdir(dirname($this->file), 0777, TRUE)) {
+				if (!mkdir(dirname($this->file), 0777, TRUE)) {
 					throw new SystemException('Unable to create "%s" directory', dirname($this->file));
 				}
 			}
@@ -225,7 +223,6 @@
 
 			$this->columnsSize[] = (int) $size;
 			$this->columnsAlignment[] = $align;
-
 			return $this;
 		}
 
@@ -236,7 +233,6 @@
 		 */
 		public final function setDate() {
 			$this->set(date(self::$dateFormat), __('Date'), self::DATE_MAX_SIZE);
-
 			return $this;
 		}
 
@@ -247,7 +243,6 @@
 		 */
 		public final function setIPAddress() {
 			$this->set(isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '', __('IP address'), self::IP_ADDRESS_MAX_SIZE);
-
 			return $this;
 		}
 
@@ -258,7 +253,6 @@
 		 */
 		public final function setUserAgent() {
 			$this->set(isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '', __('User agent'), self::USER_AGENT_MAX_SIZE);
-
 			return $this;
 		}
 
@@ -269,7 +263,6 @@
 		 */
 		public final function setReferer() {
 			$this->set(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '', __('Referer'), self::REFERER_MAX_SIZE);
-
 			return $this;
 		}
 
@@ -280,7 +273,6 @@
 		 */
 		public final function setRequest() {
 			$this->set(isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '', __('Request'), self::REQUEST_MAX_SIZE);
-
 			return $this;
 		}
 
@@ -299,14 +291,14 @@
 			$content = $this->generate($exists, $exceeds);
 
 			// Si le fichier existe déjà on ajoute le contenu, sinon on le crée
-			if($exists) {
+			if ($exists) {
 				file_put_contents($this->file, $content, FILE_APPEND | LOCK_EX);
 			} else {
 				file_put_contents($this->file, $content, LOCK_EX);
 			}
 
 			// Si la limite est dépassée, on archive le fichier courant avant de le supprimer
-			if($exceeds) {
+			if ($exceeds) {
 				$this->archive();
 			}
 		}
@@ -315,31 +307,30 @@
 		 * Archive le fichier de journalisation
 		 */
 		public final function archive() {
-
-			if(!is_file($this->file)) {
+			if (!is_file($this->file)) {
 				return;
 			}
 
 			// On tente de trouver un nom pas déjà crée
-			$base = dirname($this->file).DIRECTORY_SEPARATOR.basename($this->file, static::$extension);
+			$base = dirname($this->file) . DIRECTORY_SEPARATOR . basename($this->file, static::$extension);
 			$i = 1;
 			do {
-				$archiveFile = $base.'_'.$i.static::$extension.'.gz';
+				$archiveFile = $base . '_' . $i . static::$extension . '.gz';
 				++$i;
-			} while(is_file($archiveFile));
+			} while (is_file($archiveFile));
 
 			// Écriture d'un fichier compressé
 			$handle = gzopen($archiveFile, 'w9');
 
 			// Verrou exclusif pour l'écriture (Si activé)
-			if(static::$lockfile) {
+			if (static::$lockfile) {
 				flock($handle, LOCK_EX);
 			}
 
 			gzwrite($handle, file_get_contents($this->file));
 
 			// On lève le verrou (Si activé)
-			if(static::$lockfile) {
+			if (static::$lockfile) {
 				flock($handle, LOCK_UN);
 			}
 
@@ -357,13 +348,12 @@
 		 * @return string           Le contenu à écrire
 		 */
 		protected function generate($exists, $exceeds) {
-
 			$content = '';
 
 			// Si le fichier n'existe pas, on ajoute la bordure et un entête si activé
-			if(!$exists) {
+			if (!$exists) {
 				$content .= $this->generateBorder();
-				if($this->displayHeaders) {
+				if ($this->displayHeaders) {
 					$content .= $this->generateHeaders();
 					$content .= $this->generateBorder(TRUE);
 				}
@@ -373,7 +363,7 @@
 			$content .= $this->generateValues();
 
 			// Si la limite est excédée, on ajoute une bordure de fin
-			if($exceeds) {
+			if ($exceeds) {
 				$content .= $this->generateBorder();
 			}
 
@@ -394,10 +384,10 @@
 		 */
 		private function generateBorder($headerBorder = FALSE) {
 			$content = '+';
-			foreach($this->columnsSize as $size) {
-				$content .= str_repeat($headerBorder ? '=' : '-', $size + 2).'+';
+			foreach ($this->columnsSize as $size) {
+				$content .= str_repeat($headerBorder ? '=' : '-', $size + 2) . '+';
 			}
-			return $content.PHP_EOL;
+			return $content . PHP_EOL;
 		}
 
 		/**
@@ -408,10 +398,10 @@
 		private function generateHeaders() {
 			$content = '|';
 			$count = count($this->headers);
-			for($i = 0; $i < $count; ++$i) {
-				$content .= ' '.self::str_pad(self::strtoupper($this->headers[$i]), $this->columnsSize[$i], ' ', STR_PAD_BOTH).' |';
+			for ($i = 0; $i < $count; ++$i) {
+				$content .= ' ' . self::str_pad(self::strtoupper($this->headers[$i]), $this->columnsSize[$i], ' ', STR_PAD_BOTH) . ' |';
 			}
-			return $content.PHP_EOL;
+			return $content . PHP_EOL;
 		}
 
 		/**
@@ -422,13 +412,13 @@
 		private function generateValues() {
 
 			// Si le mode multi-lignes est activé
-			if(self::$multiLines) {
+			if (self::$multiLines) {
 
 				// On commence par transformer chaque valeur en tableau de lignes, en conservant le nombre maximum de lignes d'une valeur
 				$rowMax = 1;
 				$columnCount = count($this->values);
-				for($i = 0; $i < $columnCount; ++$i) {
-					if(0 < $this->columnsSize[$i] && self::strlen($this->values[$i]) > $this->columnsSize[$i]) {
+				for ($i = 0; $i < $columnCount; ++$i) {
+					if (0 < $this->columnsSize[$i] && self::strlen($this->values[$i]) > $this->columnsSize[$i]) {
 						$this->values[$i] = self::str_split($this->values[$i], $this->columnsSize[$i]);
 						$rowMax = max($rowMax, count($this->values[$i]));
 					} else {
@@ -438,10 +428,10 @@
 
 				// À présent on écrit ces tableaux connaissant le maximum de ligne
 				$content = '';
-				for($i = 0; $i < $rowMax; ++$i) {
+				for ($i = 0; $i < $rowMax; ++$i) {
 					$content .= '|';
-					for($j = 0; $j < $columnCount; $j++) {
-						$content .= ' '.self::str_pad(isset($this->values[$j][$i]) ? $this->values[$j][$i] : '', $this->columnsSize[$j], ' ', $this->columnsAlignment[$j]).' |';
+					for ($j = 0; $j < $columnCount; $j++) {
+						$content .= ' ' . self::str_pad(isset($this->values[$j][$i]) ? $this->values[$j][$i] : '', $this->columnsSize[$j], ' ', $this->columnsAlignment[$j]) . ' |';
 					}
 					$content .= PHP_EOL;
 				}
@@ -452,10 +442,10 @@
 			} else {
 				$content = '|';
 				$count = count($this->values);
-				for($i = 0; $i < $count; ++$i) {
-					$content .= ' '.self::str_pad($this->values[$i], $this->columnsSize[$i], ' ', $this->columnsAlignment[$i]).' |';
+				for ($i = 0; $i < $count; ++$i) {
+					$content .= ' ' . self::str_pad($this->values[$i], $this->columnsSize[$i], ' ', $this->columnsAlignment[$i]) . ' |';
 				}
-				return $content.PHP_EOL;
+				return $content . PHP_EOL;
 			}
 		}
 
@@ -496,7 +486,7 @@
 		 * @return string              La chaîne avec le décalage ajouté
 		 */
 		private static function str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT) {
-			if(self::$useMbString) {
+			if (self::$useMbString) {
 				return str_pad($input, $pad_length + abs(strlen($input) - mb_strlen($input)), $pad_string, $pad_type);
 			}
 			return str_pad($input, $pad_length, $pad_string, $pad_type);
@@ -508,7 +498,7 @@
 		 * @return string         La chaîne en majuscules
 		 */
 		private static function strtoupper($string) {
-			if(self::$useMbString) {
+			if (self::$useMbString) {
 				return mb_strtoupper($string);
 			}
 			return strtoupper($string);
@@ -522,12 +512,12 @@
 		 * @return array                 Le tableau contenant chaque morceau généré à partir de la chaîne d'entrée
 		 */
 		private static function str_split($string, $split_length = 1) {
-			if(self::$useMbString) {
-				if($split_length < 1) {
+			if (self::$useMbString) {
+				if ($split_length < 1) {
 					return FALSE;
 				}
 				$result = array();
-				for($i = 0; $i < mb_strlen($string); $i += $split_length) {
+				for ($i = 0; $i < mb_strlen($string); $i += $split_length) {
 					$result[] = mb_substr($string, $i, $split_length);
 				}
 				return $result;
@@ -541,7 +531,7 @@
 		 * @return integer         Le nombre de caractères
 		 */
 		private static function strlen($string) {
-			if(self::$useMbString) {
+			if (self::$useMbString) {
 				return mb_strlen($string);
 			}
 			return strlen($string);

@@ -49,7 +49,6 @@
 		 */
 		protected $count;
 
-
 		/**
 		 * {@inheritdoc}
 		 *
@@ -60,7 +59,7 @@
 
 			// Préparation de la requête
 			$this->statement = $this->connection->stmt_init();
-			if(!$this->statement->prepare($query)) {
+			if (!$this->statement->prepare($query)) {
 				$this->throwException();
 			}
 
@@ -84,22 +83,38 @@
 		public function bind($key, $value, $type = NULL) {
 
 			// Si le type n'est pas indiqué on le détermine
-			if(NULL === $type) {
-				switch(TRUE) {
-					case is_int ($value): $type = self::PARAM_INT;  break;
-					case is_bool($value): $type = self::PARAM_BOOL; break;
-					case NULL === $value: $type = self::PARAM_NULL; break;
-					default:              $type = self::PARAM_STR;
+			if (NULL === $type) {
+				switch (TRUE) {
+					case is_int($value):
+						$type = self::PARAM_INT;
+						break;
+					case is_bool($value):
+						$type = self::PARAM_BOOL;
+						break;
+					case NULL === $value:
+						$type = self::PARAM_NULL;
+						break;
+					default:
+						$type = self::PARAM_STR;
 				}
 			}
 
 			// Selon le type on ajoute le caractère dans la chaîne des types des associations
-			switch($type) {
-				case self::PARAM_NULL: $this->bindingTypes .= 's'; break;
-				case self::PARAM_INT:  $this->bindingTypes .= 'i'; break;
-				case self::PARAM_STR:  $this->bindingTypes .= 's'; break;
-				case self::PARAM_BOOL: $this->bindingTypes .= 'i'; break;
-				default:               $this->bindingTypes .= 's';
+			switch ($type) {
+				case self::PARAM_NULL:
+					$this->bindingTypes .= 's';
+					break;
+				case self::PARAM_INT:
+					$this->bindingTypes .= 'i';
+					break;
+				case self::PARAM_STR:
+					$this->bindingTypes .= 's';
+					break;
+				case self::PARAM_BOOL:
+					$this->bindingTypes .= 'i';
+					break;
+				default:
+					$this->bindingTypes .= 's';
 			}
 
 			// Puis on ajoute la valeur à associer
@@ -114,10 +129,10 @@
 		protected function __execute() {
 
 			// Si on doit associer des valeurs par marquage
-			if(0 < count($this->bindingValues)) {
+			if (0 < count($this->bindingValues)) {
 				$binding = array();
-				if(version_compare(PHP_VERSION, '5.3', '>=')) {
-					foreach($this->bindingValues as $key => $value) {
+				if (version_compare(PHP_VERSION, '5.3', '>=')) {
+					foreach ($this->bindingValues as $key => $value) {
 						$binding[$key] = &$this->bindingValues[$key];
 					}
 				}
@@ -126,7 +141,7 @@
 			}
 
 			// Exécution de la déclaration
-			if($this->statement->execute()) {
+			if ($this->statement->execute()) {
 				$this->result = $this->statement->get_result();
 				$this->count = $this->connection->affected_rows;
 				$this->free = FALSE;

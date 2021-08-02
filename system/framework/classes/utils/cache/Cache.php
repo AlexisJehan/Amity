@@ -82,7 +82,6 @@
 		 */
 		protected $duration;
 
-
 		/**
 		 * Constructeur du cache
 		 *
@@ -92,15 +91,15 @@
 		 */
 		public function __construct($filename, $duration = -1, $hashname = FALSE) {
 			$filename = trim(str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $filename), DIRECTORY_SEPARATOR);
-			$this->file = self::$location.DIRECTORY_SEPARATOR.('.' !== dirname($filename) ? dirname($filename).DIRECTORY_SEPARATOR : '').self::$prefix.($hashname ? md5(basename($filename)) : basename($filename)).static::$extension;
+			$this->file = self::$location . DIRECTORY_SEPARATOR . ('.' !== dirname($filename) ? dirname($filename) . DIRECTORY_SEPARATOR : '') . self::$prefix . ($hashname ? md5(basename($filename)) : basename($filename)) . static::$extension;
 			$this->name = basename($filename);
 			$this->duration = $duration;
 
 			// Si le répertoire de cache n'existe pas on le crée récursivement
-			if(!is_dir(dirname($this->file))) {
+			if (!is_dir(dirname($this->file))) {
 
 				// Si on ne peut pas écrire le dossier, on lance une exception
-				if(!mkdir(dirname($this->file), 0777, TRUE)) {
+				if (!mkdir(dirname($this->file), 0777, TRUE)) {
 					throw new SystemException('Unable to create "%s" directory', dirname($this->file));
 				}
 			}
@@ -174,7 +173,7 @@
 		 */
 		public static final function variable($name, $callback, $duration = -1) {
 			$cache = new VariableCache($name, $duration);
-			if(NULL === $variable = $cache->fetch()) {
+			if (NULL === $variable = $cache->fetch()) {
 				$variable = $callback();
 				$cache->store($variable);
 			}
@@ -191,7 +190,7 @@
 		 */
 		public static final function content($name, $callback, $duration = -1) {
 			$cache = new ContentCache($name, $duration);
-			if(NULL === $content = $cache->fetch()) {
+			if (NULL === $content = $cache->fetch()) {
 				$cache->start();
 				$callback();
 				$content = $cache->end();
@@ -210,7 +209,7 @@
 		 */
 		public static final function increase($name, $defaultValue = 0, $step = 1, $duration = -1) {
 			$cache = new VariableCache($name, $duration);
-			if(NULL !== $value = $cache->fetch()) {
+			if (NULL !== $value = $cache->fetch()) {
 				$value += $step;
 			} else {
 				$value = (int) $defaultValue;
@@ -229,7 +228,7 @@
 		 */
 		public static final function decrease($name, $defaultValue = 0, $step = 1, $duration = -1) {
 			$cache = new VariableCache($name, $duration);
-			if(NULL !== $value = $cache->fetch()) {
+			if (NULL !== $value = $cache->fetch()) {
 				$value -= $step;
 			} else {
 				$value = (int) $defaultValue;
@@ -247,8 +246,8 @@
 		 */
 		public static final function cas($name, $oldValue, $newValue) {
 			$cache = new VariableCache($name);
-			if(NULL !== $value = $cache->fetch()) {
-				if($oldValue === $value) {
+			if (NULL !== $value = $cache->fetch()) {
+				if ($oldValue === $value) {
 					$cache->store($newValue);
 					return TRUE;
 				}
@@ -264,10 +263,10 @@
 			// On parcours d'abord les fichiers d'un dossier pour les supprimer avant celui-ci
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(self::$location, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
 
-			foreach($files as $file) {
+			foreach ($files as $file) {
 
 				// Si c'est un dossier ou un fichier on invoque la fonction associée
-				if($file->isDir()) {
+				if ($file->isDir()) {
 					rmdir($file->getRealPath());
 				} else {
 					unlink($file->getRealPath());

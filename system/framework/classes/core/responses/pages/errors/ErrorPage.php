@@ -44,7 +44,6 @@
 		 */
 		protected $errorMessage = 'An error has occurred.';
 
-
 		/**
 		 * Vérifie si on envoi un fichier à télécharger ou un contenu de type parent
 		 * 
@@ -60,19 +59,19 @@
 		public function send() {
 
 			// Si c'est une réponse spécifique
-			if($this->isSpecific()) {
+			if ($this->isSpecific()) {
 
 				// On construit le titre selon les variables de l'objet
-				$this->setTitle(__('Error').(!empty($this->errorCode) ? ' '.$this->errorCode : '').(!empty($this->errorName) ? ' &ndash; '.__($this->errorName) : ''));
+				$this->setTitle(__('Error') . (!empty($this->errorCode) ? ' ' . $this->errorCode : '') . (!empty($this->errorName) ? ' &ndash; ' . __($this->errorName) : ''));
 
 				// Le message d'erreur remplace le contenu
-				$this->setContent('<p>'.__($this->errorMessage).'</p>');
+				$this->setContent('<p>' . __($this->errorMessage) . '</p>');
 
 				// Journalisation de l'erreur si activé
-				if(ENABLE_LOGS) {
+				if (ENABLE_LOGS) {
 
 					// Si c'est une erreur HTTP, on crée un fichier à part
-					$logger = new Logger('http_errors_'.$this->getStatus());
+					$logger = new Logger('http_errors_' . $this->getStatus());
 					$logger->setDate();
 					$logger->setIPAddress();
 					$logger->setRequest();
@@ -102,11 +101,10 @@
 		 * @return ErrorPage           L'instance courante
 		 */
 		public function setErrorCode($errorCode, $isHTTP = FALSE) {
-
 			$this->errorCode = $errorCode;
 
 			// Si c'est une erreur HTTP, on change le status de l'header aussi, de plus le nom de l'erreur prend le message de ce status
-			if($isHTTP) {
+			if ($isHTTP) {
 				$this->setStatus($errorCode);
 				$this->errorName = $this->getStatusMessage();
 			}
@@ -131,7 +129,6 @@
 		 */
 		public function setErrorName($errorName) {
 			$this->errorName = $errorName;
-
 			return $this;
 		}
 
@@ -152,7 +149,6 @@
 		 */
 		public function setErrorMessage($errorMessage) {
 			$this->errorMessage = $errorMessage;
-
 			return $this;
 		}
 	}

@@ -28,7 +28,6 @@
 		 */
 		protected $file;
 
-
 		/**
 		 * Vérifie si on envoi un fichier à télécharger ou un contenu de type parent
 		 * 
@@ -60,7 +59,7 @@
 		public function send() {
 
 			// Si c'est une réponse spécifique et si le nom du fichier est vide alors on met le même nom
-			if($this->isSpecific() && empty($this->filename)) {
+			if ($this->isSpecific() && empty($this->filename)) {
 				$this->filename = basename($this->file);
 			}
 
@@ -85,12 +84,11 @@
 		public function setFile($file) {
 
 			// On vérifie si le fichier existe
-			if(!is_file($file) || !is_readable($file)) {
+			if (!is_file($file) || !is_readable($file)) {
 				throw new InvalidParameterException('"%s" is not a valid file or it cannot be read', path($file));
 			}
 
 			$this->file = $file;
-
 			return $this;
 		}
 	}

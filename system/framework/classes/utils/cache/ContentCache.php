@@ -48,7 +48,6 @@
 		 */
 		protected $buffering = FALSE;
 
-
 		/**
 		 * Constructeur du cache de contenu
 		 *
@@ -70,11 +69,11 @@
 		public function fetch() {
 
 			// Si le fichier de cache est valide, alors on tente de récupérer le contenu
-			if($this->exists()) {
+			if ($this->exists()) {
 				$value = file_get_contents($this->file);
 
 				// Si la compression est activée, alors on décompresse le contenu
-				if($this->compress) {
+				if ($this->compress) {
 					$value = gzuncompress($value);
 				}
 
@@ -92,7 +91,7 @@
 		public function store($value) {
 
 			// Si la compression est activée, alors on compresse le contenu avant de l'écrire dans le fichier de cache
-			if($this->compress) {
+			if ($this->compress) {
 				file_put_contents($this->file, gzcompress($value), LOCK_EX);
 			} else {
 				file_put_contents($this->file, $value, LOCK_EX);
@@ -102,14 +101,13 @@
 			return $value;
 		}
 
-
 		/**
 		 * Lancement de la capture du contenu à mettre en cache
 		 */
 		public function start() {
 
 			// Si la capture n'est pas activée on la lance
-			if(!$this->buffering) {
+			if (!$this->buffering) {
 				$this->buffering = TRUE;
 				ob_start();
 			}
@@ -123,7 +121,7 @@
 		public function end() {
 
 			// Si la capture est activée, on l'arrête avant de récupérer son contenu
-			if($this->buffering) {
+			if ($this->buffering) {
 				$content = ob_get_clean();
 				$this->buffering = FALSE;
 			}

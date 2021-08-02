@@ -29,7 +29,6 @@
 		 */
 		protected $hooks = array();
 
-
 		/**
 		 * Enregistrement d'un crochet
 		 *
@@ -40,18 +39,18 @@
 		public function register($name, $callback = NULL) {
 
 			// Si le callback n'a pas été renseigné on suppose que son nom soit le même que celui du crochet
-			if(NULL === $callback) {
+			if (NULL === $callback) {
 				$callback = $name;
 			}
 
 			// Si le callable peut être appellé il est correct
-			if(is_callable($callback)) {
+			if (is_callable($callback)) {
 
 				// S'il a déjà été enregistré
-				if(isset($this->hooks[$name]) || array_key_exists($name, $this->hooks)) {
+				if (isset($this->hooks[$name]) || array_key_exists($name, $this->hooks)) {
 
 					// Si ce n'est pas un tableau on le crée pour contenir plusieurs callbacks
-					if(!is_array($this->hooks[$name])) {
+					if (!is_array($this->hooks[$name])) {
 						$this->hooks[$name] = array($this->hooks[$name]);
 					}
 
@@ -67,21 +66,21 @@
 			} else {
 
 				// Si c'est le nom d'une fonction, mais qu'elle n'existe pas
-				if(is_string($callback) && !function_exists($callback)) {
+				if (is_string($callback) && !function_exists($callback)) {
 					throw new ServiceException('Unable to register hook "%s" because function "%s" does not exist', $name, $callback);
 
 				// Sinon si c'est un tableau à deux éléments dont le deuxième est une chaîne, ça peut être une classe ou un objet avec le nom d'une méthode
-				} else if(is_array($callback) && 2 === count($callback) && is_string($callback[1])) {
+				} else if (is_array($callback) && 2 === count($callback) && is_string($callback[1])) {
 
 					// Si c'est une chaîne on suppose que c'est le nom d'une classe
-					if(is_string($callback[0])) {
+					if (is_string($callback[0])) {
 
 						// Si ce n'est pas le nom d'une classe
-						if(!class_exists($callback[0])) {
+						if (!class_exists($callback[0])) {
 							throw new ServiceException('Unable to register hook "%s" because class "%s" does not exist', $name, $callback[0]);
 
 						// Sinon si la classe existe, mais que la méthode n'existe pas
-						} else if(!method_exists($callback[0], $callback[1])) {
+						} else if (!method_exists($callback[0], $callback[1])) {
 							throw new ServiceException('Unable to register hook "%s" because class "%s" does not have method "%s"', $name, $callback[0], $callback[1]);
 
 						// Sinon la méthode existe bel et bien, mais n'est sûrement pas accessible
@@ -90,10 +89,10 @@
 						}
 
 					// Sinon si c'est un objet
-					} else if(is_object($callback[0])) {
+					} else if (is_object($callback[0])) {
 
 						// Si la méthode de l'objet n'existe pas
-						if(!method_exists($callback[0], $callback[1])) {
+						if (!method_exists($callback[0], $callback[1])) {
 							throw new ServiceException('Unable to register hook "%s" because object "%s" does not have method "%s"', $name, get_class($callback[0]), $callback[1]);
 
 						// Sinon la méthode existe bel et bien, mais n'est sûrement pas accessible
@@ -108,7 +107,7 @@
 
 				// Sinon ce n'est pas un callable ou un nom de callable
 				} else {
-					throw new ServiceException('Unable to register hook "%s" because "%s" does not refer to a callable', $name, is_array($callback) ? '['.implode(', ', $callback).']' : $callback);
+					throw new ServiceException('Unable to register hook "%s" because "%s" does not refer to a callable', $name, is_array($callback) ? '[' . implode(', ', $callback) . ']' : $callback);
 				}
 			}
 
@@ -122,10 +121,9 @@
 		 * @return HookService            L'instance courante
 		 */
 		public function registerArray(array $callbacks) {
-			foreach($callbacks as $name => $callback) {
+			foreach ($callbacks as $name => $callback) {
 				$this->register($name, $callback);
 			}
-
 			return $this;
 		}
 
@@ -139,12 +137,12 @@
 		public function execute($name, array $args = array()) {
 
 			// Si aucun crochet n'est enregistré on arrête directement
-			if(!isset($this->hooks[$name])) {
+			if (!isset($this->hooks[$name])) {
 				return;
 			}
 
 			// Si le callback n'est pas un tableau et est bien enregistré, on l'exécute
-			if(!is_array($this->hooks[$name])) {
+			if (!is_array($this->hooks[$name])) {
 				return call_user_func_array($this->hooks[$name], $args);
 
 			// Sinon on exécute chaque callback enregistré
@@ -154,10 +152,10 @@
 				$last = end($this->hooks[$name]);
 
 				// Pour chaque callback enregistré
-				foreach($this->hooks[$name] as $callback) {
+				foreach ($this->hooks[$name] as $callback) {
 
 					// Si ce n'est pas le dernier on l'exécute
-					if($callback !== $last) {
+					if ($callback !== $last) {
 						call_user_func_array($callback, $args);
 
 					// Sinon on l'exécute puis on retourne le résultat

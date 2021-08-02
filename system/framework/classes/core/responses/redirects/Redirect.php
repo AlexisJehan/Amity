@@ -35,14 +35,13 @@
 		 */
 		protected $isPermanent = TRUE;
 
-
 		/**
 		 * {@inheritdoc}
 		 */
 		public function send() {
 
 			// Si l'emplacement de redirection n'est pas vide, on ajoute les headers correspondants
-			if(!empty($this->location)) {
+			if (!empty($this->location)) {
 				$this->redirect($this->location, $this->isPermanent ? 301 : 302);
 			}
 
@@ -66,7 +65,6 @@
 		 */
 		public function setLocation($location) {
 			$this->location = $location;
-
 			return $this;
 		}
 
@@ -86,7 +84,6 @@
 		 */
 		public function setPermanent() {
 			$this->isPermanent = TRUE;
-
 			return $this;
 		}
 
@@ -106,7 +103,6 @@
 		 */
 		public function setTemporary() {
 			$this->isPermanent = FALSE;
-
 			return $this;
 		}
 

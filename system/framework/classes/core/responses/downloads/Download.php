@@ -34,7 +34,6 @@
 		 */
 		protected $filename;
 
-
 		/**
 		 * Vérifie si on envoi un contenu à télécharger ou un contenu de type parent
 		 * 
@@ -66,7 +65,7 @@
 		public function send() {
 
 			// Si c'est une réponse spécifique, c'est-à-dire un contenu à télécharger
-			if($this->isSpecific()) {
+			if ($this->isSpecific()) {
 
 				// On n'interrompt pas le script au bout d'un certain temps
 				// Utile si la connexion est lente ou si le contenu est important
@@ -82,7 +81,7 @@
 				// Headers spécifiques au téléchargement
 				$this->setHeader('Content-Description', 'File Transfer');
 				$this->setHeader('Content-Type', 'application/octet-stream');
-				$this->setHeader('Content-Disposition', 'attachment; filename="'.$this->filename.'"');
+				$this->setHeader('Content-Disposition', 'attachment; filename="' . $this->filename . '"');
 				$this->setHeader('Content-Transfer-Encoding', 'binary');
 				$this->setHeader('Content-Length', $this->getDownloadSize());
 				$this->setHeader('Connection', 'Keep-Alive');
@@ -118,7 +117,6 @@
 		 */
 		public function setDownload($download) {
 			$this->download = (string) $download;
-
 			return $this;
 		}
 
@@ -129,7 +127,6 @@
 		 */
 		public function addDownload($download) {
 			$this->download .= (string) $download;
-
 			return $this;
 		}
 
@@ -150,7 +147,6 @@
 		 */
 		public function setFilename($filename) {
 			$this->filename = $filename;
-
 			return $this;
 		}
 

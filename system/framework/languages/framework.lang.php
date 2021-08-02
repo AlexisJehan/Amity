@@ -14,12 +14,8 @@
 	 * @version    26/03/2016
 	 * @since      05/07/2015
 	 */
-	if(!defined('__SYSTEM__')) exit('<h2>Error</h2><p>You cannot directly access this file.</p>');
+	if (!defined('__SYSTEM__')) exit('<h2>Error</h2><p>You cannot directly access this file.</p>');
 
-
-	/***************************************************************************
-	 *                         TRADUCTIONS EN FRANÇAIS                         *
-	 **************************************************************************/
 	$dictionary['fr'] = array(
 
 		// Traduction dans plusieurs classes (Image, Json, MySQLDatabaseService, MySQLiDatabaseService, WebRequest)

@@ -14,7 +14,7 @@
 	 * @version    05/08/2015
 	 * @since      05/08/2015
 	 */
-	class HomeFragment extends Fragment {
+	final class HomeFragment extends Fragment {
 
 		/**
 		 * Retourne le nom de template utilisé par le fragment
@@ -29,14 +29,14 @@
 		 * Nous n'utilisons pas de cache, on se contente donc de redéfinir une méthode vide
 		 */
 		public function getCacheName() {
-			
+			// Vide
 		}
 
 		/**
 		 * Nous n'utilisons pas de cache, on se contente donc de redéfinir une méthode vide
 		 */
 		public function getCacheDuration() {
-			
+			// Vide
 		}
 	}
 ?>

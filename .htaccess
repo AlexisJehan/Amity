@@ -21,7 +21,7 @@ Options -Indexes +FollowSymLinks
 
 	# Redirection vers le contrôleur si "/index.php" est spécifié
 	RewriteCond %{ENV:REDIRECT_STATUS} ^$
-	RewriteRule ^index\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]
+	RewriteRule ^index\.php(/(.*)|$) %{ENV:BASE}/$2 [L,R=301]
 
 	# Si c'est un sous-dossier, on redirige vers la page d'erreur 403
 	RewriteCond %{REQUEST_FILENAME} -d

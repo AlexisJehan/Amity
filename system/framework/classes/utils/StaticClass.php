@@ -25,21 +25,21 @@
 		 * Le constructeur n'est pas disponible
 		 */
 		private final function __construct() {
-			
+			// Vide
 		}
 
 		/**
 		 * Le clonage n'est pas disponible
 		 */
 		private final function __clone() {
-			
+			// Vide
 		}
 
 		/**
 		 * La désérialisation n'est pas disponible
 		 */
 		private final function __wakeup() {
-			
+			// Vide
 		}
 	}
 ?>

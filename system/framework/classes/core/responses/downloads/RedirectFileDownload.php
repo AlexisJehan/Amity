@@ -26,9 +26,8 @@
 		public function send() {
 
 			// Si c'est une réponse spécifique, on redirige vers le fichier
-			if($this->isSpecific()) {
+			if ($this->isSpecific()) {
 				$this->redirect($this->file, 301);
-
 				$this->sendHeaders();
 
 			} else {
@@ -44,7 +43,6 @@
 		 */
 		public function setFile($file) {
 			$this->file = $file;
-
 			return $this;
 		}
 	}

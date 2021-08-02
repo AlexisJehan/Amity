@@ -30,23 +30,23 @@
 		public function getTemplateName() {
 
 			// Si le service multi-lingue est activé, on tente de trouver un template correspondant à la langue
-			if(USE_LANGUAGE) {
+			if (USE_LANGUAGE) {
 
 				// Tout d'abord on tente quelque soit la langue, aussi bien « fr » que « fr-FR »
 				$language = Service::language()->getLanguage();
-				$name = $this->fragment->getTemplateName().'.'.$language;
+				$name = $this->fragment->getTemplateName() . '.' . $language;
 
 				// Si le template existe, le nom correspond bien à un template traduit et on le retourne
-				if(Template::is($name)) {
+				if (Template::is($name)) {
 					return $name;
 
 				// Sinon, si la langue est du style « fr-FR » on tente avec seulement la première partie, soit « fr »
-				} else if(FALSE !== strpos($language, '-')) {
+				} else if (FALSE !== strpos($language, '-')) {
 					$language = strstr($language, '-', TRUE);
-					$name = $this->fragment->getTemplateName().'.'.$language;
+					$name = $this->fragment->getTemplateName() . '.' . $language;
 
 					// Si le template existe, le nom correspond bien à un template traduit avec la première partie de la langue et on le retourne
-					if(Template::is($name)) {
+					if (Template::is($name)) {
 						return $name;
 					}
 				}
@@ -64,9 +64,9 @@
 		public function getCacheName() {
 
 			// Si le service multi-lingue est activé, on ajoute la langue à la fin
-			if(USE_LANGUAGE) {
+			if (USE_LANGUAGE) {
 				$language = Service::language()->getLanguage();
-				return $this->fragment->getCacheName().'.'.$language;
+				return $this->fragment->getCacheName() . '.' . $language;
 			}
 
 			// Sinon on retourne le nom simple

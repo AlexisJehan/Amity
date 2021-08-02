@@ -28,7 +28,6 @@
 		 */
 		private static $services = array();
 
-
 		/**
 		 * Indique si un service est actuellement enregistré
 		 * 
@@ -49,7 +48,7 @@
 		public static function set($name, IService $service) {
 
 			// Si le service est déjà enregistré
-			if(isset(self::$services[$name])) {
+			if (isset(self::$services[$name])) {
 				throw new ServiceException('The service "%s" has already been initialised', $name);
 			}
 
@@ -65,7 +64,7 @@
 		public static function get($name) {
 
 			// Si aucun service n'est enregistré à ce nom
-			if(!isset(self::$services[$name])) {
+			if (!isset(self::$services[$name])) {
 				throw new ServiceException('The service "%s" has not been created', $name);
 			}
 
@@ -82,7 +81,7 @@
 		public static function __callStatic($name, $arguments) {
 
 			// S'il n'y a pas d'argument, on tente de récupérer le service
-			if(empty($arguments)) {
+			if (empty($arguments)) {
 				return self::get($name);
 
 			// Sinon on tente de l'enregistrer avec le premier argument

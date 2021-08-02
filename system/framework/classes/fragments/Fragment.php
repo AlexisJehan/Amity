@@ -30,7 +30,6 @@
 		 */
 		protected $binding = array();
 
-
 		/**
 		 * Association d'une clé à une valeur
 		 *
@@ -40,7 +39,6 @@
 		 */
 		protected final function bind($key, $value) {
 			$this->binding[$key] = $value;
-
 			return $this;
 		}
 
@@ -51,10 +49,9 @@
 		 * @return Fragment          L'instance courante
 		 */
 		protected final function bindArray(array $binding) {
-			foreach($binding as $key => $value) {
+			foreach ($binding as $key => $value) {
 				$this->binding[$key] = $value;
 			}
-
 			return $this;
 		}
 
@@ -84,11 +81,10 @@
 		 * @return string Le contenu généré
 		 */
 		protected final function render() {
-			return
-				Template::load(
-					$this->getTemplateName(),
-					$this->getBinding()
-				);
+			return Template::load(
+				$this->getTemplateName(),
+				$this->getBinding()
+			);
 		}
 
 		/**

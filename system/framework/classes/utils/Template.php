@@ -54,14 +54,13 @@
 		 */
 		protected $variables = array();
 
-
 		/**
 		 * Initialisation de la classe, instanciation du chargeur de templates
 		 */
 		public static function init() {
 
 			// S'il n'a pas encore été instantié, on crée le chargeur statique, et on ajoute l'emplacement de l'application
-			if(NULL === self::$loader) {
+			if (NULL === self::$loader) {
 				self::$loader = new TemplateLoader();
 				self::$loader->add(TEMPLATES_DIR)->load();
 			}
@@ -76,7 +75,7 @@
 			$this->name = $name;
 
 			// On tente de récupérer un fichier correspondant au nom donné
-			if(!$this->file = self::$loader->getFile($name)) {
+			if (!$this->file = self::$loader->getFile($name)) {
 				throw new SystemException('Unable to find a template file matching "%s"', $name);
 			}
 		}
@@ -91,7 +90,6 @@
 		 */
 		public function bind($name, $value, $escape = TRUE) {
 			$this->variables[$name] = $escape ? $this->escape($value) : $value;
-
 			return $this;
 		}
 
@@ -104,7 +102,6 @@
 		 */
 		public function bindHtml($name, $content) {
 			$this->bind($name, $content, FALSE);
-
 			return $this;
 		}
 
@@ -118,12 +115,11 @@
 		public function bindArray(array $variables, $escapeAll = TRUE) {
 
 			// Le tableau doit être associatif
-			if($variables === array_values($variables)) {
+			if ($variables === array_values($variables)) {
 				throw new InvalidParameterException('The template binding array must be associative', $name);
 			}
 
 			$this->variables += $escapeAll ? $this->escape($variables) : $variables;
-
 			return $this;
 		}
 
@@ -137,13 +133,13 @@
 		public function render(array $variables = array(), $escapeAll = TRUE) {
 
 			// Si une association est renseignée on la fait avant de remplir le template
-			if(!empty($variables)) {
+			if (!empty($variables)) {
 				$this->bindArray($variables, $escapeAll);
 			}
 
 			ob_start();
 			extract($this->variables);
-			require($this->file);
+			require ($this->file);
 			return ob_get_clean();
 		}
 
@@ -156,15 +152,15 @@
 		public function escape($variable) {
 
 			// Si c'est un tableau, on échappe chaque élément qui le compose
-			if(is_array($variable)) {
-				foreach($variable as $name => $value) {
+			if (is_array($variable)) {
+				foreach ($variable as $name => $value) {
 					$variable[$name] = $this->escape($value);
 				}
 
 			// Si c'est un objet, on échappe chacun de ses attributs
-			} else if(is_object($variable)) {
+			} else if (is_object($variable)) {
 				$values = get_class_vars(get_class($variable));
-				foreach($values as $name => $value) {
+				foreach ($values as $name => $value) {
 					$variable->{$name} = $this->escape($value);
 				}
 			} else {
@@ -183,20 +179,21 @@
 		public function unescape($variable) {
 
 			// Si c'est un tableau, on échappe chaque élément qui le compose
-			if(is_array($variable)) {
-				foreach($variable as $name => $value) {
+			if (is_array($variable)) {
+				foreach ($variable as $name => $value) {
 					$variable[$name] = $this->unescape($value);
 				}
 
 			// Si c'est un objet, on échappe chacun de ses attributs
-			} else if(is_object($variable)) {
+			} else if (is_object($variable)) {
 				$values = get_class_vars(get_class($variable));
-				foreach($values as $name => $value) {
+				foreach ($values as $name => $value) {
 					$variable->{$name} = $this->unescape($value);
 				}
 			} else {
 				$variable = htmlspecialchars_decode($variable, ENT_COMPAT);
 			}
+
 			return $variable;
 		}
 

@@ -68,7 +68,6 @@
 		 */
 		protected $free = FALSE;
 
-
 		/**
 		 * {@inheritdoc}
 		 *
@@ -84,11 +83,11 @@
 		protected final function __connect($host, $port, $database, $user, $password, $encoding, array $options) {
 
 			// Tentative de connexion au serveur
-			if(!$this->connection = @mysql_pconnect($host.(!empty($port) ? ':'.$port : ''), $user, $password)) {
+			if (!$this->connection = @mysql_pconnect($host . (!empty($port) ? ':' . $port : ''), $user, $password)) {
 
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
 				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
-				if(DEV_MODE) {
+				if (DEV_MODE) {
 					$this->throwException();
 				}
 
@@ -96,15 +95,16 @@
 			}
 
 			// Tentative de connexion à la base de données
-			if(!mysql_select_db($database, $this->connection)) {
+			if (!mysql_select_db($database, $this->connection)) {
 				$this->throwException();
 			}
 
 			// Sélection du charset (MySQL version 5.0.7)
-			if(!mysql_set_charset($encoding, $this->connection)) {
+			if (!mysql_set_charset($encoding, $this->connection)) {
 				$this->throwException();
 			}
-			//mysql_query('SET NAMES '.$encoding);
+
+			//mysql_query('SET NAMES ' . $encoding);
 
 			return TRUE;
 		}
@@ -115,10 +115,9 @@
 		 * @return boolean Vrai si la déconnexion a été effectuée
 		 */
 		protected final function __disconnect() {
-			if(!mysql_close($this->connection)) {
+			if (!mysql_close($this->connection)) {
 				$this->throwException();
 			}
-
 			return TRUE;
 		}
 
@@ -151,32 +150,30 @@
 		public function bind($key, $value, $type = NULL) {
 
 			// Transformation de la valeur selon son type renseigné ou déterminé
-			if((NULL === $type && is_int($value)) || $type === self::PARAM_INT) {
+			if ((NULL === $type && is_int($value)) || $type === self::PARAM_INT) {
 				$value = intval($value);
 
-			} else if((NULL === $type && is_bool($value)) || $type === self::PARAM_BOOL) {
+			} else if ((NULL === $type && is_bool($value)) || $type === self::PARAM_BOOL) {
 				$value = $value ? 'TRUE' : 'FALSE';
+			} else if ((NULL === $type && NULL === $value) || $type === self::PARAM_NULL) {
 
-			} else if((NULL === $type && NULL === $value) || $type === self::PARAM_NULL) {
-
-				// FIXME: « = NULL / != NULL » devrait plutôt être « IS NULL / IS NOT NULL »
+				// FIXME « = NULL / != NULL » devrait plutôt être « IS NULL / IS NOT NULL »
 				$value = 'NULL';
-
 			} else {
 
 				// Suppression des guillemets magiques
-				if(get_magic_quotes_runtime()) {
+				if (get_magic_quotes_runtime()) {
 					$value = stripslashes($value);
 				}
 
-				$value = '\''.mysql_real_escape_string($value, $this->connection).'\'';
+				$value = '\'' . mysql_real_escape_string($value, $this->connection) . '\'';
 			}
 
 			// Selon la clé renseigné on ajoute dans l'association qui correspond
-			if(is_int($key) && 0 < $key) {
+			if (is_int($key) && 0 < $key) {
 				$this->markedBinding[$key] = $value;
 			} else {
-				$this->namedBinding[':'.ltrim($key, ':')] = $value;
+				$this->namedBinding[':' . ltrim($key, ':')] = $value;
 			}
 
 			return $this;
@@ -186,14 +183,13 @@
 		 * {@inheritdoc}
 		 */
 		protected function __execute() {
-
 			//ini_set("pcre.recursion_limit", 524);
 
 			// Si on doit associer des valeurs par nomination
-			if(0 < count($this->namedBinding)) {
+			if (0 < count($this->namedBinding)) {
 				$binding = $this->namedBinding;
 				$this->query = preg_replace_callback('%(:\w+)|(?:\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|/*[^*]*\*+([^*/][^*]*\*+)*/|\#.*|--.*|[^"\':#])+%u', function($match) use($binding) {
-					if(isset($match[1]) && isset($binding[$match[1]])) {
+					if (isset($match[1]) && isset($binding[$match[1]])) {
 						return str_replace($match[1], $binding[$match[1]], $match[0]);
 					} else {
 						return $match[0];
@@ -202,11 +198,11 @@
 			}
 
 			// Si on doit associer des valeurs par marquage
-			if(0 < count($this->markedBinding)) {
+			if (0 < count($this->markedBinding)) {
 				$binding = $this->markedBinding;
 				$count = 0;
 				$this->query = preg_replace_callback('%\?|(?:\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|/*[^*]*\*+([^*/][^*]*\*+)*/|\#.*|--.*|[^"\'?#])+%u', function($match) use($binding, &$count) {
-					if('?' === $match[0] && isset($binding[++$count])) {
+					if ('?' === $match[0] && isset($binding[++$count])) {
 						return $binding[$count];
 					} else {
 						return $match[0];
@@ -220,9 +216,9 @@
 			$queries = $matches[1];
 
 			// On exécute chaque requête
-			foreach($queries as $query) {
+			foreach ($queries as $query) {
 				$this->result = mysql_query($query, $this->connection);
-				if(!$this->result) {
+				if (!$this->result) {
 					$this->throwException();
 				}
 			}
@@ -241,23 +237,37 @@
 		public final function row($fetch = self::FETCH_ASSOC) {
 
 			// Si le résultat a déjà été libéré on quitte
-			if($this->free) {
+			if ($this->free) {
 				return FALSE;
 			}
 
 			// Selon ma méthode de récupération on traite le résultat différemment
-			switch($fetch) {
-				case self::FETCH_ASSOC: return mysql_fetch_assoc ($this->result); break;
-				case self::FETCH_NUM:   return mysql_fetch_row   ($this->result); break;
-				case self::FETCH_BOTH:  return mysql_fetch_array ($this->result); break;
-				case self::FETCH_OBJ:   return mysql_fetch_object($this->result); break;
+			switch ($fetch) {
+				case self::FETCH_ASSOC:
+					return mysql_fetch_assoc($this->result);
+					break;
+				case self::FETCH_NUM:
+					return mysql_fetch_row($this->result);
+					break;
+				case self::FETCH_BOTH:
+					return mysql_fetch_array($this->result);
+					break;
+				case self::FETCH_OBJ:
+					return mysql_fetch_object($this->result);
+					break;
 				// mysql_fetch_field ???
 
-				// TODO: Implémenter les autres méthodes de récupération introduites par PDO
-				//case self::FETCH_KEY_PAIR: return self::mysql_fetch_key_pair($this->result); break;
-				//case self::FETCH_GROUP_UNIQUE_ASSOC: return self::mysql_fetch_group_unique_assoc($this->result); break;
+				// TODO Implémenter les autres méthodes de récupération introduites par PDO
+				/*case self::FETCH_KEY_PAIR:
+					return self::mysql_fetch_key_pair($this->result);
+					break;
+				case self::FETCH_GROUP_UNIQUE_ASSOC:
+					return self::mysql_fetch_group_unique_assoc($this->result);
+					break;*/
 
-				default: throw new ServiceException('Unavailable or unimplemented fetch method with flag "%s" using "%s" database service', $fetch, $this->getAccessName()); break;
+				default:
+					throw new ServiceException('Unavailable or unimplemented fetch method with flag "%s" using "%s" database service', $fetch, $this->getAccessName());
+					break;
 			}
 		}
 
@@ -269,8 +279,8 @@
 		 */
 		public final function rows($fetch = self::FETCH_ASSOC) {
 			$table = array();
-			if(!$this->free) {
-				while(($table[] = $this->row($fetch)) || array_pop($table));
+			if (!$this->free) {
+				while (($table[] = $this->row($fetch)) || array_pop($table));
 				$this->free = mysql_free_result($this->result);
 			}
 			return $table;
@@ -285,7 +295,7 @@
 		public final function column($number = 0) {
 
 			// Si le résultat a déjà été libéré on quitte
-			if($this->free) {
+			if ($this->free) {
 				return FALSE;
 			}
 
@@ -301,9 +311,9 @@
 		 */
 		public final function columns($number = 0) {
 			$table = array();
-			if(!$this->free) {
-				while($row = $this->row(self::FETCH_NUM)) {
-					if(!isset($row[$number])) {
+			if (!$this->free) {
+				while ($row = $this->row(self::FETCH_NUM)) {
+					if (!isset($row[$number])) {
 						$this->throwException('Invalid column index');
 					}
 					$table[] = $row[$number];
@@ -329,8 +339,7 @@
 		 * @return DatabaseService          L'instance courante
 		 */
 		public final function autoCommit($enabled = TRUE) {
-			mysql_query('SET AUTOCOMMIT = '.($enabled ? 1 : 0));
-
+			mysql_query('SET AUTOCOMMIT = ' . ($enabled ? 1 : 0));
 			return $this;
 		}
 
@@ -341,7 +350,6 @@
 		 */
 		public final function beginTransaction() {
 			mysql_query('START TRANSACTION');
-
 			return $this;
 		}
 
@@ -352,7 +360,6 @@
 		 */
 		public final function commit() {
 			mysql_query('COMMIT');
-
 			return $this;
 		}
 
@@ -363,7 +370,6 @@
 		 */
 		public final function rollback() {
 			mysql_query('ROLLBACK');
-
 			return $this;
 		}
 
@@ -383,8 +389,8 @@
 		 * @param integer $code    Le code personnalisé [optionnel, « 0 » par défaut]
 		 */
 		protected final function throwException($message = NULL, $code = 0) {
-			if(NULL === $message) {
-				if(FALSE !== $this->connection) {
+			if (NULL === $message) {
+				if (FALSE !== $this->connection) {
 					$message = mysql_error($this->connection);
 					$code = mysql_errno($this->connection);
 				} else {
@@ -397,7 +403,7 @@
 	}
 
 	// On vérifie que l'extension est disponible
-	if(!extension_loaded('mysql')) {
+	if (!extension_loaded('mysql')) {
 		throw new SystemException('"%s" extension is not available', 'mysql');
 	}
 ?>

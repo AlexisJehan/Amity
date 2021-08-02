@@ -32,7 +32,7 @@
 			'MYSQL'           =>          'MySQLDatabaseService',
 			'MYSQL_SPECIFIC'  =>  'SpecificMySQLDatabaseService',
 			'MYSQLI'          =>         'MySQLiDatabaseService',
-			'MYSQLI_SPECIFIC' => 'SpecificMySQLiDatabaseService'
+			'MYSQLI_SPECIFIC' => 'SpecificMySQLiDatabaseService',
 		);
 
 		/**
@@ -41,18 +41,18 @@
 		 * @var array
 		 */
 		private static $pdoDrivers = array(
-			'PDO_CUBRID'   =>   'cubrid',		// Cubrid
-			'PDO_DBLIB'    =>    'dblib',		// FreeTDS / Microsoft SQL Server / Sybase
-			'PDO_FIREBIRD' => 'firebird',		// Firebird
-			'PDO_IBM'      =>      'ibm',		// IBM DB2
-			'PDO_INFORMIX' => 'informix',		// IBM Informix Dynamic Server
-			'PDO_MYSQL'    =>    'mysql',		// MySQL 3.x/4.x/5.x
-			'PDO_OCI'      =>      'oci',		// Oracle Call Interface
-			'PDO_ODBC'     =>     'odbc',		// ODBC v3 (IBM DB2, unixODBC and win32 ODBC)
-			'PDO_PGSQL'    =>    'pgsql',		// PostgreSQL
-			'PDO_SQLITE'   =>   'sqlite',		// SQLite 3 and SQLite 2
-			'PDO_SQLSRV'   =>   'sqlsrv',		// Microsoft SQL Server / SQL Azure
-			'PDO_4D'       =>       '4D'		// 4D
+			'PDO_CUBRID'   => 'cubrid',   // Cubrid
+			'PDO_DBLIB'    => 'dblib',    // FreeTDS / Microsoft SQL Server / Sybase
+			'PDO_FIREBIRD' => 'firebird', // Firebird
+			'PDO_IBM'      => 'ibm',      // IBM DB2
+			'PDO_INFORMIX' => 'informix', // IBM Informix Dynamic Server
+			'PDO_MYSQL'    => 'mysql',    // MySQL 3.x/4.x/5.x
+			'PDO_OCI'      => 'oci',      // Oracle Call Interface
+			'PDO_ODBC'     => 'odbc',     // ODBC v3 (IBM DB2, unixODBC and win32 ODBC)
+			'PDO_PGSQL'    => 'pgsql',    // PostgreSQL
+			'PDO_SQLITE'   => 'sqlite',   // SQLite 3 and SQLite 2
+			'PDO_SQLSRV'   => 'sqlsrv',   // Microsoft SQL Server / SQL Azure
+			'PDO_4D'       => '4D',       // 4D
 		);
 
 		/**
@@ -64,7 +64,7 @@
 		public static function create(array $config) {
 
 			// Hôte du serveur de base de données
-			if(isset($config['DB_HOST'])) {
+			if (isset($config['DB_HOST'])) {
 				$host = $config['DB_HOST'];
 			} else {
 				throw new SystemException('Unable to create the database service because "%s" is missing from the configuration', 'DB_HOST');
@@ -74,21 +74,21 @@
 			$port = isset($config['DB_PORT']) ? $config['DB_PORT'] : '';
 
 			// Nom de la base de données
-			if(isset($config['DB_DATABASE'])) {
+			if (isset($config['DB_DATABASE'])) {
 				$database = $config['DB_DATABASE'];
 			} else {
 				throw new SystemException('Unable to create the database service because "%s" is missing from the configuration', 'DB_DATABASE');
 			}
 
 			// Utilisateur du schéma de la base de données
-			if(isset($config['DB_USER'])) {
+			if (isset($config['DB_USER'])) {
 				$user = $config['DB_USER'];
 			} else {
 				throw new SystemException('Unable to create the database service because "%s" is missing from the configuration', 'DB_USER');
 			}
 
 			// Mot de passe du schéma de la base de données
-			if(isset($config['DB_PASSWORD'])) {
+			if (isset($config['DB_PASSWORD'])) {
 				$password = $config['DB_PASSWORD'];
 			} else {
 				throw new SystemException('Unable to create the database service because "%s" is missing from the configuration', 'DB_PASSWORD');
@@ -103,16 +103,15 @@
 			// Accès à la base de données [« PDO » par défaut]
 			$access = isset($config['DB_ACCESS']) ? strtoupper($config['DB_ACCESS']) : 'PDO';
 
-
 			// Si l'accès renseigné est disponible
-			if(in_array($access, array_keys(self::$databaseServices))) {
+			if (in_array($access, array_keys(self::$databaseServices))) {
 
 				// On l'instancie avec les paramètres et on le retourne
 				$databaseService = self::$databaseServices[$access];
 				return new $databaseService($host, $port, $database, $user, $password, $encoding, $options);
 
 			// Sinon si c'est un accès PDO avec le driver de renseigné
-			} else if(in_array($access, array_keys(self::$pdoDrivers))) {
+			} else if (in_array($access, array_keys(self::$pdoDrivers))) {
 				return new PDODatabaseService($host, $port, $database, $user, $password, $encoding, $options, self::$pdoDrivers[$access]);
 
 			// Sinon le service n'est pas disponible à l'instanciation

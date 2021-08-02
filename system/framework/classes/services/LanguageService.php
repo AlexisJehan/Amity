@@ -45,21 +45,22 @@
 		 */
 		protected $dictionary;
 
-
 		/**
 		 * Constructeur du service multi-lingue
 		 */
 		public function __construct() {
 
 			// S'il n'a pas encore été instantié, on crée le chargeur statique, et on ajoute les emplacements des traductions
-			if(NULL === self::$loader) {
+			if (NULL === self::$loader) {
 				self::$loader = new LanguageLoader();
-				self::$loader->addArray(
-					array(
-						FRAMEWORK_DIR.DIRECTORY_SEPARATOR.'languages'.DIRECTORY_SEPARATOR.'framework.lang.php',
-						LANGUAGES_DIR
+				self::$loader
+					->addArray(
+						array(
+							FRAMEWORK_DIR . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . 'framework.lang.php',
+							LANGUAGES_DIR,
+						)
 					)
-				)->load();
+					->load();
 			}
 
 			// On parse les languages acceptées par l'utilisateur (on retire les priorités)
@@ -71,16 +72,16 @@
 
 			// Puis on charge chacune des traductions
 			$names = array_keys(self::$loader->getFiles());
-			foreach($names as $name) {
+			foreach ($names as $name) {
 				$file = self::$loader->getFile($name);
 				$dictionary = array();
-				require($file);
+				require ($file);
 				$this->dictionary = array_merge_recursive($this->dictionary, $dictionary);
 			}
 
 			// Si dans les langues de l'utilisateur il y en a une proposée, on la choisit
-			foreach($userLanguages as $language) {
-				if(isset($this->dictionary[$language])) {
+			foreach ($userLanguages as $language) {
+				if (isset($this->dictionary[$language])) {
 					$this->language = $language;
 					break;
 				}
@@ -96,13 +97,13 @@
 		public function translate($string) {
 
 			// Si la chaîne est traduisible, on le fait
-			if(isset($this->dictionary[$this->language][$string])) {
+			if (isset($this->dictionary[$this->language][$string])) {
 				return $this->dictionary[$this->language][$string];
 
 			// Sinon si la langue a un format du genre « fr-FR », on récupère la première partie et on regarde si il y a une traduction
-			} else if(FALSE !== strpos($this->language, '-')) {
+			} else if (FALSE !== strpos($this->language, '-')) {
 				$language = strstr($this->language, '-', TRUE);
-				if(isset($this->dictionary[$language][$string])) {
+				if (isset($this->dictionary[$language][$string])) {
 					return $this->dictionary[$language][$string];
 				}
 			}
@@ -138,12 +139,11 @@
 		public function setLanguage($language) {
 
 			// Si la langue n'est pas valide
-			if(!preg_match('/^[a-z]{1,8}(-[a-z]{1,8})?$/i', $language)) {
+			if (!preg_match('/^[a-z]{1,8}(-[a-z]{1,8})?$/i', $language)) {
 				throw new InvalidParameterException('The value "%s" is not valid for the language', $language);
 			}
 
 			$this->language = $language;
-
 			return $this;
 		}
 
@@ -156,8 +156,8 @@
 		protected static function parseAcceptLanguages($acceptLanguages = NULL) {
 
 			// Si la chaîne utilisateur des langues n'est pas renseignée
-			if(NULL === $acceptLanguages) {
-				if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+			if (NULL === $acceptLanguages) {
+				if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 					$acceptLanguages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 				} else {
 					$acceptLanguages = '';
@@ -168,11 +168,11 @@
 			preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $acceptLanguages, $matches);
 
 			// Si on a des résultats
-			if(!empty($matches[1])) {
+			if (!empty($matches[1])) {
 
 				// On récupère et enregistre correctement les valeurs
 				$languages = array_combine($matches[1], $matches[4]);
-				foreach($languages as $language => $preference) {
+				foreach ($languages as $language => $preference) {
 					$languages[$language] = floatval($preference) ?: 1.0;
 				}
 

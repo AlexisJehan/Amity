@@ -31,7 +31,7 @@
 
 
 	/***************************************************************************
-	 *                   VARIABLES SPÉCIFIQUES AU FRAMEWORK                    *
+	 *                         VARIABLES DU FRAMEWORK                          *
 	 **************************************************************************/
 
 	/**
@@ -68,7 +68,7 @@
 	 **************************************************************************/
 
 	// Suppression des « magic quotes » si activées (déprécié depuis PHP 7.4.0)
-	if(version_compare(PHP_VERSION, '7.4.0', '<') && get_magic_quotes_gpc()) {
+	if (version_compare(PHP_VERSION, '7.4.0', '<') && get_magic_quotes_gpc()) {
 		$stripslashes = function(&$value) {
 			$value = stripslashes($value);
 		};
@@ -85,9 +85,9 @@
 	// Charset en UTF-8 (« text/html » pour interpréter les éventuels messages du débugueur)
 	header('Content-type: text/html; charset=utf-8');
 	//header('Content-Type: text/plain; charset=utf-8');
-	
+
 	// Ajout d'un timezone si aucun n'est spécifié pour la fonction de date
-	if(!ini_get('date.timezone')) {
+	if (!ini_get('date.timezone')) {
 		date_default_timezone_set('GMT');
 	}
 
@@ -101,98 +101,98 @@
 	 * 
 	 * @package framework
 	 */
-	define('BASE_DIR', realpath(__DIR__.'/../..'));
+	define('BASE_DIR', realpath(__DIR__ . '/../..'));
 
 	/**
 	 * Lien vers la racine du site
 	 * 
 	 * @package framework
 	 */
-	define('BASE_URL', ((!empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].rtrim(str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '\\/'));
+	define('BASE_URL', ((!empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . rtrim(str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '\\/'));
 
 	/**
 	 * Chemin vers le dossier de l'application
 	 * 
 	 * @package framework
 	 */
-	define('APPLICATION_DIR', BASE_DIR.DIRECTORY_SEPARATOR.'system'.DIRECTORY_SEPARATOR.'application');
+	define('APPLICATION_DIR', BASE_DIR . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'application');
 
 	/**
 	 * Chemin vers le dossier du framework
 	 * 
 	 * @package framework
 	 */
-	define('FRAMEWORK_DIR', BASE_DIR.DIRECTORY_SEPARATOR.'system'.DIRECTORY_SEPARATOR.'framework');
+	define('FRAMEWORK_DIR', BASE_DIR . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'framework');
 
 	/**
 	 * Chemin vers le dossier de cache de l'application
 	 * 
 	 * @package framework
 	 */
-	define('CACHE_DIR', APPLICATION_DIR.DIRECTORY_SEPARATOR.'cache');
+	define('CACHE_DIR', APPLICATION_DIR . DIRECTORY_SEPARATOR . 'cache');
 
 	/**
 	 * Chemin vers le dossier des traductions de l'application
 	 * 
 	 * @package framework
 	 */
-	define('LANGUAGES_DIR', APPLICATION_DIR.DIRECTORY_SEPARATOR.'languages');
+	define('LANGUAGES_DIR', APPLICATION_DIR . DIRECTORY_SEPARATOR . 'languages');
 
 	/**
 	 * Chemin vers le dossier des fichiers de journalisation de l'application
 	 * 
 	 * @package framework
 	 */
-	define('LOGS_DIR', APPLICATION_DIR.DIRECTORY_SEPARATOR.'logs');
+	define('LOGS_DIR', APPLICATION_DIR . DIRECTORY_SEPARATOR . 'logs');
 
 	/**
 	 * Chemin vers le dossier des templates de l'application
 	 * 
 	 * @package framework
 	 */
-	define('TEMPLATES_DIR', APPLICATION_DIR.DIRECTORY_SEPARATOR.'templates');
+	define('TEMPLATES_DIR', APPLICATION_DIR . DIRECTORY_SEPARATOR . 'templates');
 
 	/**
 	 * Chemin vers le dossier des composants
 	 * 
 	 * @package framework
 	 */
-	define('ASSETS_DIR', BASE_DIR.DIRECTORY_SEPARATOR.'assets');
+	define('ASSETS_DIR', BASE_DIR . DIRECTORY_SEPARATOR . 'assets');
 
 	/**
 	 * Lien vers le dossier des composants
 	 * 
 	 * @package framework
 	 */
-	define('ASSETS_URL', BASE_URL.'/assets');
+	define('ASSETS_URL', BASE_URL . '/assets');
 
 	/**
 	 * Chemin vers le dossier du contenu
 	 * 
 	 * @package framework
 	 */
-	define('CONTENTS_DIR', BASE_DIR.DIRECTORY_SEPARATOR.'contents');
+	define('CONTENTS_DIR', BASE_DIR . DIRECTORY_SEPARATOR . 'contents');
 
 	/**
 	 * Lien vers le dossier du contenu
 	 * 
 	 * @package framework
 	 */
-	define('CONTENTS_URL', BASE_URL.'/contents');
+	define('CONTENTS_URL', BASE_URL . '/contents');
 
 
 	/***************************************************************************
-	 *                  VARIABLES SPÉCIFIQUES À L'APPLICATION                  *
+	 *                       VARIABLES DE L'APPLICATION                        *
 	 **************************************************************************/
 
 	// On importe la configuration personnalisée
-	require(APPLICATION_DIR.'/app.php');
+	require (APPLICATION_DIR . '/app.php');
 
 	// Pour chaque entrée de la configuration
-	foreach($config as $key => $value) {
+	foreach ($config as $key => $value) {
 
 		// Si l'entrée est un tableau, alors c'est une configuration spécifique à un serveur
-		if(is_array($value)) {
+		if (is_array($value)) {
 
 			// On supprime la configuration spécifique qu'elle soit celle du serveur courant ou non
 			unset($config[$key]);
@@ -200,10 +200,10 @@
 			// Un identifiant de serveur peut être un nom de serveur ou une adresse IP, s'ils sont plusieurs ils doivent être séparés
 			// par un « | »
 			$key = explode('|', $key);
-			if(in_array($_SERVER['SERVER_NAME'], $key) || in_array($_SERVER['SERVER_ADDR'], $key)) {
-				
+			if (in_array($_SERVER['SERVER_NAME'], $key) || in_array($_SERVER['SERVER_ADDR'], $key)) {
+
 				// On ajoute chaque entrée spécifique à la configuration globale
-				foreach($value as $key => $value) {
+				foreach ($value as $key => $value) {
 					$config[$key] = $value;
 				}
 			}
@@ -214,19 +214,19 @@
 	$config = array_merge(
 		array(
 			'APP_NAME'         => 'Application',
-			'DEFAULT_LANGUAGE' =>          'en',
-			'MAINTENANCE'      =>         FALSE,
-			'ENABLE_CACHE'     =>          TRUE,
-			'ENABLE_LOGS'      =>          TRUE,
-			'USE_DATABASE'     =>         FALSE,
-			'USE_DEBUG'        =>          TRUE,
-			'USE_HOOK'         =>          TRUE,
-			'USE_LANGUAGE'     =>          TRUE,
-			'DEV_MODE'         =>         FALSE,
-			'FILE_PREFIX'      =>            '',
-			'DB_ENCODING'      =>        'utf8',
-			'DB_OPTIONS'       =>       array(),
-			'DB_ACCESS'        =>         'PDO'
+			'DEFAULT_LANGUAGE' => 'en',
+			'MAINTENANCE'      => FALSE,
+			'ENABLE_CACHE'     => TRUE,
+			'ENABLE_LOGS'      => TRUE,
+			'USE_DATABASE'     => FALSE,
+			'USE_DEBUG'        => TRUE,
+			'USE_HOOK'         => TRUE,
+			'USE_LANGUAGE'     => TRUE,
+			'DEV_MODE'         => FALSE,
+			'FILE_PREFIX'      => '',
+			'DB_ENCODING'      => 'utf8',
+			'DB_OPTIONS'       => array(),
+			'DB_ACCESS'        => 'PDO',
 		),
 
 		// On met les noms de clés en majuscule, pour les noms de constantes
@@ -234,11 +234,11 @@
 	);
 
 	// Pour chaque valeur de la configuration on la définit
-	foreach($config as $key => $value) {
+	foreach ($config as $key => $value) {
 
 		// Si elle a le préfixe d'une constante de base de données, alors on ne la définit pas
-		if(0 !== strpos($key, 'DB_')) {
-			if(!defined($key)) {
+		if (0 !== strpos($key, 'DB_')) {
+			if (!defined($key)) {
 
 				/**
 				 * Déclaration dynamique des constantes de l'application
@@ -263,8 +263,8 @@
 	ini_set('display_errors', DEV_MODE);
 
 	// Si la journalisation est activée alors on l'utilise pour les erreurs via le module PHP dédié
-	ini_set('log_errors', ENABLE_LOGS /*& !DEV_MODE*/);
-	ini_set('error_log', LOGS_DIR.'/php_errors.log');
+	ini_set('log_errors', ENABLE_LOGS);
+	ini_set('error_log', LOGS_DIR . '/php_errors.log');
 
 
 	/***************************************************************************
@@ -272,17 +272,20 @@
 	 **************************************************************************/
 
 	// Instanciation et configuration de l'autoloader
-	require(FRAMEWORK_DIR.'/classes/utils/cache/Cache.php');
-	require(FRAMEWORK_DIR.'/classes/utils/cache/VariableCache.php');
-	require(FRAMEWORK_DIR.'/classes/loaders/AbstractLoader.php');
-	require(FRAMEWORK_DIR.'/classes/loaders/ClassLoader.php');
+	require (FRAMEWORK_DIR . '/classes/utils/cache/Cache.php');
+	require (FRAMEWORK_DIR . '/classes/utils/cache/VariableCache.php');
+	require (FRAMEWORK_DIR . '/classes/loaders/AbstractLoader.php');
+	require (FRAMEWORK_DIR . '/classes/loaders/ClassLoader.php');
 	$autoloader = new ClassLoader();
-	$autoloader->addArray(
-		array(
-			FRAMEWORK_DIR.DIRECTORY_SEPARATOR.'classes',
-			APPLICATION_DIR.DIRECTORY_SEPARATOR.'classes'
+	$autoloader
+		->addArray(
+			array(
+				FRAMEWORK_DIR . DIRECTORY_SEPARATOR . 'classes',
+				APPLICATION_DIR . DIRECTORY_SEPARATOR . 'classes',
+			)
 		)
-	)->register()->load();
+		->register()
+		->load();
 
 
 	/***************************************************************************
@@ -290,22 +293,22 @@
 	 **************************************************************************/
 
 	// Création du service de débogage et enregistrement en mode de développement (si activé)
-	if(USE_DEBUG) {
+	if (USE_DEBUG) {
 		Service::debug(new DebugService())->register();
 	}
 
 	// Instanciation du service multi-lingue (si activé)
-	if(USE_LANGUAGE) {
+	if (USE_LANGUAGE) {
 		Service::language(new LanguageService());
 	}
 
 	// Création du service d'accès à la base de données (si activé)
-	if(USE_DATABASE) {
+	if (USE_DATABASE) {
 		Service::database(DatabaseFactory::create($config))->connect();
 	}
 
 	// Création du service des crochets
-	if(USE_HOOK) {
+	if (USE_HOOK) {
 		Service::hook(new HookService())->registerArray($hooks);
 	}
 
@@ -322,12 +325,10 @@
 	 * @return string Le hash MD5 du framework courant
 	 */
 	function revision() {
-		$files = array(
-			md5_file(BASE_DIR.'/index.php')
-		);
-		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(BASE_DIR.'/system/framework'));
-		foreach($iterator as $file) {
-			if($file->isDir()) {
+		$files = array(md5_file(BASE_DIR . '/index.php'));
+		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(BASE_DIR . '/system/framework'));
+		foreach ($iterator as $file) {
+			if ($file->isDir()) {
 				continue;
 			}
 			$files[] = md5_file($file->getPathname());
@@ -414,12 +415,12 @@
 		$args = func_get_args();
 
 		// Si le service multi-lingue est activé, on tente de traduire le message (Premier argument)
-		if(USE_LANGUAGE) {
+		if (USE_LANGUAGE) {
 			$message = $args[0] = Service::language()->translate($message);
 		}
 
 		// Si le message doit être complété on le fait avec les arguments supplémentaires
-		if(1 < func_num_args()) {
+		if (1 < func_num_args()) {
 			return call_user_func_array('sprintf', $args);
 		}
 
@@ -429,16 +430,16 @@
 
 
 	/***************************************************************************
-	 *                        NETTOYAGE APRÈS EXÉCUTION                        *
+	 *                                NETTOYAGE                                *
 	 **************************************************************************/
 
 	// Fonction qui s'exécute à la fin de l'exécution
 	register_shutdown_function(function() {
 
 		// Si le service de base de données est actif, on ferme la connexion si elle est encore active
-		if(USE_DATABASE) {
+		if (USE_DATABASE) {
 			$database = Service::database();
-			if($database->isConnected()) {
+			if ($database->isConnected()) {
 				$database->disconnect();
 			}
 		}

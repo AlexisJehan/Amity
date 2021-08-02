@@ -56,7 +56,6 @@
 		 */
 		protected $free = FALSE;
 
-
 		/**
 		 * {@inheritdoc}
 		 *
@@ -71,7 +70,6 @@
 		 */
 		protected final function __connect($host, $port, $database, $user, $password, $encoding, array $options) {
 			$this->connection = mysqli_init();
-
 			foreach ($options as $option => $value) {
 				$this->connection->options($option, $value);
 			}
@@ -79,11 +77,11 @@
 			// Tentative de connexion au serveur
 			$this->connection->real_connect($host, $user, $password, $database, empty($port) ? NULL : $port);
 
-			if($this->connection->connect_error) {
+			if ($this->connection->connect_error) {
 
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
 				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
-				if(DEV_MODE) {
+				if (DEV_MODE) {
 					$this->throwException($this->connection->connect_error, $this->connection->connect_errno);
 				}
 
@@ -91,7 +89,7 @@
 			}
 
 			// Sélection du charset
-			if(!$this->connection->set_charset($encoding)) {
+			if (!$this->connection->set_charset($encoding)) {
 				$this->throwException();
 			}
 
@@ -104,10 +102,9 @@
 		 * @return boolean Vrai si la déconnexion a été effectuée
 		 */
 		protected final function __disconnect() {
-			if(!$this->connection->close()) {
+			if (!$this->connection->close()) {
 				$this->throwException();
 			}
-
 			return TRUE;
 		}
 
@@ -139,32 +136,30 @@
 		public function bind($key, $value, $type = NULL) {
 
 			// Transformation de la valeur selon son type renseigné ou déterminé
-			if((NULL === $type && is_int($value)) || $type === self::PARAM_INT) {
+			if ((NULL === $type && is_int($value)) || $type === self::PARAM_INT) {
 				$value = intval($value);
 
-			} else if((NULL === $type && is_bool($value)) || $type === self::PARAM_BOOL) {
+			} else if ((NULL === $type && is_bool($value)) || $type === self::PARAM_BOOL) {
 				$value = $value ? 'TRUE' : 'FALSE';
+			} else if ((NULL === $type && NULL === $value) || $type === self::PARAM_NULL) {
 
-			} else if((NULL === $type && NULL === $value) || $type === self::PARAM_NULL) {
-
-				// FIXME: « = NULL / != NULL » devrait plutôt être « IS NULL / IS NOT NULL »
+				// FIXME « = NULL / != NULL » devrait plutôt être « IS NULL / IS NOT NULL »
 				$value = 'NULL';
-
 			} else {
 
 				// Suppression des guillemets magiques
-				if(get_magic_quotes_runtime()) {
+				if (get_magic_quotes_runtime()) {
 					$value = stripslashes($value);
 				}
 
-				$value = '\''.$this->connection->real_escape_string($value).'\'';
+				$value = '\'' . $this->connection->real_escape_string($value) . '\'';
 			}
 
 			// Selon la clé renseigné on ajoute dans l'association qui correspond
-			if(is_int($key) && 0 < $key) {
+			if (is_int($key) && 0 < $key) {
 				$this->markedBinding[$key] = $value;
 			} else {
-				$this->namedBinding[':'.ltrim($key, ':')] = $value;
+				$this->namedBinding[':' . ltrim($key, ':')] = $value;
 			}
 
 			return $this;
@@ -174,14 +169,13 @@
 		 * {@inheritdoc}
 		 */
 		protected function __execute() {
-
 			//ini_set("pcre.recursion_limit", 524);
 
 			// Si on doit associer des valeurs par nomination
-			if(0 < count($this->namedBinding)) {
+			if (0 < count($this->namedBinding)) {
 				$binding = $this->namedBinding;
 				$this->query = preg_replace_callback('%(:\w+)|(?:\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|/*[^*]*\*+([^*/][^*]*\*+)*/|\#.*|--.*|[^"\':#])+%u', function($match) use($binding) {
-					if(isset($match[1]) && isset($binding[$match[1]])) {
+					if (isset($match[1]) && isset($binding[$match[1]])) {
 						return str_replace($match[1], $binding[$match[1]], $match[0]);
 					} else {
 						return $match[0];
@@ -190,11 +184,11 @@
 			}
 
 			// Si on doit associer des valeurs par marquage
-			if(0 < count($this->markedBinding)) {
+			if (0 < count($this->markedBinding)) {
 				$binding = $this->markedBinding;
 				$count = 0;
 				$this->query = preg_replace_callback('%\?|(?:\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|/*[^*]*\*+([^*/][^*]*\*+)*/|\#.*|--.*|[^"\'?#])+%u', function($match) use($binding, &$count) {
-					if('?' === $match[0] && isset($binding[++$count])) {
+					if ('?' === $match[0] && isset($binding[++$count])) {
 						return $binding[$count];
 					} else {
 						return $match[0];
@@ -203,10 +197,10 @@
 			}
 
 			// Exécution de la ou des requêtes
-			if($this->connection->multi_query($this->query)) {
+			if ($this->connection->multi_query($this->query)) {
 				do {
 					$this->result = $this->connection->store_result();
-				} while($this->connection->more_results() && $this->connection->next_result());
+				} while ($this->connection->more_results() && $this->connection->next_result());
 				$this->free = FALSE;
 			} else {
 				$this->throwException();
@@ -222,22 +216,36 @@
 		public final function row($fetch = self::FETCH_ASSOC) {
 
 			// Si le résultat a déjà été libéré on quitte
-			if($this->free) {
+			if ($this->free) {
 				return FALSE;
 			}
 
 			// Selon ma méthode de récupération on traite le résultat différemment
-			switch($fetch) {
-				case self::FETCH_ASSOC: return $this->result->fetch_assoc() ; break;
-				case self::FETCH_NUM:   return $this->result->fetch_row()   ; break;
-				case self::FETCH_BOTH:  return $this->result->fetch_array() ; break;
-				case self::FETCH_OBJ:   return $this->result->fetch_object(); break;
+			switch ($fetch) {
+				case self::FETCH_ASSOC:
+					return $this->result->fetch_assoc();
+					break;
+				case self::FETCH_NUM:
+					return $this->result->fetch_row();
+					break;
+				case self::FETCH_BOTH:
+					return $this->result->fetch_array();
+					break;
+				case self::FETCH_OBJ:
+					return $this->result->fetch_object();
+					break;
 
-				// TODO: Implémenter les autres méthodes de récupération introduites par PDO
-				//case self::FETCH_KEY_PAIR: return self::mysql_fetch_key_pair($this->result); break;
-				//case self::FETCH_GROUP_UNIQUE_ASSOC: return self::mysql_fetch_group_unique_assoc($this->result); break;
+				// TODO Implémenter les autres méthodes de récupération introduites par PDO
+				/*case self::FETCH_KEY_PAIR:
+					return self::mysql_fetch_key_pair($this->result);
+					break;
+				case self::FETCH_GROUP_UNIQUE_ASSOC:
+					return self::mysql_fetch_group_unique_assoc($this->result);
+					break;*/
 
-				default: throw new ServiceException('Unavailable or unimplemented fetch method with flag "%s" using "%s" database service', $fetch, $this->getAccessName()); break;
+				default:
+					throw new ServiceException('Unavailable or unimplemented fetch method with flag "%s" using "%s" database service', $fetch, $this->getAccessName());
+					break;
 			}
 		}
 
@@ -249,8 +257,8 @@
 		 */
 		public final function rows($fetch = self::FETCH_ASSOC) {
 			$table = array();
-			if(!$this->free) {
-				while(($table[] = $this->row($fetch)) || array_pop($table));
+			if (!$this->free) {
+				while (($table[] = $this->row($fetch)) || array_pop($table));
 				$this->result->free_result();
 				$this->free = TRUE;
 			}
@@ -266,7 +274,7 @@
 		public final function column($number = 0) {
 
 			// Si le résultat a déjà été libéré on quitte
-			if($this->free) {
+			if ($this->free) {
 				return FALSE;
 			}
 
@@ -282,9 +290,9 @@
 		 */
 		public final function columns($number = 0) {
 			$table = array();
-			if(!$this->free) {
-				while($row = $this->row(self::FETCH_NUM)) {
-					if(!isset($row[$number])) {
+			if (!$this->free) {
+				while ($row = $this->row(self::FETCH_NUM)) {
+					if (!isset($row[$number])) {
 						$this->throwException('Invalid column index');
 					}
 					$table[] = $row[$number];
@@ -311,10 +319,9 @@
 		 * @return DatabaseService          L'instance courante
 		 */
 		public final function autoCommit($enabled = TRUE) {
-			if(!$this->connection->autocommit($enabled)) {
+			if (!$this->connection->autocommit($enabled)) {
 				$this->throwException();
 			}
-
 			return $this;
 		}
 
@@ -324,10 +331,9 @@
 		 * @return DatabaseService L'instance courante
 		 */
 		public final function beginTransaction() {
-			if(!$this->connection->begin_transaction()) {
+			if (!$this->connection->begin_transaction()) {
 				$this->throwException();
 			}
-
 			return $this;
 		}
 
@@ -337,10 +343,9 @@
 		 * @return DatabaseService L'instance courante
 		 */
 		public final function commit() {
-			if(!$this->connection->commit()) {
+			if (!$this->connection->commit()) {
 				$this->throwException();
 			}
-
 			return $this;
 		}
 
@@ -350,10 +355,9 @@
 		 * @return DatabaseService L'instance courante
 		 */
 		public final function rollback() {
-			if(!$this->connection->rollback()) {
+			if (!$this->connection->rollback()) {
 				$this->throwException();
 			}
-
 			return $this;
 		}
 
@@ -373,7 +377,7 @@
 		 * @param integer $code    Le code personnalisé [optionnel, « 0 » par défaut]
 		 */
 		protected final function throwException($message = NULL, $code = 0) {
-			if(NULL === $message) {
+			if (NULL === $message) {
 				$message = $this->connection->error;
 				$code = $this->connection->errno;
 			}
@@ -382,7 +386,7 @@
 	}
 
 	// On vérifie que l'extension est disponible
-	if(!extension_loaded('mysqli')) {
+	if (!extension_loaded('mysqli')) {
 		throw new SystemException('"%s" extension is not available', 'mysqli');
 	}
 ?>

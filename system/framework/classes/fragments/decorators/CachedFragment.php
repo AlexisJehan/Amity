@@ -30,25 +30,25 @@
 		public function get() {
 
 			// Si le cache est activé
-			if(ENABLE_CACHE) {
+			if (ENABLE_CACHE) {
 
 				// On récupère les attributs du fragment décoré
 				$cacheName = $this->fragment->getCacheName();
 				$cacheDuration = $this->fragment->getCacheDuration();
 
 				// Création ou récupération du cache de contenu selon la date de création du fichier et la durée de mise en cache
-				$cache = new ContentCache('fragments/'.$cacheName, $cacheDuration);
-				if(NULL === $content = $cache->fetch()) {
+				$cache = new ContentCache('fragments/' . $cacheName, $cacheDuration);
+				if (NULL === $content = $cache->fetch()) {
 					$cache->start();
 					echo $this->fragment->get();
 					$content = $cache->end();
 				}
 
-				// FIXME: À ajouter seulement si le contenu est du HTML, sinon ne pas mettre ou adapter le type du commentaire
+				// FIXME À ajouter seulement si le contenu est du HTML, sinon ne pas mettre ou adapter le type du commentaire
 				// Ajout d'une ligne de commentaire indiquant le temps restant avant la prochaine mise à jour du contenu
-				$header = '<!-- Cached content, generated on '.date('d/m/Y H:i:s', filemtime($cache->getFile())).($cacheDuration > 0 ? ', next update in '.($cacheDuration - time() + filemtime($cache->getFile())).' seconds' : '').' -->';
+				$header = '<!-- Cached content, generated on ' . date('d/m/Y H:i:s', filemtime($cache->getFile())) . ($cacheDuration > 0 ? ', next update in ' . ($cacheDuration - time() + filemtime($cache->getFile())) . ' seconds' : '') . ' -->';
 
-				return PHP_EOL.$header.PHP_EOL.$content;
+				return PHP_EOL . $header . PHP_EOL . $content;
 			}
 
 			// Sinon, on retourne le contenu du fragment décoré sans rien faire

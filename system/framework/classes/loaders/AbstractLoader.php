@@ -69,7 +69,6 @@
 		 */
 		protected $alreadyRefreshed = FALSE;
 
-
 		/**
 		 * Constructeur d'un chargeur
 		 */
@@ -88,12 +87,11 @@
 		public final function add($location) {
 
 			// Si l'emplacement ou le fichier n'existe pas
-			if(!file_exists($location)) {
+			if (!file_exists($location)) {
 				throw new SystemException('"%s" location does not exist', path($location));
 			}
 
 			$this->locations[] = $location;
-
 			return $this;
 		}
 
@@ -104,10 +102,9 @@
 		 * @return AbstractLoader            L'instance courante
 		 */
 		public final function addArray(array $locations) {
-			foreach($locations as $location) {
+			foreach ($locations as $location) {
 				$this->add($location);
 			}
-
 			return $this;
 		}
 
@@ -117,16 +114,16 @@
 		public final function load() {
 
 			// Si les fichiers ne peuvent être lus depuis le cache
-			if(NULL === $this->files = $this->cache->fetch()) {
+			if (NULL === $this->files = $this->cache->fetch()) {
 
 				// On charge les fichiers depuis les emplacements ou fichiers enregistrés
 				$files = array();
-				foreach($this->locations as $location) {
+				foreach ($this->locations as $location) {
 
 					// Si c'est un dossier, on le scan pour récupérer les fichiers qui le compose
-					if(is_dir($location)) {
-						$iterator = new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($location)), '/^.+\\'.static::$extension.'$/i');
-						foreach($iterator as $file) {
+					if (is_dir($location)) {
+						$iterator = new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($location)), '/^.+\\' . static::$extension . '$/i');
+						foreach ($iterator as $file) {
 							$files[] = $file->getPathname(); 
 						}
 
@@ -137,7 +134,7 @@
 				}
 
 				// Pour chaque fichier trouvé, on les enregistre
-				foreach($files as $file) {
+				foreach ($files as $file) {
 
 					// Le nom correspond à la base, à laquelle on retire l'extension et le point
 					$name = basename($file, static::$extension);
@@ -159,16 +156,15 @@
 		public final function getFile($name) {
 
 			// Si le nom correspond bien à un fichier toujours valide, on le retourne
-			if(isset($this->files[$name]) && is_file($this->files[$name]) && is_readable($this->files[$name])) {
+			if (isset($this->files[$name]) && is_file($this->files[$name]) && is_readable($this->files[$name])) {
 				return $this->files[$name];
 
 			// Si on a jamais rafraîchit, on le fait avant de retenter une seconde fois
-			} else if(self::$allowRefresh && !$this->alreadyRefreshed) {
+			} else if (self::$allowRefresh && !$this->alreadyRefreshed) {
 				$this->cache->drop();
 				$this->load();
 				$this->alreadyRefreshed = TRUE;
-
-				if(isset($this->files[$name]) && is_file($this->files[$name]) && is_readable($this->files[$name])) {
+				if (isset($this->files[$name]) && is_file($this->files[$name]) && is_readable($this->files[$name])) {
 					return $this->files[$name];
 				}
 			}
