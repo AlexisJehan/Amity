@@ -9,7 +9,7 @@
 	 * Classe utilitaire permettant de récupérer les entêtes et lignes d'un fichier de journalisation du framework.
 	 * 
 	 * @package    framework
-	 * @subpackage classes/tools
+	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    09/11/2015
 	 * @since      08/09/2015

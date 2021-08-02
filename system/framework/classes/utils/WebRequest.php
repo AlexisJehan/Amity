@@ -9,7 +9,7 @@
 	 * « WebRequest » est un outil adaptant l'utilitaire cURL et permettant de faire toutes sortes de requêtes vers un serveur distant, et particulièrement des requêtes HTTP.
 	 * 
 	 * @package    framework
-	 * @subpackage classes/tools
+	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    10/06/2020
 	 * @since      22/08/2015
