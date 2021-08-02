@@ -37,6 +37,7 @@
 		'localhost|127.0.0.1|::1' => array(
 			'DEV_MODE'    => TRUE,
 			'FILE_PREFIX' => 'dev_',
+			'FORCE_HTTPS' => FALSE,
 
 			'DB_HOST'     => 'localhost',
 			'DB_PORT'     => '',
@@ -52,6 +53,7 @@
 		'my-online-website.com' => array(
 			'DEV_MODE'    => FALSE,
 			'FILE_PREFIX' => '',
+			'FORCE_HTTPS' => FALSE,
 
 			'DB_HOST'     => '',
 			'DB_PORT'     => '',

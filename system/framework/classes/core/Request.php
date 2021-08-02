@@ -124,6 +124,12 @@
 			// On crée l'URL associée à la requête
 			$this->url = BASE_URL . (!empty($route) ? '/' . implode('/', $route) : '');
 
+			// Si on est en HTTP et qu'on veut forcer HTTPS, on redirige
+			if (FORCE_HTTPS && 0 === strpos($this->url, 'http:')) {
+				header('Location: https:' . substr($this->url, 5));
+				exit;
+			}
+
 			// Si la route n'est pas vide
 			if (!empty($route)) {
 

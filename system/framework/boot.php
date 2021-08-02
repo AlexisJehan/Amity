@@ -224,6 +224,7 @@
 			'USE_LANGUAGE'     => TRUE,
 			'DEV_MODE'         => FALSE,
 			'FILE_PREFIX'      => '',
+			'FORCE_HTTPS'      => FALSE,
 			'DB_ENCODING'      => 'utf8',
 			'DB_OPTIONS'       => array(),
 			'DB_ACCESS'        => 'PDO',
