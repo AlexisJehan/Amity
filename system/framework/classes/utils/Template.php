@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    26/02/2016
+	 * @version    25/10/2021
 	 * @since      05/06/2014
 	 */
 	final class Template {
 		/*
 		 * CHANGELOG:
+		 * 22/10/2021: Correction de l'échappement des valeurs « NULL »
 		 * 26/02/2016: L'échappement des caractères se fait désormais par défaut, et une nouvelle méthode pour ne pas le faire pour le HTML est aussi disponible
 		 * 13/02/2016: Changement d'association des valeurs, ces dernières n'étant plus disponibles en tant qu'attributs de classe mais désormais en variables locales grâce à la fonction « extract() »
 		 * 27/07/2015: Ajout d'une méthode d'échappement, qui remplace l'historique classe « XSS »
@@ -150,9 +151,11 @@
 		 * @return string           La variable échappée
 		 */
 		public function escape($variable) {
+			if (is_null($variable)) {
+				$variable = NULL;
 
 			// Si c'est un tableau, on échappe chaque élément qui le compose
-			if (is_array($variable)) {
+			} else if (is_array($variable)) {
 				foreach ($variable as $name => $value) {
 					$variable[$name] = $this->escape($value);
 				}
