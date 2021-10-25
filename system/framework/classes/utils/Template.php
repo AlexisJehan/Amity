@@ -17,7 +17,7 @@
 	final class Template {
 		/*
 		 * CHANGELOG:
-		 * 22/10/2021: Correction de l'échappement des valeurs « NULL »
+		 * 25/10/2021: Correction de l'échappement des valeurs « NULL »
 		 * 26/02/2016: L'échappement des caractères se fait désormais par défaut, et une nouvelle méthode pour ne pas le faire pour le HTML est aussi disponible
 		 * 13/02/2016: Changement d'association des valeurs, ces dernières n'étant plus disponibles en tant qu'attributs de classe mais désormais en variables locales grâce à la fonction « extract() »
 		 * 27/07/2015: Ajout d'une méthode d'échappement, qui remplace l'historique classe « XSS »
