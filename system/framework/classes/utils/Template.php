@@ -11,13 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    25/10/2021
+	 * @version    28/10/2021
 	 * @since      05/06/2014
 	 */
 	final class Template {
 		/*
 		 * CHANGELOG:
-		 * 25/10/2021: Correction de l'échappement des valeurs « NULL »
+		 * 28/10/2021: Correction de l'échappement
 		 * 26/02/2016: L'échappement des caractères se fait désormais par défaut, et une nouvelle méthode pour ne pas le faire pour le HTML est aussi disponible
 		 * 13/02/2016: Changement d'association des valeurs, ces dernières n'étant plus disponibles en tant qu'attributs de classe mais désormais en variables locales grâce à la fonction « extract() »
 		 * 27/07/2015: Ajout d'une méthode d'échappement, qui remplace l'historique classe « XSS »
@@ -151,11 +151,9 @@
 		 * @return string           La variable échappée
 		 */
 		public function escape($variable) {
-			if (is_null($variable)) {
-				$variable = NULL;
 
-			// Si c'est un tableau, on échappe chaque élément qui le compose
-			} else if (is_array($variable)) {
+			// Si c'est un tableau, on échappe chacune de ses valeurs
+			if (is_array($variable)) {
 				foreach ($variable as $name => $value) {
 					$variable[$name] = $this->escape($value);
 				}
@@ -166,7 +164,9 @@
 				foreach ($values as $name => $value) {
 					$variable->{$name} = $this->escape($value);
 				}
-			} else {
+
+			// Si c'est une chaîne de caractères, on l'échappe
+			} else if (is_string($variable)) {
 				$variable = htmlspecialchars($variable, ENT_COMPAT, 'UTF-8', FALSE);
 			}
 
@@ -181,19 +181,21 @@
 		 */
 		public function unescape($variable) {
 
-			// Si c'est un tableau, on échappe chaque élément qui le compose
+			// Si c'est un tableau, on dé-échappe chacune de ses valeurs
 			if (is_array($variable)) {
 				foreach ($variable as $name => $value) {
 					$variable[$name] = $this->unescape($value);
 				}
 
-			// Si c'est un objet, on échappe chacun de ses attributs
+			// Si c'est un objet, on dé-échappe chacun de ses attributs
 			} else if (is_object($variable)) {
 				$values = get_class_vars(get_class($variable));
 				foreach ($values as $name => $value) {
 					$variable->{$name} = $this->unescape($value);
 				}
-			} else {
+
+			// Si c'est une chaîne de caractères, on la dé-échappe
+			} else if (is_string($variable)) {
 				$variable = htmlspecialchars_decode($variable, ENT_COMPAT);
 			}
 
