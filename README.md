@@ -1,8 +1,9 @@
-Amity Framework
-===============
-Amity is a little PHP framework to build powerful and portable web applications.
+![Amity](assets/images/logo-amity.png)
+# Amity
+[![License](https://img.shields.io/github/license/AlexisJehan/Amity.svg)](LICENSE.txt)
 
-Requirements
-------------
-- Apache server with <kbd>mod_rewrite</kbd> module enabled
-- PHP _5.3.0_ or highter
+A PHP 5.3+ micro-framework made with fun to build powerful and portable web applications.
+
+## Requirements
+* Apache server with <kbd>mod_rewrite</kbd> module enabled
+* PHP _5.3.0_ or highter
