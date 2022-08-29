@@ -12,11 +12,12 @@
 	 * 
 	 * @package framework
 	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version 01/07/2020
+	 * @version 29/08/2022
 	 * @since   01/08/2014
 	 */
 	/*
 	 * CHANGELOG:
+	 * 29/08/2022: Ajout systématique de la langue dans l'URL lors de l'utilisation du service multi-lingue
 	 * 02/08/2021: Possibilité de forcer l'usage de HTTPS
 	 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 	 * 10/06/2020: Compatibilité avec PHP 7.4.0
@@ -54,7 +55,7 @@
 	 * 
 	 * @package framework
 	 */
-	define('__VERSION__', '0.3.2');
+	define('__VERSION__', '0.3.3');
 
 	/**
 	 * Temps de lancement de la génération de la page (timestamp avec micro-secondes)
@@ -383,12 +384,9 @@
 	function url($locations = '') {
 		$url = '';
 
-		// Si on utilise le service de langues et que la langue est différente de celle par défaut
+		// Si le service multi-lingue est activé, on ajoute la langue dans l'URL
 		if (USE_LANGUAGE) {
-			$language = Service::language()->getLanguage();
-			if (DEFAULT_LANGUAGE !== $language) {
-				$url .= $language . '/';
-			}
+			$url .= Service::language()->getLanguage() . '/';
 		}
 
 		if (0 < func_num_args()) {

@@ -12,7 +12,7 @@
 	 * @package    framework
 	 * @subpackage classes/core
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    29/12/2015
+	 * @version    02/08/2021
 	 * @since      05/05/2015
 	 */
 	class Request {
