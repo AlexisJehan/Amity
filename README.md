@@ -1,4 +1,5 @@
-![Amity](assets/images/logo-amity.png)
+<image src="assets/images/logo-amity.png" align="right" width="250"/>
+
 # Amity
 [![License](https://img.shields.io/github/license/AlexisJehan/Amity.svg)](LICENSE.txt)
 
