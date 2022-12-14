@@ -8,7 +8,7 @@ A _PHP 5.3+_ micro-framework made with fun to build powerful and portable web ap
 
 ## Requirements
 * Apache server with <kbd>mod_rewrite</kbd> module enabled
-* _PHP 5.3.0_ or highter
+* _PHP 5.3.0_ or higher
 
 ## License
 This project is licensed under the [MIT License](LICENSE.txt).
