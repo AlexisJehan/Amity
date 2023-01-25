@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/services
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    10/06/2020
+	 * @version    25/01/2023
 	 * @since      24/07/2015
 	 */
 	final class DebugService implements IService {
 		/*
 		 * CHANGELOG:
+		 * 25/01/2023: Compatibilité avec PHP 8.2, utilisation de « htmlspecialchars() » à la place de « utf8_encode() »
 		 * 10/06/2020: Compatibilité avec PHP 7.4, l'accès à un index de tableau inexistant a changé de comportement
 		 * 26/03/2016: Compatibilité avec PHP 7.0, « ErrorException » dérivant non plus de « Exception » mais de « Throwable » le type du paramètre de « exceptionHandler() » n'est plus fixé
 		 * 31/07/2015: Améliorations internes à la classe, avec notamment l'utilisation de « ErrorException » et des paramètres d'affichage et de journalisation
@@ -390,7 +391,7 @@
 				case 'string':
 
 					// On limite à 100 caractères de la chaîne, et on échappe les caractères HTML
-					$content = '\'' . htmlentities(utf8_encode(100 < strlen($variable) ? substr($variable, 0, 100) . '...' : $variable), ENT_QUOTES | ENT_IGNORE, 'UTF-8') . '\'';
+					$content = '\'' . htmlspecialchars(100 < strlen($variable) ? substr($variable, 0, 100) . '...' : $variable, ENT_COMPAT, 'UTF-8', FALSE) . '\'';
 					break;
 				case 'array';
 
