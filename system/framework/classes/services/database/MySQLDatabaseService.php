@@ -11,15 +11,15 @@
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    01/07/2020
+	 * @version    25/01/2023
 	 * @since      24/09/2014
 	 */
 	class MySQLDatabaseService extends DatabaseService {
 		/*
 		 * CHANGELOG:
+		 * 25/01/2023: Compatibilité avec PHP 7.4, « get_magic_quotes_runtime() » est devenu déprécié
 		 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
-		 * 26/03/2016: Lancement d'une exception si l'extension n'est pas disponible (Par exemple avec PHP 7)
-		 * 22/06/2015: Utilisation de « mysql_set_charset »
+		 * 22/06/2015: Utilisation de « mysql_set_charset() »
 		 * 05/06/2015: Amélioration des différentes expressions régulières pour ne pas faire correspondre les jetons entre apostrophes ou guillemets
 		 * 02/06/2015: Correction d'un bug se produisant avec le binding quand le nom d'une clef était inclus dans celui d'une autre (str_replace, gotcha)
 		 * 04/04/2015: Amélioration de l'exécution de plusieurs requêtes
@@ -99,7 +99,7 @@
 				$this->throwException();
 			}
 
-			// Sélection du charset (MySQL version 5.0.7)
+			// Sélection du charset (nécessite MySQL 5.0.7)
 			if (!mysql_set_charset($encoding, $this->connection)) {
 				$this->throwException();
 			}
@@ -161,8 +161,8 @@
 				$value = 'NULL';
 			} else {
 
-				// Suppression des guillemets magiques
-				if (get_magic_quotes_runtime()) {
+				// Déprécié depuis PHP 7.4, supprimé depuis PHP 8.0
+				if (version_compare(PHP_VERSION, '7.4', '<') && get_magic_quotes_runtime()) {
 					$value = stripslashes($value);
 				}
 
@@ -398,7 +398,7 @@
 					$code = mysql_errno();
 				}
 			}
-			throw new DatabaseException(utf8_encode($message), $code);
+			throw new DatabaseException($message, $code);
 		}
 	}
 

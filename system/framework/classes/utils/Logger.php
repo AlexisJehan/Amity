@@ -107,13 +107,6 @@
 		private static $multiLines = TRUE;
 
 		/**
-		 * Booléen indiquant si on doit utiliser les fonctions multi-bytes (pas forcément disponible)
-		 * 
-		 * @var boolean
-		 */
-		private static $useMbString;
-
-		/**
 		 * Emplacement du fichier de journalisation
 		 * 
 		 * @var string
@@ -175,7 +168,7 @@
 		public static function init() {
 
 			// Utilisation ou non des fonctions multi-bytes
-			if (self::$useMbString = extension_loaded('mbstring')) {
+			if (extension_loaded('mbstring')) {
 				mb_internal_encoding('UTF-8');
 			}
 		}
@@ -477,7 +470,7 @@
 		}
 
 		/**
-		 * Adaptation de la fonction « str_pad » avec le multi-octets
+		 * Adaptation de la fonction « str_pad() » avec le multi-octets
 		 * 
 		 * @param  string  $input      La chaîne dont on souhaite ajouter un décalage
 		 * @param  boolean $pad_length La longueur du décalage
@@ -486,7 +479,7 @@
 		 * @return string              La chaîne avec le décalage ajouté
 		 */
 		private static function str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT) {
-			if (self::$useMbString) {
+			if (extension_loaded('mbstring')) {
 				return str_pad($input, $pad_length + abs(strlen($input) - mb_strlen($input)), $pad_string, $pad_type);
 			}
 			return str_pad($input, $pad_length, $pad_string, $pad_type);
@@ -498,21 +491,21 @@
 		 * @return string         La chaîne en majuscules
 		 */
 		private static function strtoupper($string) {
-			if (self::$useMbString) {
+			if (extension_loaded('mbstring')) {
 				return mb_strtoupper($string);
 			}
 			return strtoupper($string);
 		}
 
 		/**
-		 * Adaptation de la fonction « str_split » avec le multi-octets
+		 * Adaptation de la fonction « str_split() » avec le multi-octets
 		 * 
 		 * @param  boolean $string       La chaîne à découper
 		 * @param  boolean $split_length Le nombre de caractères de chaque tronçon
 		 * @return array                 Le tableau contenant chaque morceau généré à partir de la chaîne d'entrée
 		 */
 		private static function str_split($string, $split_length = 1) {
-			if (self::$useMbString) {
+			if (extension_loaded('mbstring')) {
 				if ($split_length < 1) {
 					return FALSE;
 				}
@@ -531,7 +524,7 @@
 		 * @return integer         Le nombre de caractères
 		 */
 		private static function strlen($string) {
-			if (self::$useMbString) {
+			if (extension_loaded('mbstring')) {
 				return mb_strlen($string);
 			}
 			return strlen($string);

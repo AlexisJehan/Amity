@@ -187,4 +187,9 @@
 			}
 		}
 	}
+
+	// On vérifie que l'extension est disponible
+	if (!extension_loaded('intl')) {
+		throw new SystemException('"%s" extension is not available', 'intl');
+	}
 ?>

@@ -17,8 +17,8 @@
 	final class DebugService implements IService {
 		/*
 		 * CHANGELOG:
-		 * 10/06/2020: Compatibilité avec PHP 7.4.0
-		 * 26/03/2016: Compatibilité avec PHP 7, « ErrorException » dérivant non plus de « Exception » mais de « Throwable » le type du paramètre de « exceptionHandler() » n'est plus fixé
+		 * 10/06/2020: Compatibilité avec PHP 7.4, l'accès à un index de tableau inexistant a changé de comportement
+		 * 26/03/2016: Compatibilité avec PHP 7.0, « ErrorException » dérivant non plus de « Exception » mais de « Throwable » le type du paramètre de « exceptionHandler() » n'est plus fixé
 		 * 31/07/2015: Améliorations internes à la classe, avec notamment l'utilisation de « ErrorException » et des paramètres d'affichage et de journalisation
 		 * 28/07/2015: Amélioration du style des fenêtres d'erreur, et...
 		 * 24/07/2015: Version initiale

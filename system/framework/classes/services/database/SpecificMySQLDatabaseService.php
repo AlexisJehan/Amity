@@ -70,4 +70,9 @@
 			return 'Specific MySQL';
 		}
 	}
+
+	// On vérifie que l'extension est disponible
+	if (!extension_loaded('mysql')) {
+		throw new SystemException('"%s" extension is not available', 'mysql');
+	}
 ?>

@@ -17,7 +17,7 @@
 	final class WebRequest {
 		/*
 		 * CHANGELOG:
-		 * 10/06/2020: Compatibilité avec PHP 7.4.0
+		 * 10/06/2020: Correction d'un bug avec « list() »
 		 * 30/05/2016: Ajout d'accesseurs manquant ainsi qu'une méthode permettant de falsifier l'agent utilisateur plutôt qu'utiliser celui de la classe par défaut
 		 * 28/09/2015: Changement mineur de l'utilisation complémentaire de « list() » et « explode() » en renseignant la dimension attendue en troisième paramètre de « explode() »
 		 * 22/08/2015: Version initiale
@@ -550,7 +550,7 @@
 		public function connect() {
 			$options = array(CURLOPT_CUSTOMREQUEST => 'CONNECT');
 
-			// Seulement disponible avec PHP 5.5.0
+			// Ajouté depuis PHP 5.5
 			if (defined('CURLOPT_CONNECT_ONLY')) {
 				$options[CURLOPT_CONNECT_ONLY] = TRUE;
 			}
@@ -666,8 +666,8 @@
 								$this->response[$i] = curl_multi_getcontent($channel);
 								$this->errorCode[$i] = $infos['result'];
 
-								// « curl_multi_strerror » n'est disponible que depuis PHP 5.5.0
-								if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
+								// Ajouté depuis PHP 5.5
+								if (function_exists('curl_multi_strerror')) {
 									$this->errorMessage[$i] = 0 < $infos['result'] ? curl_multi_strerror($infos['result']) : '';
 								} else {
 									$this->errorMessage[$i] = 0 < $infos['result'] ? 'Error' : '';

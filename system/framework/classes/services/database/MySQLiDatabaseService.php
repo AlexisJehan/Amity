@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    01/07/2020
+	 * @version    25/01/2023
 	 * @since      06/06/2015
 	 */
 	class MySQLiDatabaseService extends DatabaseService {
 		/*
 		 * CHANGELOG:
+		 * 25/01/2023: Compatibilité avec PHP 7.4, « get_magic_quotes_runtime() » est devenu déprécié
 		 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
 		 * 06/06/2015: Version initiale
 		 */
@@ -147,8 +148,8 @@
 				$value = 'NULL';
 			} else {
 
-				// Suppression des guillemets magiques
-				if (get_magic_quotes_runtime()) {
+				// Déprécié depuis PHP 7.4, supprimé depuis PHP 8.0
+				if (version_compare(PHP_VERSION, '7.4', '<') && get_magic_quotes_runtime()) {
 					$value = stripslashes($value);
 				}
 
@@ -381,7 +382,7 @@
 				$message = $this->connection->error;
 				$code = $this->connection->errno;
 			}
-			throw new DatabaseException(utf8_encode($message), $code);
+			throw new DatabaseException($message, $code);
 		}
 	}
 

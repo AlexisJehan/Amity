@@ -17,7 +17,7 @@
 	final class VariableCache extends Cache {
 		/*
 		 * CHANGELOG:
-		 * 18/03/2016: Utilisation de « file_put_contents » pour améliorer les performances
+		 * 18/03/2016: Utilisation de « file_put_contents() » pour améliorer les performances
 		 * 02/09/2015: Changement global du fonctionnement du cache
 		 * 28/08/2015: Gestion des sous-dossiers
 		 * 20/08/2015: Utilisation des verrous pour réduire les conflits qui peuvent se produire avec la concurrence

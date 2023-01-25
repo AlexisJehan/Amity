@@ -52,7 +52,7 @@
 			);
 
 			// Pour les versions inférieures de MySQL, on définit le charset manuellement
-			if ('mysql' === $driver && version_compare(PHP_VERSION, '5.3.6', '<') && defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
+			if ('mysql' === $driver && defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
 				$settings[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES ' . $encoding;
 			}
 
@@ -73,7 +73,7 @@
 			}
 
 			// Seconde tentative du forçage de charset avec les serveurs MySQL
-			if ('mysql' === $driver && version_compare(PHP_VERSION, '5.3.6', '<') && !defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
+			if ('mysql' === $driver && !defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
 				$this->connection->exec('SET NAMES ' . $encoding);
 			}
 
@@ -285,12 +285,12 @@
 			}
 
 			// Puis on lance la nouvelle exception adaptée
-			throw new DatabaseException(/*utf8_encode(*/$message/*)*/, $code);
+			throw new DatabaseException($message, $code);
 		}
 	}
 
 	// On vérifie que l'extension est disponible
-	if (!extension_loaded('PDO')) {
-		throw new SystemException('"%s" extension is not available', 'PDO');
+	if (!extension_loaded('pdo')) {
+		throw new SystemException('"%s" extension is not available', 'pdo');
 	}
 ?>

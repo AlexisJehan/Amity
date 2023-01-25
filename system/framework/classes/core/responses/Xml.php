@@ -122,4 +122,9 @@
 			return get_class();
 		}
 	}
+
+	// On vérifie que l'extension est disponible
+	if (!extension_loaded('simplexml')) {
+		throw new SystemException('"%s" extension is not available', 'simplexml');
+	}
 ?>

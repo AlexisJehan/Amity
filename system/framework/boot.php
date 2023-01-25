@@ -20,7 +20,7 @@
 	 * 29/08/2022: Ajout systématique de la langue dans l'URL lors de l'utilisation du service multi-lingue
 	 * 02/08/2021: Possibilité de forcer l'usage de HTTPS
 	 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
-	 * 10/06/2020: Compatibilité avec PHP 7.4.0
+	 * 10/06/2020: Compatibilité avec PHP 7.4, « get_magic_quotes_gpc() » est devenu déprécié
 	 * 04/04/2018: Amélioration de la fonction « path() »
 	 * 19/07/2015: Meilleure gestion de la configuration de l'application, avec la définition des globales personnalisées
 	 * 01/07/2015: - Ajout du service de débogage
@@ -69,8 +69,8 @@
 	 *                           DÉBUT DU LANCEMENT                            *
 	 **************************************************************************/
 
-	// Suppression des « magic quotes » si activées (déprécié depuis PHP 7.4.0)
-	if (version_compare(PHP_VERSION, '7.4.0', '<') && get_magic_quotes_gpc()) {
+	// Déprécié depuis PHP 7.4, supprimé depuis PHP 8.0
+	if (version_compare(PHP_VERSION, '7.4', '<') && get_magic_quotes_gpc()) {
 		$stripslashes = function(&$value) {
 			$value = stripslashes($value);
 		};

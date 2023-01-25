@@ -19,7 +19,7 @@
 		/*
 		 * CHANGELOG:
 		 * 12/05/2016: Amélioration de la configuration via le constructeur
-		 * 18/03/2016: Utilisation de « file_get_contents » et « file_put_contents » pour améliorer les performances
+		 * 18/03/2016: Utilisation de « file_get_contents() » et « file_put_contents() » pour améliorer les performances
 		 * 02/09/2015: Changement global du fonctionnement du cache
 		 * 28/08/2015: Gestion des sous-dossiers
 		 * 20/08/2015: Ajout de verrous en écriture sur le fichier de cache pour éviter des conflits de concurrence

@@ -9,12 +9,13 @@
 	 * Ce script permet de vérifier si Amity peut fonctionner correctement sur l'environnement courant.
 	 * 
 	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version 26/03/2016
+	 * @version 25/01/2023
 	 * @since   01/07/2014
 	 */
 	/*
-	 * DONNÉES:
-	 * Les données telle que la version minimale PHP compatible ou les extensions utilisées ont été générées en utilisant PHP CompatInfo « https://github.com/llaville/php-compat-info ».
+	 * CHANGELOG:
+	 * 25/01/2023: Mise à jour des extensions avec « bartlett/php-compatinfo^6.5 »
+	 * 01/07/2014: Version initiale
 	 */
 
 	// Version d'Amity à tester
@@ -22,30 +23,30 @@
 
 	// Version minimale de PHP requise
 	$phpMinVersion = '5.3.0';
-	$phpAllVersion = '5.3.0';
 
 	// Extensions obligatoires
 	$requiredExtensions = array(
-		'Core',
+		'core',
 		'date',
 		'pcre',
+		'reflection',
 		'session',
 		'spl',
 		'standard',
-		'xml',
 		'zlib',
 	);
 
 	// Extensions facultatives
 	$optionalExtensions = array(
-		'PDO'       => 'PDODatabaseService',
-		'SimpleXML' => 'Xml',
 		'curl'      => 'WebRequest',
 		'gd'        => 'Image',
-		'json'      => 'Ajax',
-		//'mbstring'  => 'Logger',               // Peut être exécuté sans
-		//'mysql'     => 'MySQLDatabaseService', // Déprécié
-		'mysqli'    => 'MySQLiDatabaseService',
+		'intl'      => 'LanguageService',
+		'json'      => 'Json',
+		//'mbstring'  => 'Logger',														// Optionnel
+		//'mysql'     => array('MySQLDatabaseService', 'SpecificMySQLDatabaseService'),	// Déprécié depuis PHP 5.5, supprimé depuis PHP 7.0
+		'mysqli'    => array('MySQLiDatabaseService', 'SpecificMySQLiDatabaseService'),
+		'pdo'       => 'PDODatabaseService',
+		'simplexml' => 'Xml',
 	);
 
 	// Apache et l'URL rewriting
@@ -55,7 +56,7 @@
 
 	// Version de PHP
 	$phpVersion = PHP_VERSION;
-	$useValidPhpVersion = 0 <= version_compare($phpVersion, $phpMinVersion) && 0 <= version_compare($phpVersion, $phpAllVersion);
+	$useValidPhpVersion = 0 <= version_compare($phpVersion, $phpMinVersion);
 
 	// Extensions obligatoires
 	$missingRequiredExtensions = array_diff($requiredExtensions, array_filter($requiredExtensions, 'extension_loaded'));
@@ -136,7 +137,7 @@ ul.details li {
 <?php
 		elseif (!$useModRewrite):
 ?>
-			<li><i>Amity</i> nécessite l'activation du module <b>mod_rewrite</b> d'<i>Apache</i> pour fonctionner.</li>
+			<li><i>Amity</i> nécessite l'activation du module <b>mod_rewrite</b> du serveur <i>Apache</i> pour fonctionner.</li>
 <?php
 		endif;
 		if (!$useValidPhpVersion):
@@ -146,7 +147,7 @@ ul.details li {
 		endif;
 		if (!$useAllRequiredExtensions):
 ?>
-			<li><i>Amity</i> nécessite l'activation  de la ou des extensions suivantes: <b><?php echo implode(', ', $missingRequiredExtensions); ?></b>.</li>
+			<li><i>Amity</i> nécessite l'activation de la ou des extensions suivantes: <b><?php echo implode(', ', $missingRequiredExtensions); ?></b>.</li>
 <?php
 		endif;
 ?>

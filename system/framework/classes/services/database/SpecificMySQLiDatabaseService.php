@@ -131,10 +131,8 @@
 			// Si on doit associer des valeurs par marquage
 			if (0 < count($this->bindingValues)) {
 				$binding = array();
-				if (version_compare(PHP_VERSION, '5.3', '>=')) {
-					foreach ($this->bindingValues as $key => $value) {
-						$binding[$key] = &$this->bindingValues[$key];
-					}
+				foreach ($this->bindingValues as $key => $value) {
+					$binding[$key] = &$this->bindingValues[$key];
 				}
 				array_unshift($binding, $this->bindingTypes);
 				call_user_func_array(array($this->statement, 'bind_param'), $binding);
@@ -168,5 +166,10 @@
 		public function getAccessName() {
 			return 'Specific MySQLi';
 		}
+	}
+
+	// On vérifie que l'extension est disponible
+	if (!extension_loaded('mysqli')) {
+		throw new SystemException('"%s" extension is not available', 'mysqli');
 	}
 ?>

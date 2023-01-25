@@ -18,7 +18,7 @@
 		/*
 		 * CHANGELOG:
 		 * 12/05/2016: Amélioration de la configuration via le constructeur
-		 * 18/03/2016: Utilisation de « file_get_contents » et « file_put_contents » pour améliorer les performances
+		 * 18/03/2016: Utilisation de « file_get_contents() » et « file_put_contents() » pour améliorer les performances
 		 * 08/02/2016: Ajout d'une exception s'il est impossible de créer le dossier de cache et changement des droits de création de dossiers en « 0777 »
 		 * 17/09/2015: Compatibilité avec le préfixe de fichier
 		 * 02/09/2015: Changement global du fonctionnement du cache

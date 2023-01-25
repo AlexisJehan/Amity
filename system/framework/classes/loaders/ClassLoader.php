@@ -6,7 +6,7 @@
 	/**
 	 * Classe d'auto-chargement des classes
 	 * 
-	 * Permet de charger de manière automatique les classes et donc de se passer des « include / require » manuels. Attention, le framework n'utilise pas le système de « namespace » et n'est donc pas compatible avec.
+	 * Permet de charger de manière automatique les classes et donc de se passer des « include » / « require » manuels. Attention, le framework n'utilise pas le système de « namespace » et n'est donc pas compatible avec.
 	 * 
 	 * @package    framework
 	 * @subpackage classes/loaders
