@@ -55,7 +55,7 @@
 	 * 
 	 * @package framework
 	 */
-	define('__VERSION__', '0.3.3');
+	define('__VERSION__', '0.4.0');
 
 	/**
 	 * Temps de lancement de la génération de la page (timestamp avec micro-secondes)
