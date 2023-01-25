@@ -22,7 +22,7 @@
 	$amityVersion = '0.3.3';
 
 	// Version minimale de PHP requise
-	$phpMinVersion = '5.3.0';
+	$phpMinVersion = '5.3';
 
 	// Extensions obligatoires
 	$requiredExtensions = array(
