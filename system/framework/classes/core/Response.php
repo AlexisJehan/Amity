@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/core
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    26/02/2016
+	 * @version    25/01/2023
 	 * @since      11/06/2015
 	 */
 	abstract class Response implements IController {
 		/*
 		 * CHANGELOG:
+		 * 25/01/2023: Compatibilité avec PHP 8.0, « is_callable() » ne fonctionne plus avec une méthode non-statique
 		 * 26/02/2016: Changement du rendu en adéquation avec le nouveau fonctionnement de la classe « Template »
 		 * 11/11/2015: Possibilité de personnaliser le nom du template de rendu à utiliser
 		 * 02/07/2015: Implémentation du forwarding
@@ -524,7 +525,11 @@
 		 * @return boolean        Vrai si le contrôleur de la réponse est correct de par son nom
 		 */
 		public static final function isControllerClass($class) {
-			return class_exists($class) && is_subclass_of($class, 'Response') && is_callable(array($class, 'indexAction'));
+			if (!class_exists($class)) {
+				return FALSE;
+			}
+			$reflectionClass = new ReflectionClass($class);
+			return $reflectionClass->isSubclassOf('Response') && $reflectionClass->isInstantiable();
 		}
 
 		/**
