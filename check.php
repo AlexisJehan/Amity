@@ -19,7 +19,7 @@
 	 */
 
 	// Version d'Amity à tester
-	$amityVersion = '0.4.0';
+	$amityVersion = '0.4.1';
 
 	// Version minimale de PHP requise
 	$phpMinVersion = '5.3';
