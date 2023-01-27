@@ -11,12 +11,13 @@
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
-	 * @version    10/06/2020
+	 * @version    27/01/2023
 	 * @since      22/08/2015
 	 */
 	final class WebRequest {
 		/*
 		 * CHANGELOG:
+		 * 27/01/2023: Compatibilité avec PHP 8.1, le paramètre « $numeric_prefix » de la fonction « http_build_query() » ne peut plus être « NULL »
 		 * 10/06/2020: Correction d'un bug avec « list() »
 		 * 30/05/2016: Ajout d'accesseurs manquant ainsi qu'une méthode permettant de falsifier l'agent utilisateur plutôt qu'utiliser celui de la classe par défaut
 		 * 28/09/2015: Changement mineur de l'utilisation complémentaire de « list() » et « explode() » en renseignant la dimension attendue en troisième paramètre de « explode() »
@@ -599,7 +600,7 @@
 
 			// Si on a des cookies on les ajoute
 			if (0 < count($this->cookies)) {
-				$options[CURLOPT_COOKIE] = http_build_query($this->cookies, NULL, '; ');
+				$options[CURLOPT_COOKIE] = http_build_query($this->cookies, '', '; ');
 			}
 
 			// Préparation puis envoi de la requête
@@ -637,7 +638,7 @@
 
 			// Si on a des cookies on les ajoute
 			if (0 < count($this->cookies)) {
-				$options[CURLOPT_COOKIE] = http_build_query($this->cookies, NULL, '; ');
+				$options[CURLOPT_COOKIE] = http_build_query($this->cookies, '', '; ');
 			}
 
 			// Préparation des chaînes selon les URLs et les options
