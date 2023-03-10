@@ -1,31 +1,31 @@
 # Changelog
 
-## [v0.4.1 (2023-01-27)](https://github.com/AlexisJehan/Amity/releases/tag/v0.4.1)
+## [v0.4.1](https://github.com/AlexisJehan/Amity/releases/tag/v0.4.1) (2023-01-27)
 
 ### Improvements
 - Improve compatibility with _PHP 8.1_
 
-## [v0.4.0 (2023-01-25)](https://github.com/AlexisJehan/Amity/releases/tag/v0.4.0)
+## [v0.4.0](https://github.com/AlexisJehan/Amity/releases/tag/v0.4.0) (2023-01-25)
 
 ### Improvements
 - Improve compatibility with _PHP 8.0_ and _PHP 8.2_
 
-## [v0.3.3 (2022-08-29)](https://github.com/AlexisJehan/Amity/releases/tag/v0.3.3)
+## [v0.3.3](https://github.com/AlexisJehan/Amity/releases/tag/v0.3.3) (2022-08-29)
 
 ### Bug fixes
 - Fix the `url()` function when the language service is enabled
 
-## [v0.3.2 (2021-10-28)](https://github.com/AlexisJehan/Amity/releases/tag/v0.3.2)
+## [v0.3.2](https://github.com/AlexisJehan/Amity/releases/tag/v0.3.2) (2021-10-28)
 
 ### Bug fixes
 - Fix escaping values in the `Template` class
 
-## [v0.3.1 (2021-10-25)](https://github.com/AlexisJehan/Amity/releases/tag/v0.3.1)
+## [v0.3.1](https://github.com/AlexisJehan/Amity/releases/tag/v0.3.1) (2021-10-25)
 
 ### Bug fixes
 - Fix binding `NULL` values in the `Template` class
 
-## [v0.3.0 (2021-08-02)](https://github.com/AlexisJehan/Amity/releases/tag/v0.3.0)
+## [v0.3.0](https://github.com/AlexisJehan/Amity/releases/tag/v0.3.0) (2021-08-02)
 
 ### Breaking changes
 - Remove the `tools` package
@@ -38,12 +38,12 @@
 - Move `LogParser` and `WebRequest` classes to the `utils` package
 - Rename the `style.css` file to `stylesheet.css`
 
-## [v0.2.5 (2020-11-25)](https://github.com/AlexisJehan/Amity/releases/tag/v0.2.5)
+## [v0.2.5](https://github.com/AlexisJehan/Amity/releases/tag/v0.2.5) (2020-11-25)
 
 ### Improvements
 - Improve `path()` and `url()` functions
 
-## [v0.2.4 (2020-09-28)](https://github.com/AlexisJehan/Amity/releases/tag/v0.2.4)
+## [v0.2.4](https://github.com/AlexisJehan/Amity/releases/tag/v0.2.4) (2020-09-28)
 
 ### New features
 - Add custom database options to the configuration
@@ -51,7 +51,7 @@
 ### Notes
 - Change the default database encoding from `utf8` to `utf8mb4`
 
-## [v0.2.3 (2020-06-12)](https://github.com/AlexisJehan/Amity/releases/tag/v0.2.3)
+## [v0.2.3](https://github.com/AlexisJehan/Amity/releases/tag/v0.2.3) (2020-06-12)
 
 ### Bug fixes
 - Fix HTTP headers parsing in the `WebRequest` class
@@ -59,7 +59,7 @@
 ### Improvements
 - Improve compatibility with _PHP 7.4_
 
-## [v0.2.2 (2018-04-04)](https://github.com/AlexisJehan/Amity/releases/tag/v0.2.2)
+## [v0.2.2](https://github.com/AlexisJehan/Amity/releases/tag/v0.2.2) (2018-04-04)
 
 ### Bug fixes
 - Fix a missing array initialisation in the `DebugService` class
