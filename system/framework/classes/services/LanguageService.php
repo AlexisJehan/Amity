@@ -69,7 +69,7 @@
 		 */
 		public function __construct() {
 
-			// S'il n'a pas encore été instantié, on crée le chargeur statique, et on ajoute les emplacements des traductions
+			// S'il n'a pas encore été instancié, on crée le chargeur statique, et on ajoute les emplacements des traductions
 			if (NULL === self::$loader) {
 				self::$loader = new LanguageLoader();
 				self::$loader

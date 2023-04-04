@@ -493,7 +493,7 @@
 		 *
 		 * @param  string  $input      La chaîne dont on souhaite ajouter un décalage
 		 * @param  boolean $pad_length La longueur du décalage
-		 * @param  boolean $pad_string La chaîne de remplissage du décalage [«  » par défaut]
+		 * @param  boolean $pad_string La chaîne de remplissage du décalage [espace par défaut]
 		 * @param  boolean $pad_type   L'endroid où ajouter le décalage [« STR_PAD_RIGHT » par défaut]
 		 * @return string              La chaîne avec le décalage ajouté
 		 */

@@ -26,7 +26,7 @@
 	/**
 	 * Template de rendu d'un contenu
 	 *
-	 * Cette classe charge le contenu d'un fichier de template, et y associe éventuellement des valeurs pour générer un rendu.
+	 * Cette classe charge le contenu d'un fichier de template, et y associe éventuellement des variables pour générer un rendu.
 	 *
 	 * @package    framework
 	 * @subpackage classes/utils
@@ -79,7 +79,7 @@
 		 */
 		public static function init() {
 
-			// S'il n'a pas encore été instantié, on crée le chargeur statique, et on ajoute l'emplacement de l'application
+			// S'il n'a pas encore été instancié, on crée le chargeur statique, et on ajoute l'emplacement de l'application
 			if (NULL === self::$loader) {
 				self::$loader = new TemplateLoader();
 				self::$loader->add(TEMPLATES_DIR)->load();

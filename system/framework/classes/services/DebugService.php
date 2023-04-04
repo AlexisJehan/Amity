@@ -474,7 +474,7 @@
 		 * @param string $class       La classe CSS associée au type de la fenêtre
 		 * @param string $title       Le titre de la fenêtre
 		 * @param string $description La description associée au titre
-		 * @param string $message     Le message, qui s'affichera en tant que contenu dans la fenêtre [chaîne vide par défaut]
+		 * @param string $message     Le message, qui s'affichera en tant que contenu dans la fenêtre [vide par défaut]
 		 */
 		protected function printBox($class, $title, $description, $message = '') {
 			$this->style();
