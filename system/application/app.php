@@ -29,7 +29,6 @@
 	 * Ce script permet de paramétrer l'application et les services. Il est possible de choisir une configuration différente selon l'environnement utilisé.
 	 *
 	 * @package application
-	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version 28/09/2020
 	 * @since   01/08/2014
 	 */

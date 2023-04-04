@@ -30,7 +30,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/authentications
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    02/11/2015
 	 * @since      29/09/2015
 	 */

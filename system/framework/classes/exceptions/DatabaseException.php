@@ -30,7 +30,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/exceptions
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    31/07/2015
 	 * @since      05/10/2014
 	 */

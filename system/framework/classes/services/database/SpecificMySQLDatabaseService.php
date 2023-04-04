@@ -31,7 +31,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/services/database
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    05/06/2015
 	 * @since      05/06/2015
 	 */

@@ -30,7 +30,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    13/02/2016
 	 * @since      14/05/2015
 	 */

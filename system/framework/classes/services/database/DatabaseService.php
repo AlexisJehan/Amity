@@ -32,7 +32,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/services/database
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    01/07/2020
 	 * @since      16/12/2014
 	 */

@@ -31,7 +31,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/utils/cache
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    12/05/2016
 	 * @since      08/07/2014
 	 */

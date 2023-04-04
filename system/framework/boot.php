@@ -31,7 +31,6 @@
 	 * de l'application, et instancie l'autoloader ainsi que les services optionnels ou obligatoires.
 	 *
 	 * @package framework
-	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version 29/08/2022
 	 * @since   01/08/2014
 	 */

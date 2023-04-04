@@ -28,7 +28,6 @@
 	 *
 	 * Ce script permet de vérifier si Amity peut fonctionner correctement sur l'environnement courant.
 	 *
-	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version 25/01/2023
 	 * @since   01/07/2014
 	 */

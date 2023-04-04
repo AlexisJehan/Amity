@@ -30,7 +30,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/redirects
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    26/06/2015
 	 * @since      26/06/2015
 	 */

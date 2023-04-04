@@ -30,7 +30,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/core
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    25/01/2023
 	 * @since      11/06/2015
 	 */

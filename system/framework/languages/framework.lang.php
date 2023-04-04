@@ -30,7 +30,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage languages
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    26/03/2016
 	 * @since      05/07/2015
 	 */

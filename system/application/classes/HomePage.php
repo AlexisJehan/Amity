@@ -30,7 +30,6 @@
 	 *
 	 * @package    application
 	 * @subpackage classes
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    05/08/2015
 	 * @since      01/08/2014
 	 */

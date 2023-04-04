@@ -28,7 +28,6 @@
 	 *
 	 * Ce script s'exécute sur chaque page du site, il instancie le contrôleur frontal de l'application.
 	 *
-	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version 03/09/2015
 	 * @since   01/07/2014
 	 */

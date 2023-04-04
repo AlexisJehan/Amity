@@ -30,7 +30,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/utils
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    28/10/2021
 	 * @since      05/06/2014
 	 */

@@ -32,7 +32,6 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/fragments/decorators
-	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version    05/08/2015
 	 * @since      05/08/2015
 	 */
