@@ -25,9 +25,9 @@
 
 	/**
 	 * Contrôleur de la page d'accueil de l'application
-	 * 
+	 *
 	 * La page d'accueil du site est aussi la page par défaut, elle est entièrement personnalisable. Elle ne doit pas être retirée.
-	 * 
+	 *
 	 * @package    application
 	 * @subpackage classes
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

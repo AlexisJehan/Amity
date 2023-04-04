@@ -25,10 +25,10 @@
 
 	/**
 	 * Requête de l'utilisateur
-	 * 
+	 *
 	 * La requête est générée selon une route qui peut être récupérée de l'URL ou renseignée manuellement.
 	 * Cette route va être analysée afin d'en déduire le contrôleur et l'action associés.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -56,49 +56,49 @@
 
 		/**
 		 * L'URL de la requête
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $url;
 
 		/**
 		 * Le type du contrôleur de la réponse [« page » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $controllerType = 'page';
 
 		/**
 		 * Le nom du contrôleur de la réponse [« home » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $controllerName = 'home';
 
 		/**
 		 * La classe du contrôleur de la réponse [« HomePage » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $controllerClass = 'HomePage';
 
 		/**
 		 * Le nom de l'action de la réponse [« index » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $actionName = 'index';
 
 		/**
 		 * La méthode de l'action de la réponse [« indexAction » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $actionMethod = 'indexAction';
 
 		/**
 		 * Les arguments éventuels
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $args;
@@ -266,7 +266,7 @@
 
 		/**
 		 * Indique si la requête est de type GET
-		 * 
+		 *
 		 * @return boolean Vrai si la requête est de type GET
 		 */
 		public final function isGet() {
@@ -275,7 +275,7 @@
 
 		/**
 		 * Indique si la requête est de type POST
-		 * 
+		 *
 		 * @return boolean Vrai si la requête est de type POST
 		 */
 		public final function isPost() {
@@ -284,7 +284,7 @@
 
 		/**
 		 * Retourne un tableau d'informations sur la requête
-		 * 
+		 *
 		 * @return array Le tableau d'informations
 		 */
 		public final function getInfos() {
@@ -301,7 +301,7 @@
 
 		/**
 		 * Retourne l'URL de la requête
-		 * 
+		 *
 		 * @return string L'URL de la requête
 		 */
 		public final function getUrl() {
@@ -310,7 +310,7 @@
 
 		/**
 		 * Retourne le type du contrôleur de la requête
-		 * 
+		 *
 		 * @return string Le type du contrôleur de la requête
 		 */
 		public final function getControllerType() {
@@ -319,7 +319,7 @@
 
 		/**
 		 * Retourne le nom du contrôleur de la requête
-		 * 
+		 *
 		 * @return string Le nom du contrôleur de la requête
 		 */
 		public final function getControllerName() {
@@ -328,7 +328,7 @@
 
 		/**
 		 * Retourne le nom de la classe du contrôleur de la requête
-		 * 
+		 *
 		 * @return string Le nom de la classe du contrôleur de la requête
 		 */
 		public final function getControllerClass() {
@@ -337,7 +337,7 @@
 
 		/**
 		 * Retourne le nom de l'action du contrôleur de la requête
-		 * 
+		 *
 		 * @return string Le nom de l'action du contrôleur de la requête
 		 */
 		public final function getActionName() {
@@ -346,7 +346,7 @@
 
 		/**
 		 * Retourne le nom de la méthode de l'action du contrôleur de la requête
-		 * 
+		 *
 		 * @return string Le nom de la méthode de l'action du contrôleur de la requête
 		 */
 		public final function getActionMethod() {
@@ -355,7 +355,7 @@
 
 		/**
 		 * Retourne les arguments éventuels de la requête
-		 * 
+		 *
 		 * @return string Les arguments éventuels de la requête
 		 */
 		public final function getArgs() {

@@ -25,11 +25,11 @@
 
 	/**
 	 * Décorateur de fragment avec traduction
-	 * 
+	 *
 	 * Ce décorateur permet d'encapsuler un fragment et ainsi de le traduire si un template spécifique à la langue de l'utilisateur est disponible.
-	 * Par exemple, si on a un fragment qui utilise le template « sample.tpl.php », et qu'un autre template « sample.en.tpl.php » existe, 
+	 * Par exemple, si on a un fragment qui utilise le template « sample.tpl.php », et qu'un autre template « sample.en.tpl.php » existe,
 	 * alors si le service multi-lingue est activé le template « sample.en.tpl.php » sera choisi pour les visiteurs anglophones plutôt que celui par défaut.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/fragments/decorators
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -44,7 +44,7 @@
 
 		/**
 		 * Tentative de récupération d'un template spécifique à la langue de l'utilisateur
-		 * 
+		 *
 		 * @return string Le nom du template
 		 */
 		public function getTemplateName() {
@@ -78,7 +78,7 @@
 
 		/**
 		 * Redéfinition de la méthode d'obtention du nom du cache, pour ne pas confondre deux contenus de langues différentes
-		 * 
+		 *
 		 * @return string Le nom du cache
 		 */
 		public function getCacheName() {

@@ -25,9 +25,9 @@
 
 	/**
 	 * Classe de génération de fichiers de journalisations
-	 * 
+	 *
 	 * Cette classe permet de créer des fichiers de journalisations personnalisés. Il est aussi possible de les archiver à partir d'une certaine taille.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -88,21 +88,21 @@
 
 		/**
 		 * Emplacement où stocker les fichiers de journalisation
-		 * 
+		 *
 		 * @var string
 		 */
 		private static $location = LOGS_DIR;
 
 		/**
 		 * Préfixe des fichiers de journalisation
-		 * 
+		 *
 		 * @var string
 		 */
 		private static $prefix = FILE_PREFIX;
 
 		/**
 		 * Extension des fichiers de journalisation
-		 * 
+		 *
 		 * @var string
 		 */
 		protected static $extension = '.log';
@@ -114,70 +114,70 @@
 
 		/**
 		 * Booléen indiquant si on doit utiliser les verrous lors de l'écriture
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected static $lockfile = TRUE;
 
 		/**
 		 * Booléen indiquant si on doit écrire les valeurs trop grandes sur plusieurs lignes ou les laisser élargies
-		 * 
+		 *
 		 * @var boolean
 		 */
 		private static $multiLines = TRUE;
 
 		/**
 		 * Emplacement du fichier de journalisation
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $file;
 
 		/**
 		 * Nom du fichier de journalisation
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $name;
 
 		/**
 		 * Taille limite d'un fichier de journalisation avant archivage (en octets) [« -1 » pour ne jamais archiver]
-		 * 
+		 *
 		 * @var integer
 		 */
 		protected $limit;
 
 		/**
 		 * Booléen indiquant si on doit afficher un entête lors de la création du fichier de journalisation
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $displayHeaders;
 
 		/**
 		 * Liste des valeurs à écrire
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $values = array();
 
 		/**
 		 * Liste des entêtes à écrire si on crée le fichier
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $headers = array();
 
 		/**
 		 * Liste des tailles maximales des valeurs
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $columnsSize = array();
 
 		/**
 		 * Liste des alignements des valeurs
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $columnsAlignment = array();
@@ -219,7 +219,7 @@
 
 		/**
 		 * Ajoute une entrée au journaliseur
-		 * 
+		 *
 		 * @param  string  $value  La valeur de l'entrée
 		 * @param  string  $header L'entête de l'entrée [vide par défaut]
 		 * @param  integer $size   La taille maximale de la valeur de l'entrée
@@ -241,7 +241,7 @@
 
 		/**
 		 * Ajoute la date au journaliseur
-		 * 
+		 *
 		 * @return Logger L'instance courante
 		 */
 		public final function setDate() {
@@ -251,7 +251,7 @@
 
 		/**
 		 * Ajoute l'adresse IP au journaliseur
-		 * 
+		 *
 		 * @return Logger L'instance courante
 		 */
 		public final function setIPAddress() {
@@ -261,7 +261,7 @@
 
 		/**
 		 * Ajoute l'agent utilisateur au journaliseur
-		 * 
+		 *
 		 * @return Logger L'instance courante
 		 */
 		public final function setUserAgent() {
@@ -271,7 +271,7 @@
 
 		/**
 		 * Ajoute le référent au journaliseur
-		 * 
+		 *
 		 * @return Logger L'instance courante
 		 */
 		public final function setReferer() {
@@ -281,7 +281,7 @@
 
 		/**
 		 * Ajoute la requête au journaliseur
-		 * 
+		 *
 		 * @return Logger L'instance courante
 		 */
 		public final function setRequest() {
@@ -355,7 +355,7 @@
 
 		/**
 		 * Génère le contenu à écrire selon l'état du fichier de journalisation
-		 * 
+		 *
 		 * @param  boolean $exists  Vrai si le fichier existe déjà
 		 * @param  boolean $exceeds Vrai si la limite de taille du fichier est dépassée
 		 * @return string           Le contenu à écrire
@@ -391,7 +391,7 @@
 
 		/**
 		 * Génère le contenu d'une bordure
-		 * 
+		 *
 		 * @param  boolean $headerBorder Indique si c'est une bordure d'entête ou non [« FALSE » par défaut]
 		 * @return string                Le contenu de la bordure générée
 		 */
@@ -405,7 +405,7 @@
 
 		/**
 		 * Génère le contenu de l'entête
-		 * 
+		 *
 		 * @return string Le contenu de l'entête généré
 		 */
 		private function generateHeaders() {
@@ -419,7 +419,7 @@
 
 		/**
 		 * Génère le contenu des valeurs
-		 * 
+		 *
 		 * @return string Le contenu des valeurs généré
 		 */
 		private function generateValues() {
@@ -464,7 +464,7 @@
 
 		/**
 		 * Retourne l'emplacement du fichier de journalisation
-		 * 
+		 *
 		 * @return string L'emplacement du fichier de journalisation
 		 */
 		public final function getFile() {
@@ -473,7 +473,7 @@
 
 		/**
 		 * Retourne le nom du fichier de journalisation
-		 * 
+		 *
 		 * @return string Le nom du fichier de journalisation
 		 */
 		public final function getName() {
@@ -482,7 +482,7 @@
 
 		/**
 		 * Retourne la limite de taille du fichier de journalisation avant archive
-		 * 
+		 *
 		 * @return integer La limite de taille (en octets)
 		 */
 		public final function getLimit() {
@@ -491,7 +491,7 @@
 
 		/**
 		 * Adaptation de la fonction « str_pad() » avec le multi-octets
-		 * 
+		 *
 		 * @param  string  $input      La chaîne dont on souhaite ajouter un décalage
 		 * @param  boolean $pad_length La longueur du décalage
 		 * @param  boolean $pad_string La chaîne de remplissage du décalage [«  » par défaut]
@@ -507,6 +507,7 @@
 
 		/**
 		 * Retourne une chaîne de caractères en majuscules
+		 *
 		 * @param  string $string La chaîne à mettre en majuscule
 		 * @return string         La chaîne en majuscules
 		 */
@@ -519,7 +520,7 @@
 
 		/**
 		 * Adaptation de la fonction « str_split() » avec le multi-octets
-		 * 
+		 *
 		 * @param  boolean $string       La chaîne à découper
 		 * @param  boolean $split_length Le nombre de caractères de chaque tronçon
 		 * @return array                 Le tableau contenant chaque morceau généré à partir de la chaîne d'entrée

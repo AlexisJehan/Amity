@@ -25,9 +25,9 @@
 
 	/**
 	 * Requête web
-	 * 
+	 *
 	 * « WebRequest » est un outil adaptant l'utilitaire cURL et permettant de faire toutes sortes de requêtes vers un serveur distant, et particulièrement des requêtes HTTP.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -46,7 +46,7 @@
 
 		/**
 		 * Options cURL à ajouter pour la requête à envoyer, contient à l'instanciation des options avec des valeurs par défaut
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $options = array(
@@ -64,84 +64,84 @@
 
 		/**
 		 * L'URL du site à requêter (« https://example.com » par défaut)
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $url = 'https://example.com';
 
 		/**
 		 * Des données à ajouter facultativement à la requête selon son type
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $datas;
 
 		/**
 		 * Des entêtes HTTP personnalisés
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $headers;
 
 		/**
 		 * Des cookies à envoyer avec la requête, ils ne sont pas conservés
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $cookies;
 
 		/**
 		 * Le code d'erreur de la dernière requête (« 0 » pour une requête réussie, peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @var integer|array
 		 */
 		protected $errorCode;
 
 		/**
 		 * Le message d'erreur de la dernière requête (vide pour une requête réussie, peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @var string|array
 		 */
 		protected $errorMessage;
 
 		/**
 		 * Le contenu de la réponse, si retourné (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @var string|array
 		 */
 		protected $response;
 
 		/**
 		 * Le protocôle HTTP de la réponse (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @var string|array
 		 */
 		protected $responseProtocol;
 
 		/**
 		 * Le status HTTP de la réponse (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @var integer|array
 		 */
 		protected $responseStatus;
 
 		/**
 		 * Le message du status HTTP de la réponse (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @var string|array
 		 */
 		protected $responseStatusMessage;
 
 		/**
 		 * Les entêtes HTTP de la réponse sous forme de tableau (peut être un tableau de tableaux pour des requêtes multiples)
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $responseHeaders;
 
 		/**
 		 * Les chaînes courantes, seulement utilisé pour les requêtes multiples
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $channels;
@@ -360,7 +360,7 @@
 
 			// Si aucun fichier n'est spécifié, on utilise celui par défaut à l'emplacement de la classe
 			if (NULL === $file) {
-				$file = __DIR__ . '/cookies.txt'; 
+				$file = __DIR__ . '/cookies.txt';
 			}
 
 			$this->options[CURLOPT_COOKIESESSION] = TRUE;
@@ -795,7 +795,7 @@
 
 		/**
 		 * Retourne l'URL de la requête
-		 * 
+		 *
 		 * @return string L'URL de la requête
 		 */
 		public function getUrl() {
@@ -804,7 +804,7 @@
 
 		/**
 		 * Retourne les données optionnelles de la requête
-		 * 
+		 *
 		 * @return string Les données optionnelles de la requête
 		 */
 		public function getDatas() {
@@ -813,7 +813,7 @@
 
 		/**
 		 * Retourne les entêtes de la requête
-		 * 
+		 *
 		 * @return string Les entêtes de la requête
 		 */
 		public function getHeaders() {
@@ -822,7 +822,7 @@
 
 		/**
 		 * Retourne les cookies de la requête
-		 * 
+		 *
 		 * @return string Les cookies de la requête
 		 */
 		public function getCookies() {
@@ -831,7 +831,7 @@
 
 		/**
 		 * Retourne le code d'erreur de la requête (« 0 » pour une requête réussie, peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @return integer|array Le ou les codes d'erreur de requêtes
 		 */
 		public function getErrorCode() {
@@ -840,7 +840,7 @@
 
 		/**
 		 * Retourne le message d'erreur de la requête (vide pour une requête réussie, peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @return string|array Le ou les messages d'erreur de requêtes
 		 */
 		public function getErrorMessage() {
@@ -849,7 +849,7 @@
 
 		/**
 		 * Retourne le contenu de la réponse (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @return string|array Le ou les contenus de la réponse
 		 */
 		public function getResponse() {
@@ -858,7 +858,7 @@
 
 		/**
 		 * Retourne le protocôle HTTP de la réponse (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @return string|array Le ou les protocoles HTTP de la réponse
 		 */
 		public function getResponseProtocol() {
@@ -867,7 +867,7 @@
 
 		/**
 		 * Retourne le status HTTP de la réponse (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @return integer|array Le ou les status HTTP de la réponse
 		 */
 		public function getResponseStatus() {
@@ -876,7 +876,7 @@
 
 		/**
 		 * Retourne le message du status HTTP de la réponse (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @return string|array Le ou les messages des status HTTP de la réponse
 		 */
 		public function getResponseStatusMessage() {
@@ -885,7 +885,7 @@
 
 		/**
 		 * Retourne la valeur d'un entête de la réponse selon sa clé (requête seule uniquement)
-		 * 
+		 *
 		 * @param  string $key La clé de l'entête de la réponse
 		 * @return string      La valeur de l'entête de la réponse
 		 */
@@ -897,7 +897,7 @@
 
 		/**
 		 * Retourne les entêtes de la réponse (peut être un tableau pour des requêtes multiples)
-		 * 
+		 *
 		 * @return array Les entêtes de la réponse
 		 */
 		public function getResponseHeaders() {

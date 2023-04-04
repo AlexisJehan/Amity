@@ -25,10 +25,10 @@
 
 	/**
 	 * Classe abstraite de chargement
-	 * 
+	 *
 	 * Elle permet aux classes qui en hérite de pouvoir charger dynamiquement des fichiers selon les emplacements ajoutés.
 	 * La map des fichiers correspondant est mise en cache pour être chargée plus rapidement les fois suivantes.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/loaders
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -49,14 +49,14 @@
 
 		/**
 		 * Indique si on peut rafraîchir le cache automatiquement si on ne trouve pas un fichier après le chargement du cache courant
-		 * 
+		 *
 		 * @var boolean
 		 */
 		private static $allowRefresh = DEV_MODE;
 
 		/**
 		 * Extension des fichiers à rechercher dans les emplacements
-		 * 
+		 *
 		 * @var string
 		 */
 		protected static $extension = '.php';
@@ -70,21 +70,21 @@
 
 		/**
 		 * Liste des emplacements à parcourir pour trouver les fichiers à charger
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $locations = array();
 
 		/**
 		 * Liste des fichiers trouvés correspondant à l'extension dans les emplacements
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $files = array();
 
 		/**
 		 * Indique si on a déjà rafraîchit le cache, si oui il est inutile de le refaire lors de la même exécution
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $alreadyRefreshed = FALSE;
@@ -100,7 +100,7 @@
 
 		/**
 		 * Ajout d'un emplacement où rechercher ou d'un fichier
-		 * 
+		 *
 		 * @param  string         $location L'emplacement ou le fichier
 		 * @return AbstractLoader           L'instance courante
 		 */
@@ -117,7 +117,7 @@
 
 		/**
 		 * Ajout de plusieurs emplacements où rechercher ou de plusieurs fichiers
-		 * 
+		 *
 		 * @param  array          $locations Le tableau d'emplacements ou de fichiers
 		 * @return AbstractLoader            L'instance courante
 		 */
@@ -144,7 +144,7 @@
 					if (is_dir($location)) {
 						$iterator = new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($location)), '/^.+\\' . static::$extension . '$/i');
 						foreach ($iterator as $file) {
-							$files[] = $file->getPathname(); 
+							$files[] = $file->getPathname();
 						}
 
 					// Sinon c'est un fichier, on se contente de l'ajouter
@@ -169,7 +169,7 @@
 
 		/**
 		 * Récupération d'un fichier
-		 * 
+		 *
 		 * @param  string $name Le nom du fichier à récupérer
 		 * @return string       Le fichier récupéré
 		 */
@@ -192,7 +192,7 @@
 
 		/**
 		 * Retourne l'ensemble des fichiers chargés
-		 * 
+		 *
 		 * @return array L'ensemble des fichiers chargés
 		 */
 		public final function getFiles() {
@@ -201,7 +201,7 @@
 
 		/**
 		 * Retourne l'extension des fichiers à charger
-		 * 
+		 *
 		 * @return string L'extension des fichiers
 		 */
 		public final static function getExtension() {
@@ -210,7 +210,7 @@
 
 		/**
 		 * Récupération du nom du fichier de cache
-		 * 
+		 *
 		 * @return string Le nom du fichier de cache
 		 */
 		protected abstract function getCacheName();

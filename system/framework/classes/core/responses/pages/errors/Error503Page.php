@@ -25,9 +25,9 @@
 
 	/**
 	 * Page d'erreur 503
-	 * 
+	 *
 	 * L'erreur 503 se produit lorsque le serveur n'est pas disponible, se produit quand le site est en maintenance avec Amity.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/pages/errors
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

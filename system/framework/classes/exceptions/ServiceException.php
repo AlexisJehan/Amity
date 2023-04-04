@@ -25,9 +25,9 @@
 
 	/**
 	 * Exception d'un service du système
-	 * 
+	 *
 	 * Exception personnalisée du système pouvant être provoquée par un service.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/exceptions
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

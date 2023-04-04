@@ -25,10 +25,10 @@
 
 	/**
 	 * Classe statique
-	 * 
+	 *
 	 * Une classe statique ne peut pas être instanciée, « StaticClass » assure cela et doit donc être étendue par les classes dites statiques.
 	 * Contrairement à Java, en PHP il n'est pas possible de créer une classe statique avec le mot clef associé, cette présente classe comble ainsi ce manque.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

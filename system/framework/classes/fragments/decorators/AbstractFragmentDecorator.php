@@ -25,9 +25,9 @@
 
 	/**
 	 * Décorateur de fragment abstrait
-	 * 
+	 *
 	 * Classe abstraite permettant de définir un décorateur pour ajouter des fonctionnalités à des fragments.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/fragments/decorators
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -43,7 +43,7 @@
 
 		/**
 		 * Fragment à décorer
-		 * 
+		 *
 		 * @var Fragment
 		 */
 		protected $fragment;
@@ -59,7 +59,7 @@
 
 		/**
 		 * {@inheritdoc}
-		 * 
+		 *
 		 * @return array Les associations
 		 */
 		public function getBinding() {
@@ -68,7 +68,7 @@
 
 		/**
 		 * {@inheritdoc}
-		 * 
+		 *
 		 * @return string Le nom du template
 		 */
 		public function getTemplateName() {

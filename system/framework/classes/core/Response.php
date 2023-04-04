@@ -25,9 +25,9 @@
 
 	/**
 	 * Réponse d'une requête utilisateur
-	 * 
+	 *
 	 * La réponse est un contrôleur qui effectue une action selon la requête de l'utilisateur avant d'être envoyée.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -47,7 +47,7 @@
 
 		/**
 		 * Tableau associant un message à un code d'erreur
-		 * 
+		 *
 		 * @var array
 		 */
 		private static $statusMessages = array(
@@ -94,49 +94,49 @@
 
 		/**
 		 * Le contrôleur frontal, pour le forwarding
-		 * 
+		 *
 		 * @var FrontController
 		 */
 		private $frontController;
 
 		/**
 		 * L'objet représentant la requête
-		 * 
+		 *
 		 * @var Request
 		 */
 		private $request;
 
 		/**
 		 * Protocôle de la réponse [« HTTP/1.0 » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $protocol = 'HTTP/1.0';
 
 		/**
 		 * Statut de la réponse [« 200 » par défaut]
-		 * 
+		 *
 		 * @var integer
 		 */
 		protected $status = 200;
 
 		/**
 		 * Message du statut de la réponse [« OK » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $statusMessage = 'OK';
 
 		/**
 		 * Liste des headers de la réponse
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $headers = array();
 
 		/**
 		 * Contenu de la réponse
-		 * 
+		 *
 		 * @var mixed
 		 */
 		protected $content = array();
@@ -304,7 +304,7 @@
 
 		/**
 		 * Retourne la requête
-		 * 
+		 *
 		 * @return Request La requête
 		 */
 		public function getRequest() {
@@ -313,7 +313,7 @@
 
 		/**
 		 * Retourne le protocôle de la réponse
-		 * 
+		 *
 		 * @return string Le protocôle de la réponse
 		 */
 		public function getProtocol() {
@@ -339,7 +339,7 @@
 
 		/**
 		 * Retourne le statut de la réponse
-		 * 
+		 *
 		 * @return integer Le statut de la réponse
 		 */
 		public function getStatus() {
@@ -348,7 +348,7 @@
 
 		/**
 		 * Retourne le message du statut de la réponse
-		 * 
+		 *
 		 * @return string Le message du statut de la réponse
 		 */
 		public function getStatusMessage() {
@@ -392,7 +392,7 @@
 
 		/**
 		 * Retourne le header correspondant à la clé renseignée
-		 * 
+		 *
 		 * @param  string $key La clé du header à récupérer
 		 * @return string      Le contenu du header qui correspond à la clé
 		 */
@@ -466,7 +466,7 @@
 
 		/**
 		 * Retourne le contenu de la réponse
-		 * 
+		 *
 		 * @return array Le contenu de la réponse
 		 */
 		public function getContent() {
@@ -486,7 +486,7 @@
 
 		/**
 		 * Ajoute du contenu à la réponse
-		 * 
+		 *
 		 * @param  string   $content Le contenu à ajouter à la réponse
 		 * @return Response          L'instance courante
 		 */

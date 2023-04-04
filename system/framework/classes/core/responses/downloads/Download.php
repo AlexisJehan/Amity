@@ -25,9 +25,9 @@
 
 	/**
 	 * Téléchargement d'un contenu
-	 * 
+	 *
 	 * Cette réponse indique au navigateur d'enregistrer le contenu dans un fichier.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/downloads
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -42,21 +42,21 @@
 
 		/**
 		 * Contenu à télécharger
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $download;
 
 		/**
 		 * Nom du fichier à télécharger
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $filename;
 
 		/**
 		 * Vérifie si on envoi un contenu à télécharger ou un contenu de type parent
-		 * 
+		 *
 		 * @return boolean Vrai si on envoi un contenu à télécharger
 		 */
 		protected function isSpecific() {
@@ -65,7 +65,7 @@
 
 		/**
 		 * Retourne la taille du contenu à télécharger
-		 * 
+		 *
 		 * @return integer La taille du contenu à télécharger
 		 */
 		protected function getDownloadSize() {
@@ -122,7 +122,7 @@
 
 		/**
 		 * Retourne le contenu à télécharger
-		 * 
+		 *
 		 * @return string Le contenu à télécharger
 		 */
 		public function getDownload() {
@@ -142,7 +142,7 @@
 
 		/**
 		 * Ajoute du contenu à télécharger
-		 * 
+		 *
 		 * @param string $download Le contenu à ajouter à télécharger
 		 */
 		public function addDownload($download) {
@@ -152,7 +152,7 @@
 
 		/**
 		 * Retourne le nom du fichier à télécharger
-		 * 
+		 *
 		 * @return string Le nom du fichier à télécharger
 		 */
 		public function getFilename() {

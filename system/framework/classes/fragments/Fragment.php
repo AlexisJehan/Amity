@@ -25,10 +25,10 @@
 
 	/**
 	 * Fragment de rendu
-	 * 
+	 *
 	 * Un fragment est un objet de l'application qui encapsule un template pour produire un rendu.
 	 * Il peut être utilisé par exemple plusieurs fois par page ou sur plusieurs pages à la fois.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/fragments
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -45,7 +45,7 @@
 
 		/**
 		 * Tableau d'association de valeurs au fragment
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $binding = array();
@@ -134,14 +134,14 @@
 
 		/**
 		 * Retourne le nom du fichier de cache
-		 * 
+		 *
 		 * @return string Le nom du fichier de cache
 		 */
 		public abstract function getCacheName();
 
 		/**
 		 * Retourne la durée de mise en cache
-		 * 
+		 *
 		 * @return integer La durée de mise en cache (en secondes)
 		 */
 		public abstract function getCacheDuration();

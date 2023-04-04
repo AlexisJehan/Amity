@@ -25,9 +25,9 @@
 
 	/**
 	 * Page affichant une erreur
-	 * 
+	 *
 	 * Cette page affiche un message d'erreur et le journalise si activé, de plus, si c'est une erreur HTTP elle modifie le header en conséquent.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/pages/errors
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -45,28 +45,28 @@
 
 		/**
 		 * Code de l'erreur
-		 * 
+		 *
 		 * @var mixed
 		 */
 		protected $errorCode;
 
 		/**
 		 * Nom de l'erreur
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $errorName;
 
 		/**
 		 * Message de l'erreur
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $errorMessage = 'An error has occurred.';
 
 		/**
 		 * Vérifie si on envoi un fichier à télécharger ou un contenu de type parent
-		 * 
+		 *
 		 * @return boolean Vrai si on envoi un fichier à télécharger
 		 */
 		protected function isSpecific() {
@@ -106,7 +106,7 @@
 
 		/**
 		 * Retourne le code de l'erreur
-		 * 
+		 *
 		 * @return mixed Le code de l'erreur
 		 */
 		public function getErrorCode() {
@@ -134,7 +134,7 @@
 
 		/**
 		 * Retourne le nom de l'erreur
-		 * 
+		 *
 		 * @return string Le nom de l'erreur
 		 */
 		public function getErrorName() {
@@ -154,7 +154,7 @@
 
 		/**
 		 * Retourne le message de l'erreur
-		 * 
+		 *
 		 * @return string Le message de l'erreur
 		 */
 		public function getErrorMessage() {

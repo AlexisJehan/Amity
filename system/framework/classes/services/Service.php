@@ -25,9 +25,9 @@
 
 	/**
 	 * Fournisseur de services
-	 * 
+	 *
 	 * Cette classe permet d'enregistrer ou de récupérer un service.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -50,7 +50,7 @@
 
 		/**
 		 * Indique si un service est actuellement enregistré
-		 * 
+		 *
 		 * @param  string  $name Le nom du service
 		 * @return boolean       Vrai si le service est enregistré
 		 */
@@ -60,7 +60,7 @@
 
 		/**
 		 * Enregistre un service
-		 * 
+		 *
 		 * @param  string   $name    Le nom du service
 		 * @param  IService $service Le service à enregistrer
 		 * @return IService          Le service enregistré
@@ -77,7 +77,7 @@
 
 		/**
 		 * Récupère un service
-		 * 
+		 *
 		 * @param  string   $name Le nom du service
 		 * @return IService       Le service récupéré
 		 */
@@ -93,7 +93,7 @@
 
 		/**
 		 * Surcharge magique pour enregistrer / récupérer directement le service via une méthode à son nom selon si un paramètre est renseigné
-		 * 
+		 *
 		 * @param  string   $name      Le nom du service
 		 * @param  array    $arguments Si renseigné, on enregistre ce service
 		 * @return IService            Le service enregistré ou récupéré

@@ -25,9 +25,9 @@
 
 	/**
 	 * Contrôleur frontal
-	 * 
+	 *
 	 * Le contrôleur frontal se charge d'instancier la réponse à une requête d'un utilisateur.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -45,21 +45,21 @@
 
 		/**
 		 * La requête, générée à partir des données envoyées d'un utilisateur
-		 * 
+		 *
 		 * @var Request
 		 */
 		protected $request;
 
 		/**
 		 * La réponse, spécifique à la requête et qui génère le contenu renvoyé à l'utilisateur
-		 * 
+		 *
 		 * @var Response
 		 */
 		protected $response;
 
 		/**
 		 * Pile de l'ensemble des forwarding effectués, pour prévenir d'un éventuel forwarding mutuel ou d'une boucle
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $forwards = array();
@@ -104,7 +104,7 @@
 
 		/**
 		 * {@inheritdoc}
-		 * 
+		 *
 		 * @param string $controllerClass La classe du contrôleur vers lequel s'orienter
 		 * @param string $actionMethod    La méthode de l'action du nouveau contrôleur
 		 * @param array  $args            Les arguments de l'action [si non renseignés alors correspond aux arguments de la requête]
@@ -134,7 +134,7 @@
 
 		/**
 		 * Retourne la requête de l'application
-		 * 
+		 *
 		 * @return Request La requête de l'application
 		 */
 		public final function getRequest() {
@@ -143,7 +143,7 @@
 
 		/**
 		 * Retourne la réponse de l'application
-		 * 
+		 *
 		 * @return Response La réponse de l'application
 		 */
 		public final function getResponse() {

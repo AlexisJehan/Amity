@@ -25,9 +25,9 @@
 
 	/**
 	 * Fragment du contenu de la page principale
-	 * 
+	 *
 	 * Ce fragment permet de définir le contenu de la page par défaut. Nous utilisons un fragment afin de pouvoir le décorer et ainsi le traduire selon la langue utilisateur.
-	 * 
+	 *
 	 * @package    application
 	 * @subpackage classes
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

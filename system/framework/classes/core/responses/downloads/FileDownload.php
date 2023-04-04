@@ -25,9 +25,9 @@
 
 	/**
 	 * Téléchargement d'un fichier
-	 * 
+	 *
 	 * Cette réponse encapsule le téléchargement d'un fichier.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/downloads
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -43,14 +43,14 @@
 
 		/**
 		 * Emplacement du fichier à télécharger
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $file;
 
 		/**
 		 * Vérifie si on envoi un fichier à télécharger ou un contenu de type parent
-		 * 
+		 *
 		 * @return boolean Vrai si on envoi un fichier à télécharger
 		 */
 		protected function isSpecific() {
@@ -59,7 +59,7 @@
 
 		/**
 		 * Retourne la taille du fichier à télécharger
-		 * 
+		 *
 		 * @return integer La taille du fichier à télécharger
 		 */
 		protected function getDownloadSize() {
@@ -88,7 +88,7 @@
 
 		/**
 		 * Retourne l'emplacement du fichier à télécharger
-		 * 
+		 *
 		 * @return string L'emplacement du fichier à télécharger
 		 */
 		public function getFile() {

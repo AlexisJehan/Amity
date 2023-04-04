@@ -25,10 +25,10 @@
 
 	/**
 	 * Service spécifique de base de données utilisant l'extension « mysqli »
-	 * 
+	 *
 	 * Ce service permet de se connecter à une base de données en utilisant « mysqli ».
 	 * L'adaptation à l'utilisation à la manière de « PDO » n'est pas disponible d'où la spécificité. L'utilisation de ce service est donc limitée mais plus stable.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -43,28 +43,28 @@
 
 		/**
 		 * Déclaration de la requête préparée
-		 * 
+		 *
 		 * @var mysqli_stmt
 		 */
 		protected $statement;
 
 		/**
 		 * Chaîne des types des associations
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $bindingTypes;
 
 		/**
 		 * Valeurs des associations
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $bindingValues;
 
 		/**
 		 * Nombre de lignes retournées ou altérées par la dernière requête
-		 * 
+		 *
 		 * @var integer
 		 */
 		protected $count;

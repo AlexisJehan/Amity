@@ -25,9 +25,9 @@
 
 	/**
 	 * Exception du coeur du système
-	 * 
+	 *
 	 * Exception personnalisée du système pouvant être provoquée par son coeur, c'est-à-dire au niveau des contrôleurs.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/exceptions
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

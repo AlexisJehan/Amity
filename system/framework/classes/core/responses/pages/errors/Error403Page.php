@@ -25,9 +25,9 @@
 
 	/**
 	 * Page d'erreur 403
-	 * 
+	 *
 	 * L'erreur 403 se produit lorsqu'un utilisateur tente d'accès à un emplacement sans l'authorisation requise.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/pages/errors
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

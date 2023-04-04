@@ -25,9 +25,9 @@
 
 	/**
 	 * Service de base de données utilisant l'extension « mysqli »
-	 * 
+	 *
 	 * Ce service permet de se connecter à une base de données en utilisant « mysqli ».
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -44,35 +44,35 @@
 
 		/**
 		 * Requête en attente d'être exécutée
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $query;
 
 		/**
 		 * Tableau des associations nommées (exemple: « WHERE :name = 'nom' »)
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $namedBinding;
 
 		/**
 		 * Tableau des associations marquées (exemple: « WHERE ? = 'nom' »)
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $markedBinding;
 
 		/**
 		 * Résultat de la requête
-		 * 
+		 *
 		 * @var mysqli_result
 		 */
 		protected $result;
 
 		/**
 		 * Indique si le résultat a été libéré de la mémoire
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $free = FALSE;

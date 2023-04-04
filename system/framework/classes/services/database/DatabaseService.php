@@ -25,11 +25,11 @@
 
 	/**
 	 * Service de base de données
-	 * 
+	 *
 	 * Le service de base de données fourni une interface permettant d'exécuter des requêtes SQL vers un serveur dédié en se basant sur l'extension « PDO ».
 	 * L'avantage majeur est que son utilisation reste la même qu'importe le serveur de base de données, le service s'adapte en effet lui même et votre code reste compatible lors d'une migration par exemple.
 	 * De plus étant basé sur « PDO », certaines fonctionnalités non présentes pour les extensions comme « mysql » et « mysqli » ont été implémentées comme la sécurité ou la simulation des requêtes préparées.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -113,70 +113,70 @@
 
 		/**
 		 * Hôte de la base de données
-		 * 
+		 *
 		 * @var string
 		 */
 		private $host;
 
 		/**
 		 * Port de connexion à la base de données
-		 * 
+		 *
 		 * @var string
 		 */
 		private $port;
 
 		/**
 		 * Nom de la base de données
-		 * 
+		 *
 		 * @var string
 		 */
 		private $database;
 
 		/**
 		 * Nom d'utilisateur de la base de données
-		 * 
+		 *
 		 * @var string
 		 */
 		private $user;
 
 		/**
 		 * Mot de passe de la base de données
-		 * 
+		 *
 		 * @var string
 		 */
 		private $password;
 
 		/**
 		 * Encodage de connexion à la base de données
-		 * 
+		 *
 		 * @var string
 		 */
 		private $encoding;
 
 		/**
 		 * Options de connexion à la base de données
-		 * 
+		 *
 		 * @var array
 		 */
 		private $options;
 
 		/**
 		 * Indique si la connexion a été effectuée avec succès à la base de données
-		 * 
+		 *
 		 * @var boolean
 		 */
 		private $isConnected = FALSE;
 
 		/**
 		 * Compte le nombre de déclarations effectuées
-		 * 
+		 *
 		 * @var string
 		 */
 		private $statementCount = 0;
 
 		/**
 		 * Variable contenant la connexion spécifique à la base de données
-		 * 
+		 *
 		 * @var mixed
 		 */
 		protected $connection;

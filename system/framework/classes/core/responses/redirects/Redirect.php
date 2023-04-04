@@ -25,9 +25,9 @@
 
 	/**
 	 * Redirection d'emplacement
-	 * 
+	 *
 	 * La redirection permet de faire rediriger l'utilisateur vers un autre emplacement interne ou externe au site.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/redirects
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -43,14 +43,14 @@
 
 		/**
 		 * Emplacement de redirection
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $location;
 
 		/**
 		 * Redirection permanent si vrai, temporaire sinon [« TRUE » par défaut]
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $isPermanent = TRUE;
@@ -70,7 +70,7 @@
 
 		/**
 		 * Retourne l'emplacement de redirection
-		 * 
+		 *
 		 * @return string L'emplacement de redirection
 		 */
 		public function getLocation() {
@@ -90,7 +90,7 @@
 
 		/**
 		 * Retourne vrai si la redirection est permanente
-		 * 
+		 *
 		 * @return boolean Vrai si la redirection est permanente
 		 */
 		public function isPermanent() {
@@ -109,7 +109,7 @@
 
 		/**
 		 * Retourne vrai si la redirection est temporaire
-		 * 
+		 *
 		 * @return boolean Vrai si la redirection est temporaire
 		 */
 		public function isTemporary() {

@@ -25,9 +25,9 @@
 
 	/**
 	 * Classe d'auto-chargement des classes
-	 * 
+	 *
 	 * Permet de charger de manière automatique les classes et donc de se passer des « include » / « require » manuels. Attention, le framework n'utilise pas le système de « namespace » et n'est donc pas compatible avec.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/loaders
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -66,7 +66,7 @@
 
 		/**
 		 * Méthode pour charger une classe ou une interface, elle est appelée automatiquement par SPL
-		 * 
+		 *
 		 * @param string $name Le nom de la classe ou de l'interface dont nous recherchons le fichier
 		 */
 		public function loadClass($name) {
@@ -79,7 +79,7 @@
 
 		/**
 		 * {@inheritdoc}
-		 * 
+		 *
 		 * @return string Le nom du fichier de cache
 		 */
 		protected function getCacheName() {

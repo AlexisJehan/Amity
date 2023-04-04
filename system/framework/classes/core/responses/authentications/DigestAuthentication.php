@@ -25,9 +25,9 @@
 
 	/**
 	 * Contrôleur nécessitant une authentification avec la méthode « Digest »
-	 * 
+	 *
 	 * L'authentification avec la méthode « Digest » permet de sécuriser un peu plus l'authentification qu'avec la méthode basique, cependant cela ne guarantie pas une sécurité optimale.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/authentications
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -83,7 +83,7 @@
 
 		/**
 		 * Création d'un tableau à partir de la chaîne d'authentification via la méthode digeste
-		 * 
+		 *
 		 * @param  string $username Le nom d'utilisateur à vérifier
 		 * @return string           Le mot de passe de cet utilisateur s'il existe, sinon « NULL »
 		 */

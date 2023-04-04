@@ -25,9 +25,9 @@
 
 	/**
 	 * Exception du système
-	 * 
+	 *
 	 * Exception personnalisée pouvant être provoquée par le système du framework.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/exceptions
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

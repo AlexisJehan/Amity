@@ -25,9 +25,9 @@
 
 	/**
 	 * Image générée en PHP
-	 * 
+	 *
 	 * Une image PNG peut être générée en PHP selon un contrôleur. Cette classe nécessite l'extension GD2.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -43,14 +43,14 @@
 
 		/**
 		 * Image générée
-		 * 
+		 *
 		 * @var resource
 		 */
 		protected $image;
 
 		/**
 		 * Vérifie si on envoi une image ou un contenu de type parent
-		 * 
+		 *
 		 * @return boolean Vrai si on envoi une image
 		 */
 		protected function isSpecific() {
@@ -85,7 +85,7 @@
 
 		/**
 		 * Retourne l'image générée
-		 * 
+		 *
 		 * @return resource L'image générée
 		 */
 		public function getImage() {

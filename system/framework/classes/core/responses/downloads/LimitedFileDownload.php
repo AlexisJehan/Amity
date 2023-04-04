@@ -25,9 +25,9 @@
 
 	/**
 	 * Téléchargement limité d'un fichier
-	 * 
+	 *
 	 * Cette réponse encapsule le téléchargement d'un fichier, en y ajoutant une limite de vitesse de téléchargement.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/downloads
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -42,7 +42,7 @@
 
 		/**
 		 * Limite de vitesse de téléchargement (en kilo-bytes par secondes), « 50 » par défaut
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $rate = 50;
@@ -69,7 +69,7 @@
 
 		/**
 		 * Retourne la limite de vitesse de téléchargement
-		 * 
+		 *
 		 * @return integer La limite de vitesse de téléchargement
 		 */
 		public function getRate() {

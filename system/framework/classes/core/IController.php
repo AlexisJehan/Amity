@@ -25,11 +25,11 @@
 
 	/**
 	 * Interface d'un contrôleur
-	 * 
+	 *
 	 * Un contrôleur peut proposer un ensemble d'actions via des méthodes dont le nom se termine par « Action ».
 	 * Parmi ces méthodes, le contrôleur se doit d'implémenter au minimum l'action principale « indexAction() ».
 	 * Il peut aussi proposer une méthode de forward vers un contrôleur différent.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -51,7 +51,7 @@
 
 		/**
 		 * Forwarding vers l'action d'un autre contrôleur
-		 * 
+		 *
 		 * @param string $controller Le nom du contrôleur vers lequel s'orienter
 		 * @param string $action     Le nom de l'action du nouveau contrôleur
 		 */

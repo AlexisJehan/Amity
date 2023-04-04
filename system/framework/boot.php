@@ -25,11 +25,11 @@
 
 	/**
 	 * Script de lancement du système (bootstrap)
-	 * 
+	 *
 	 * Ce script prépare le système à son exécution.
 	 * Il se charge entre autres de définir les constantes du framework, de crée les liens symboliques, de charger la configuration
 	 * de l'application, et instancie l'autoloader ainsi que les services optionnels ou obligatoires.
-	 * 
+	 *
 	 * @package framework
 	 * @author  Alexis Jehan <alexis.jehan2@gmail.com>
 	 * @version 29/08/2022
@@ -58,28 +58,28 @@
 
 	/**
 	 * Variable attestant du lancement du système
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('__SYSTEM__', TRUE);
 
 	/**
 	 * Nom du framework
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('__NAME__', 'Amity');
 
 	/**
 	 * Version du framework
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('__VERSION__', '0.4.1');
 
 	/**
 	 * Temps de lancement de la génération de la page (timestamp avec micro-secondes)
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('__START__', microtime(TRUE));
@@ -120,84 +120,84 @@
 
 	/**
 	 * Chemin vers la racine du site
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('BASE_DIR', realpath(__DIR__ . '/../..'));
 
 	/**
 	 * Lien vers la racine du site
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('BASE_URL', ((!empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . rtrim(str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '\\/'));
 
 	/**
 	 * Chemin vers le dossier de l'application
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('APPLICATION_DIR', BASE_DIR . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'application');
 
 	/**
 	 * Chemin vers le dossier du framework
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('FRAMEWORK_DIR', BASE_DIR . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'framework');
 
 	/**
 	 * Chemin vers le dossier de cache de l'application
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('CACHE_DIR', APPLICATION_DIR . DIRECTORY_SEPARATOR . 'cache');
 
 	/**
 	 * Chemin vers le dossier des traductions de l'application
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('LANGUAGES_DIR', APPLICATION_DIR . DIRECTORY_SEPARATOR . 'languages');
 
 	/**
 	 * Chemin vers le dossier des fichiers de journalisation de l'application
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('LOGS_DIR', APPLICATION_DIR . DIRECTORY_SEPARATOR . 'logs');
 
 	/**
 	 * Chemin vers le dossier des templates de l'application
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('TEMPLATES_DIR', APPLICATION_DIR . DIRECTORY_SEPARATOR . 'templates');
 
 	/**
 	 * Chemin vers le dossier des composants
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('ASSETS_DIR', BASE_DIR . DIRECTORY_SEPARATOR . 'assets');
 
 	/**
 	 * Lien vers le dossier des composants
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('ASSETS_URL', BASE_URL . '/assets');
 
 	/**
 	 * Chemin vers le dossier du contenu
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('CONTENTS_DIR', BASE_DIR . DIRECTORY_SEPARATOR . 'contents');
 
 	/**
 	 * Lien vers le dossier du contenu
-	 * 
+	 *
 	 * @package framework
 	 */
 	define('CONTENTS_URL', BASE_URL . '/contents');
@@ -262,12 +262,6 @@
 		// Si elle a le préfixe d'une constante de base de données, alors on ne la définit pas
 		if (0 !== strpos($key, 'DB_')) {
 			if (!defined($key)) {
-
-				/**
-				 * Déclaration dynamique des constantes de l'application
-				 *
-				 * @package 
-				 */
 				define($key, $value);
 			}
 			unset($config[$key]);

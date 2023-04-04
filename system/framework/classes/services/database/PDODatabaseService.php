@@ -25,9 +25,9 @@
 
 	/**
 	 * Service de base de données utilisant l'extension « PDO »
-	 * 
+	 *
 	 * Ce service permet de se connecter à une base de données en utilisant « PDO », c'est l'accès recommandé par défaut.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -44,7 +44,7 @@
 
 		/**
 		 * Déclaration de la requête préparée
-		 * 
+		 *
 		 * @var PDOStatement
 		 */
 		protected $statement;

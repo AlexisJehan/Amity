@@ -25,9 +25,9 @@
 
 	/**
 	 * Classe de chargement des templates
-	 * 
+	 *
 	 * Permet de charger les templates de l'application dans les dossiers dédiés.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/loaders
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -52,7 +52,7 @@
 
 		/**
 		 * {@inheritdoc}
-		 * 
+		 *
 		 * @return string Le nom du fichier de cache
 		 */
 		protected function getCacheName() {

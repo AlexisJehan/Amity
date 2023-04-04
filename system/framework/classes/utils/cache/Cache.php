@@ -25,9 +25,9 @@
 
 	/**
 	 * Classe abstraite et utilitaire de mise en cache
-	 * 
+	 *
 	 * Le cache permet de conserver une information périodiquement, plutôt que de la regénérer à chaque exécution.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/utils/cache
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -62,42 +62,42 @@
 
 		/**
 		 * Emplacement où stocker les fichiers de cache
-		 * 
+		 *
 		 * @var string
 		 */
 		private static $location = CACHE_DIR;
 
 		/**
 		 * Préfixe des fichiers de cache
-		 * 
+		 *
 		 * @var string
 		 */
 		private static $prefix = FILE_PREFIX;
 
 		/**
 		 * Extension des fichiers de cache
-		 * 
+		 *
 		 * @var string
 		 */
 		protected static $extension = '.cache';
 
 		/**
 		 * Emplacement du fichier de cache
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $file;
 
 		/**
 		 * Nom du cache
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $name;
 
 		/**
 		 * Durée de conservation du cache, avant rafraîchissement (en secondes) [« -1 » pour ne jamais rafraîchir, « 0 » pour rafraîchir tout le temps]
-		 * 
+		 *
 		 * @var integer
 		 */
 		protected $duration;
@@ -127,7 +127,7 @@
 
 		/**
 		 * Méthode indiquant si le cache est crée et encore frais
-		 * 
+		 *
 		 * @return boolean Vrai si le cache est crée et encore frais
 		 */
 		public final function exists() {
@@ -136,14 +136,14 @@
 
 		/**
 		 * Récupération d'un contenu stocké en cache
-		 * 
+		 *
 		 * @return mixed Le contenu si le cache existe et est frais, « NULL » sinon
 		 */
 		public abstract function fetch();
 
 		/**
 		 * Mise en cache d'un contenu
-		 * 
+		 *
 		 * @param  mixed $value Le contenu à mettre en cache
 		 * @return mixed        Le contenu mis en cache
 		 */
@@ -158,7 +158,7 @@
 
 		/**
 		 * Retourne l'emplacement du fichier de cache
-		 * 
+		 *
 		 * @return string L'emplacement du fichier de cache
 		 */
 		public final function getFile() {
@@ -167,7 +167,7 @@
 
 		/**
 		 * Retourne le nom du cache
-		 * 
+		 *
 		 * @return string Le nom du cache
 		 */
 		public final function getName() {
@@ -176,7 +176,7 @@
 
 		/**
 		 * Retourne la durée de conservation du cache
-		 * 
+		 *
 		 * @return integer La durée de conservation du cache
 		 */
 		public final function getDuration() {
@@ -185,7 +185,7 @@
 
 		/**
 		 * Méthode pratique de gestion du cache d'une variable
-		 * 
+		 *
 		 * @param  string   $name     Le nom du cache
 		 * @param  callable $callback Le callable qui retournera la variable à mettre en cache
 		 * @param  string   $duration La durée de conservation du cache, avant rafraîchissement (en secondes) [« -1 » par défaut, jamais rafraîchit]
@@ -202,7 +202,7 @@
 
 		/**
 		 * Méthode pratique de gestion du cache d'un contenu
-		 * 
+		 *
 		 * @param  string   $name     Le nom du cache
 		 * @param  callable $callback Le callable qui écrira le contenu à mettre en cache
 		 * @param  string   $duration La durée de conservation du cache, avant rafraîchissement (en secondes) [« -1 » par défaut, jamais rafraîchit]
@@ -220,7 +220,7 @@
 
 		/**
 		 * Incrémente un nombre stocké en cache
-		 * 
+		 *
 		 * @param  string  $name         Le nom du cache
 		 * @param  integer $defaultValue La valeur par défaut si le cache n'existe pas
 		 * @param  integer $step         Le pas lors de l'incrémentation
@@ -239,7 +239,7 @@
 
 		/**
 		 * Décrémente un nombre stocké en cache
-		 * 
+		 *
 		 * @param  string  $name         Le nom du cache
 		 * @param  integer $defaultValue La valeur par défaut si le cache n'existe pas
 		 * @param  integer $step         Le pas lors de la décrémentation
@@ -258,7 +258,7 @@
 
 		/**
 		 * Mise à jour d'une valeur spécifique en cache (Compare-and-swap)
-		 * 
+		 *
 		 * @param  string  $name     Le nom du cache
 		 * @param  mixed   $oldValue L'ancienne valeur à remplacer
 		 * @param  mixed   $newValue La nouvelle valeur remplaçante

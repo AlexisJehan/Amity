@@ -25,9 +25,9 @@
 
 	/**
 	 * Service multi-lingue
-	 * 
+	 *
 	 * Ce service permet de proposer des traductions lors de la génération du contenu envoyé à l'utilisateur selon les langues disponibles.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -46,21 +46,21 @@
 
 		/**
 		 * Chargeur qui donne le fichier de traductions selon son nom
-		 * 
+		 *
 		 * @var LanguageLoader
 		 */
 		private static $loader;
 
 		/**
 		 * Langue courante à utiliser pour la traduction [« DEFAULT_LANGUAGE » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $language = DEFAULT_LANGUAGE;
 
 		/**
 		 * Dictionnaire contenant chaque équivalent de traductions chargés
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $dictionary;

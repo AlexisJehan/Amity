@@ -25,9 +25,9 @@
 
 	/**
 	 * Parseur de fichiers de journalisation
-	 * 
+	 *
 	 * Classe utilitaire permettant de récupérer les entêtes et lignes d'un fichier de journalisation du framework.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

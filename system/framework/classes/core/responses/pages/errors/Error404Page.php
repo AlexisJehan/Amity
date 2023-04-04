@@ -25,9 +25,9 @@
 
 	/**
 	 * Page d'erreur 404
-	 * 
+	 *
 	 * L'erreur 404 se produit lorsqu'un utilisateur tente d'accès à un emplacement qui n'existe pas ou plus.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/pages/errors
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

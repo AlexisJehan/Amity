@@ -25,9 +25,9 @@
 
 	/**
 	 * Contrôleur nécessitant une authentification avec la méthode « Basic »
-	 * 
+	 *
 	 * Une authentification permet à ne rendre disponible le contenu seulement si l'utilisateur spécifie un nom d'utilisateur et un mot de passe correct.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/authentications
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -44,21 +44,21 @@
 
 		/**
 		 * Realm (message d'authentification) [« Restricted area » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $realm = 'Restricted area';
 
 		/**
 		 * Contenu de l'entête d'authentification à envoyer
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $header;
 
 		/**
 		 * Contenu d'authentification récupéré
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $auth;
@@ -99,7 +99,7 @@
 
 		/**
 		 * Méthode à redéfinir pour renseigner le mot de passe du nom d'utilisateur renseigné, ou « NULL » si le nom d'utilisateur est incorrect
-		 * 
+		 *
 		 * @param  string $username Le nom d'utilisateur à vérifier
 		 * @return string           Le mot de passe de cet utilisateur s'il existe, sinon « NULL »
 		 */
@@ -107,7 +107,7 @@
 
 		/**
 		 * Vérifie si l'authentification est correcte ou non selon les données récupérées
-		 * 
+		 *
 		 * @return boolean Vrai si le nom d'utilisateur et le mot de passe sont corrects
 		 */
 		protected function isValid() {
@@ -153,7 +153,7 @@
 
 		/**
 		 * Retourne le realm (message d'authentification)
-		 * 
+		 *
 		 * @return string Le realm
 		 */
 		public function getRealm() {

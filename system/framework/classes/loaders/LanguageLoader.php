@@ -25,9 +25,9 @@
 
 	/**
 	 * Classe de chargement des fichiers de traduction
-	 * 
+	 *
 	 * Permet de charger les fichiers de traduction dans les dossiers dédiés.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/loaders
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -50,7 +50,7 @@
 
 		/**
 		 * {@inheritdoc}
-		 * 
+		 *
 		 * @return string Le nom du fichier de cache
 		 */
 		protected function getCacheName() {

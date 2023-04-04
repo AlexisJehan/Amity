@@ -25,9 +25,9 @@
 
 	/**
 	 * Service de base de données utilisant l'extension « mysql »
-	 * 
+	 *
 	 * Ce service permet de se connecter à une base de données en utilisant « mysql », il n'est pas recommandé à l'utilisation par sécurité et est proposé uniquement par compatibilité.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -48,42 +48,42 @@
 
 		/**
 		 * Requête en attente d'être exécutée
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $query;
 
 		/**
 		 * Tableau des associations nommées (exemple: « WHERE :name = 'nom' »)
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $namedBinding;
 
 		/**
 		 * Tableau des associations marquées (exemple: « WHERE ? = 'nom' »)
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $markedBinding;
 
 		/**
 		 * Résultat de la requête
-		 * 
+		 *
 		 * @var resource
 		 */
 		protected $result;
 
 		/**
 		 * Nombre de lignes retournées ou altérées par la dernière requête
-		 * 
+		 *
 		 * @var integer
 		 */
 		protected $count;
 
 		/**
 		 * Indique si le résultat a été libéré de la mémoire
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $free = FALSE;

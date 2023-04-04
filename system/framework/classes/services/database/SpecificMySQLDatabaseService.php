@@ -25,10 +25,10 @@
 
 	/**
 	 * Service spécifique de base de données utilisant l'extension « mysql »
-	 * 
+	 *
 	 * Ce service permet de se connecter à une base de données en utilisant « mysql ».
 	 * L'adaptation à l'utilisation à la manière de « PDO » n'est pas disponible d'où la spécificité. L'utilisation de ce service est donc limitée mais plus stable.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services/database
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

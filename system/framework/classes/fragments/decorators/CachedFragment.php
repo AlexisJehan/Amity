@@ -25,9 +25,9 @@
 
 	/**
 	 * Décorateur de fragment avec mise en cache
-	 * 
+	 *
 	 * Ce décorateur permet d'encapsuler un fragment en le mettant en cache pendant une durée déterminée et ainsi ne pas le regénérer à chaque nouveau rendu.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/fragments/decorators
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

@@ -25,9 +25,9 @@
 
 	/**
 	 * Page d'erreur 500
-	 * 
+	 *
 	 * L'erreur 500 se produit lorsque le serveur rencontre une erreur interne, se produit quand la base de données n'est pas accessible avec Amity.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/pages/errors
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

@@ -25,9 +25,9 @@
 
 	/**
 	 * Interface d'un service
-	 * 
+	 *
 	 * Cette interface permet d'identifier un service afin de pouvoir l'enregistrer comme tel.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

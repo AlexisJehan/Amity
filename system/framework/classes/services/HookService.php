@@ -25,9 +25,9 @@
 
 	/**
 	 * Service de crochets
-	 * 
+	 *
 	 * Les crochets permettent de greffer optionnellement des instructions personnalisées à certains emplacements. De plus dans notre cas ils sont cumulatifs.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -44,7 +44,7 @@
 
 		/**
 		 * Ensemble des différents crochets enregistrés
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $hooks = array();

@@ -25,9 +25,9 @@
 
 	/**
 	 * Exception de base de données
-	 * 
+	 *
 	 * Exception personnalisée du système pouvant être provoquée avec les services d'accès à la base de données.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/exceptions
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

@@ -25,10 +25,10 @@
 
 	/**
 	 * Classe de mise en cache d'un contenu
-	 * 
+	 *
 	 * Le cache permet de conserver un contenu périodiquement et de le recharger plutôt que de le regénérer à chaque fois. Ainsi, les performances sont augmentées.
 	 * Ceci est particulièrement efficace lors de la génération de contenus nécessitant des données provenant d'une base de données, notamment quand ils ne nécessitent pas un rafraîchissement permanent.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/utils/cache
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -49,21 +49,21 @@
 
 		/**
 		 * Extension des fichiers de cache de contenu
-		 * 
+		 *
 		 * @var string
 		 */
 		protected static $extension = '.con.cache';
 
 		/**
 		 * Indique si on doit compresser le contenu mis en cache
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $compress;
 
 		/**
 		 * Indique si la bufferisation de la sortie est activée
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $buffering = FALSE;
@@ -83,7 +83,7 @@
 
 		/**
 		 * Tentative de récupération du contenu depuis le cache
-		 * 
+		 *
 		 * @return mixed Le contenu si le cache existe et est frais, « NULL » sinon
 		 */
 		public function fetch() {
@@ -104,7 +104,7 @@
 
 		/**
 		 * Mise en cache du contenu
-		 * 
+		 *
 		 * @param  string $value Le contenu à mettre en cache
 		 * @return string        Le contenu mis en cache
 		 */
@@ -135,7 +135,7 @@
 
 		/**
 		 * Fin de la capture du contenu, et stockage de ce dernier
-		 * 
+		 *
 		 * @return string Le contenu mis en cache
 		 */
 		public function end() {

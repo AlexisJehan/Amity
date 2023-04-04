@@ -25,9 +25,9 @@
 
 	/**
 	 * Template de rendu d'un contenu
-	 * 
+	 *
 	 * Cette classe charge le contenu d'un fichier de template, et y associe éventuellement des valeurs pour générer un rendu.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -49,28 +49,28 @@
 
 		/**
 		 * Chargeur qui donne le fichier d'un template selon son nom
-		 * 
+		 *
 		 * @var TemplateLoader
 		 */
 		private static $loader;
 
 		/**
 		 * Nom du template
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $name;
 
 		/**
 		 * Emplacement du fichier de template
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $file;
 
 		/**
 		 * Tableau de variables à associer au template
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $variables = array();
@@ -224,7 +224,7 @@
 
 		/**
 		 * Retourne le nom du template
-		 * 
+		 *
 		 * @return string Le nom du template
 		 */
 		public function getName() {
@@ -233,7 +233,7 @@
 
 		/**
 		 * Retourne l'emplacement du fichier de template
-		 * 
+		 *
 		 * @return string L'emplacement du fichier de template
 		 */
 		public function getFile() {

@@ -25,9 +25,9 @@
 
 	/**
 	 * Contenu JSON
-	 * 
+	 *
 	 * Contrôleur générant un contenu JSON à partir d'une valeur PHP.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -44,14 +44,14 @@
 
 		/**
 		 * Valeur à envoyer
-		 * 
+		 *
 		 * @var mixed
 		 */
 		protected $value;
 
 		/**
 		 * Vérifie si on envoit une valeur
-		 * 
+		 *
 		 * @return boolean Vrai si on envoi une valeur
 		 */
 		protected function isSpecific() {
@@ -83,7 +83,7 @@
 
 		/**
 		 * Retourne la valeur à écrire en JSON
-		 * 
+		 *
 		 * @return mixed La valeur
 		 */
 		public function getValue() {

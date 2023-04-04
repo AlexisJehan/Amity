@@ -25,9 +25,9 @@
 
 	/**
 	 * Page affichable du site
-	 * 
+	 *
 	 * Une page est un rendu qui utilise le template principal du site pour encadrer son contenu.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/pages
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -49,14 +49,14 @@
 
 		/**
 		 * Titre de la page
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $title;
 
 		/**
 		 * Nom du template de rendu [« main » par défaut]
-		 * 
+		 *
 		 * @var string
 		 */
 		protected $templateName = 'main';
@@ -74,7 +74,7 @@
 
 		/**
 		 * Retourne le titre de la page
-		 * 
+		 *
 		 * @return string Le titre de la page
 		 */
 		public function getTitle() {
@@ -94,7 +94,7 @@
 
 		/**
 		 * Retourne le nom du template de rendu
-		 * 
+		 *
 		 * @return string Le nom du template de rendu
 		 */
 		public function getTemplateName() {

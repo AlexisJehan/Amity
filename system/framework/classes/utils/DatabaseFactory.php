@@ -25,9 +25,9 @@
 
 	/**
 	 * Usine de base de données
-	 * 
+	 *
 	 * Cette classe permet de créer une instance de service de base de données selon une partie de la configuration de l'application.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/utils
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -44,7 +44,7 @@
 
 		/**
 		 * Liste des services disponibles
-		 * 
+		 *
 		 * @var array
 		 */
 		private static $databaseServices = array(
@@ -57,7 +57,7 @@
 
 		/**
 		 * Liste des drivers PDO disponibles
-		 * 
+		 *
 		 * @var array
 		 */
 		private static $pdoDrivers = array(

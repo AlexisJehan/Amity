@@ -25,9 +25,9 @@
 
 	/**
 	 * Service de débogage
-	 * 
+	 *
 	 * Ce service remplace le gestionnaire d'erreurs et d'exception par lui même. Il propose une interface et des informations plus poussées que XDebug.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/services
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -47,7 +47,7 @@
 
 		/**
 		 * Noms correspondant à chaque drapeau d'erreurs
-		 * 
+		 *
 		 * @var array
 		 */
 		private static $errorCodes = array(
@@ -71,35 +71,35 @@
 
 		/**
 		 * Indique si le débogueur est enregistré ou non
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $registered = FALSE;
 
 		/**
 		 * Indique si les erreurs doivent être affichées
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $display = FALSE;
 
 		/**
 		 * Indique si les erreurs doivent être journalisées
-		 * 
+		 *
 		 * @var integer
 		 */
 		protected $log = FALSE;
 
 		/**
 		 * Indique si le style a déjà été envoyé
-		 * 
+		 *
 		 * @var boolean
 		 */
 		protected $alreadyStylized = FALSE;
 
 		/**
 		 * Tableau contenant les chronos lancés
-		 * 
+		 *
 		 * @var array
 		 */
 		protected $chronos = array();

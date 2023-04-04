@@ -25,9 +25,9 @@
 
 	/**
 	 * Traduction de l'application
-	 * 
+	 *
 	 * Ce fichier contient des traductions de l'application.
-	 * 
+	 *
 	 * @package    application
 	 * @subpackage languages
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

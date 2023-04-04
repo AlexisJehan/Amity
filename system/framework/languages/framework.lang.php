@@ -25,9 +25,9 @@
 
 	/**
 	 * Traduction du framework
-	 * 
+	 *
 	 * Ce fichier contient les traductions des contenus du framework.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage languages
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

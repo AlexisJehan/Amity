@@ -25,9 +25,9 @@
 
 	/**
 	 * Téléchargement d'un fichier avec redirection
-	 * 
+	 *
 	 * Cette réponse redirige vers l'emplacement d'un fichier pour le télécharger, plutôt que d'encapsuler le téléchargement.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/downloads
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>

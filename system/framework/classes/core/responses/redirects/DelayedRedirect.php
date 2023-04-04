@@ -25,9 +25,9 @@
 
 	/**
 	 * Redirection avec délai
-	 * 
+	 *
 	 * La redirection avec délai affiche une page informant l'utilisateur avant de le rediriger après un certain temps.
-	 * 
+	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/redirects
 	 * @author     Alexis Jehan <alexis.jehan2@gmail.com>
@@ -42,7 +42,7 @@
 
 		/**
 		 * Délai de la redirection (en secondes) [« 5 » par défaut]
-		 * 
+		 *
 		 * @var integer
 		 */
 		protected $delay = 5;
@@ -80,7 +80,7 @@
 
 		/**
 		 * Retourne le délai de la redirection
-		 * 
+		 *
 		 * @return integer Le délai de la redirection
 		 */
 		public function getDelay() {
