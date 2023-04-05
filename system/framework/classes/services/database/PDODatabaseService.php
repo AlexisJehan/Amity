@@ -85,7 +85,7 @@
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
 				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
 				if (DEV_MODE) {
-					$this->throwException($exception);
+					throw $this->databaseException($exception);
 				}
 
 				return FALSE;
@@ -127,7 +127,7 @@
 			try {
 				$this->statement = $this->connection->prepare($query);
 			} catch(PDOException $exception) {
-				$this->throwException($exception);
+				throw $this->databaseException($exception);
 			}
 			return $this;
 		}
@@ -170,7 +170,7 @@
 			try {
 				$this->statement->execute();
 			} catch(PDOException $exception) {
-				$this->throwException($exception);
+				throw $this->databaseException($exception);
 			}
 		}
 
@@ -184,7 +184,7 @@
 			try {
 				return $this->statement->fetch($fetch);
 			} catch(PDOException $exception) {
-				$this->throwException($exception);
+				throw $this->databaseException($exception);
 			}
 		}
 
@@ -198,7 +198,7 @@
 			try {
 				return $this->statement->fetchAll($fetch);
 			} catch(PDOException $exception) {
-				$this->throwException($exception);
+				throw $this->databaseException($exception);
 			}
 		}
 
@@ -212,7 +212,7 @@
 			try {
 				return $this->statement->fetchColumn($number);
 			} catch(PDOException $exception) {
-				$this->throwException($exception);
+				throw $this->databaseException($exception);
 			}
 		}
 
@@ -226,7 +226,7 @@
 			try {
 				return $this->statement->fetchAll(PDO::FETCH_COLUMN, $number);
 			} catch(PDOException $exception) {
-				$this->throwException($exception);
+				throw $this->databaseException($exception);
 			}
 		}
 
@@ -290,11 +290,12 @@
 		}
 
 		/**
-		 * Adaptation du lancement d'une exception
+		 * Création d'une exception de base de données personnalisée
 		 *
-		 * @param PDOException $exception L'exception provoquée et à adapter
+		 * @param  PDOException      $exception L'exception provoquée
+		 * @return DatabaseException            L'exception personnalisée crée
 		 */
-		protected function throwException(PDOException $exception) {
+		protected function databaseException(PDOException $exception) {
 			$code = $exception->getCode();
 			$message = $exception->getMessage();
 			if (0 === strpos($message, 'SQLSTATE[')) {
@@ -302,9 +303,7 @@
 				$code = !empty($matches[1]) ? $matches[1] : 0;
 				$message = $matches[2];
 			}
-
-			// Puis on lance la nouvelle exception adaptée
-			throw new DatabaseException($message, $code);
+			return new DatabaseException($message, $code);
 		}
 	}
 

@@ -107,7 +107,7 @@
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
 				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
 				if (DEV_MODE) {
-					$this->throwException();
+					throw $this->databaseException();
 				}
 
 				return FALSE;
@@ -115,12 +115,12 @@
 
 			// Tentative de connexion à la base de données
 			if (!mysql_select_db($database, $this->connection)) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 
 			// Sélection du charset (nécessite MySQL 5.0.7)
 			if (!mysql_set_charset($encoding, $this->connection)) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 
 			//mysql_query('SET NAMES ' . $encoding);
@@ -135,7 +135,7 @@
 		 */
 		protected final function __disconnect() {
 			if (!mysql_close($this->connection)) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 			return TRUE;
 		}
@@ -238,7 +238,7 @@
 			foreach ($queries as $query) {
 				$this->result = mysql_query($query, $this->connection);
 				if (!$this->result) {
-					$this->throwException();
+					throw $this->databaseException();
 				}
 			}
 
@@ -333,7 +333,7 @@
 			if (!$this->free) {
 				while ($row = $this->row(self::FETCH_NUM)) {
 					if (!isset($row[$number])) {
-						$this->throwException('Invalid column index');
+						throw $this->databaseException('Invalid column index');
 					}
 					$table[] = $row[$number];
 				}
@@ -402,12 +402,13 @@
 		}
 
 		/**
-		 * Adaptation du lancement d'une exception
+		 * Création d'une exception de base de données personnalisée
 		 *
-		 * @param string  $message Le message personnalisé [optionnel]
-		 * @param integer $code    Le code personnalisé [optionnel, « 0 » par défaut]
+		 * @param  string            $message Le message personnalisé [optionnel]
+		 * @param  integer           $code    Le code personnalisé [optionnel, « 0 » par défaut]
+		 * @return DatabaseException          L'exception personnalisée crée
 		 */
-		protected final function throwException($message = NULL, $code = 0) {
+		protected final function databaseException($message = NULL, $code = 0) {
 			if (NULL === $message) {
 				if (FALSE !== $this->connection) {
 					$message = mysql_error($this->connection);
@@ -417,7 +418,7 @@
 					$code = mysql_errno();
 				}
 			}
-			throw new DatabaseException($message, $code);
+			return new DatabaseException($message, $code);
 		}
 	}
 

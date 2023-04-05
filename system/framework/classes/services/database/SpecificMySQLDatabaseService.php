@@ -72,7 +72,7 @@
 			// Exécution de la requête
 			$this->result = mysql_query($this->query, $this->connection);
 			if (!$this->result) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 
 			// Si le résultat vaut « TRUE », ce n'était pas un « SELECT » donc on retourne le nombre de lignes affectées

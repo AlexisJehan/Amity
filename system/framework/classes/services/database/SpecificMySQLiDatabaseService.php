@@ -79,7 +79,7 @@
 			// Préparation de la requête
 			$this->statement = $this->connection->stmt_init();
 			if (!$this->statement->prepare($query)) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 
 			// Réinitialisation des attributs
@@ -164,7 +164,7 @@
 				$this->free = FALSE;
 				$this->statement->close();
 			} else {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 		}
 

@@ -102,7 +102,7 @@
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
 				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
 				if (DEV_MODE) {
-					$this->throwException($this->connection->connect_error, $this->connection->connect_errno);
+					throw $this->databaseException($this->connection->connect_error, $this->connection->connect_errno);
 				}
 
 				return FALSE;
@@ -110,7 +110,7 @@
 
 			// Sélection du charset
 			if (!$this->connection->set_charset($encoding)) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 
 			return TRUE;
@@ -123,7 +123,7 @@
 		 */
 		protected final function __disconnect() {
 			if (!$this->connection->close()) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 			return TRUE;
 		}
@@ -223,7 +223,7 @@
 				} while ($this->connection->more_results() && $this->connection->next_result());
 				$this->free = FALSE;
 			} else {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 		}
 
@@ -313,7 +313,7 @@
 			if (!$this->free) {
 				while ($row = $this->row(self::FETCH_NUM)) {
 					if (!isset($row[$number])) {
-						$this->throwException('Invalid column index');
+						throw $this->databaseException('Invalid column index');
 					}
 					$table[] = $row[$number];
 				}
@@ -340,7 +340,7 @@
 		 */
 		public final function autoCommit($enabled = TRUE) {
 			if (!$this->connection->autocommit($enabled)) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 			return $this;
 		}
@@ -352,7 +352,7 @@
 		 */
 		public final function beginTransaction() {
 			if (!$this->connection->begin_transaction()) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 			return $this;
 		}
@@ -364,7 +364,7 @@
 		 */
 		public final function commit() {
 			if (!$this->connection->commit()) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 			return $this;
 		}
@@ -376,7 +376,7 @@
 		 */
 		public final function rollback() {
 			if (!$this->connection->rollback()) {
-				$this->throwException();
+				throw $this->databaseException();
 			}
 			return $this;
 		}
@@ -391,17 +391,18 @@
 		}
 
 		/**
-		 * Adaptation du lancement d'une exception
+		 * Création d'une exception de base de données personnalisée
 		 *
-		 * @param string  $message Le message personnalisé [optionnel]
-		 * @param integer $code    Le code personnalisé [optionnel, « 0 » par défaut]
+		 * @param  string            $message Le message personnalisé [optionnel]
+		 * @param  integer           $code    Le code personnalisé [optionnel, « 0 » par défaut]
+		 * @return DatabaseException          L'exception personnalisée crée
 		 */
-		protected final function throwException($message = NULL, $code = 0) {
+		protected final function databaseException($message = NULL, $code = 0) {
 			if (NULL === $message) {
 				$message = $this->connection->error;
 				$code = $this->connection->errno;
 			}
-			throw new DatabaseException($message, $code);
+			return new DatabaseException($message, $code);
 		}
 	}
 
