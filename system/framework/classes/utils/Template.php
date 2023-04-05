@@ -136,7 +136,7 @@
 
 			// Le tableau doit être associatif
 			if ($variables === array_values($variables)) {
-				throw new InvalidParameterException('The template binding array must be associative', $name);
+				throw new InvalidParameterException('The template binding array must be associative');
 			}
 
 			$this->variables += $escapeAll ? $this->escape($variables) : $variables;

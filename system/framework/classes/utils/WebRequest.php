@@ -322,6 +322,7 @@
 		 */
 		public function setPort($port = 80) {
 			$this->options[CURLOPT_PORT] = (int) $port;
+			return $this;
 		}
 
 		/**
