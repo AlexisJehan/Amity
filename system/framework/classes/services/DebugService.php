@@ -261,7 +261,7 @@
 			// On attrape l'erreur qu'on génère via l'exception d'adaptation « ErrorException »
 			try {
 				throw new ErrorException($message, 0, $type, $file, $line);
-			} catch(ErrorException $exception) {
+			} catch (ErrorException $exception) {
 				$this->exceptionHandler($exception, $scope);
 			}
 

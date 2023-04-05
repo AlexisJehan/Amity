@@ -99,7 +99,7 @@
 			);
 			preg_match_all('@(' . implode('|', array_keys($keys)) . ')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $auth, $matches, PREG_SET_ORDER);
 			foreach ($matches as $match) {
-				$data[$match[1]] = $match[3] ? $match[3] : $match[4];
+				$data[$match[1]] = $match[3] ?: $match[4];
 				unset($keys[$match[1]]);
 			}
 			return empty($keys) ? $data : FALSE;

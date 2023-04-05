@@ -80,7 +80,7 @@
 			// Tentative de connexion via le DSN généré avec les paramètres
 			try {
 				$this->connection = new PDO($driver . ':host=' . $host . (!empty($port) ? ';port=' . $port : '') . ';dbname=' . $database . ';charset=' . $encoding, $user, $password, $settings);
-			} catch(PDOException $exception) {
+			} catch (PDOException $exception) {
 
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
 				// En mode de développement une exception sera lancée, autrement la connexion échouera et une page d'erreur d'affichera
@@ -126,7 +126,7 @@
 		public function query($query) {
 			try {
 				$this->statement = $this->connection->prepare($query);
-			} catch(PDOException $exception) {
+			} catch (PDOException $exception) {
 				throw $this->databaseException($exception);
 			}
 			return $this;
@@ -169,7 +169,7 @@
 		protected function __execute() {
 			try {
 				$this->statement->execute();
-			} catch(PDOException $exception) {
+			} catch (PDOException $exception) {
 				throw $this->databaseException($exception);
 			}
 		}
@@ -183,7 +183,7 @@
 		public function row($fetch = self::FETCH_ASSOC) {
 			try {
 				return $this->statement->fetch($fetch);
-			} catch(PDOException $exception) {
+			} catch (PDOException $exception) {
 				throw $this->databaseException($exception);
 			}
 		}
@@ -197,7 +197,7 @@
 		public function rows($fetch = self::FETCH_ASSOC) {
 			try {
 				return $this->statement->fetchAll($fetch);
-			} catch(PDOException $exception) {
+			} catch (PDOException $exception) {
 				throw $this->databaseException($exception);
 			}
 		}
@@ -211,7 +211,7 @@
 		public function column($number = 0) {
 			try {
 				return $this->statement->fetchColumn($number);
-			} catch(PDOException $exception) {
+			} catch (PDOException $exception) {
 				throw $this->databaseException($exception);
 			}
 		}
@@ -225,7 +225,7 @@
 		public function columns($number = 0) {
 			try {
 				return $this->statement->fetchAll(PDO::FETCH_COLUMN, $number);
-			} catch(PDOException $exception) {
+			} catch (PDOException $exception) {
 				throw $this->databaseException($exception);
 			}
 		}
