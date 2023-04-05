@@ -134,14 +134,14 @@
 		/**
 		 * Retourne le nom du fichier de cache
 		 *
-		 * @return string Le nom du fichier de cache
+		 * @return ?string Le nom du fichier de cache
 		 */
 		public abstract function getCacheName();
 
 		/**
 		 * Retourne la durée de mise en cache
 		 *
-		 * @return integer La durée de mise en cache (en secondes)
+		 * @return ?integer La durée de mise en cache (en secondes)
 		 */
 		public abstract function getCacheDuration();
 	}

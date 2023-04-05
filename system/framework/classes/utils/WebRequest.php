@@ -885,8 +885,8 @@
 		/**
 		 * Retourne la valeur d'un entête de la réponse selon sa clé (requête seule uniquement)
 		 *
-		 * @param  string $key La clé de l'entête de la réponse
-		 * @return string      La valeur de l'entête de la réponse
+		 * @param  string  $key La clé de l'entête de la réponse
+		 * @return ?string      La valeur de l'entête de la réponse
 		 */
 		public function getResponseHeader($key) {
 			if (isset($this->responseHeaders[$key]) || array_key_exists($key, $this->responseHeaders)) {

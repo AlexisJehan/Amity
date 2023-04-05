@@ -169,8 +169,8 @@
 		/**
 		 * Récupération d'un fichier
 		 *
-		 * @param  string $name Le nom du fichier à récupérer
-		 * @return string       Le fichier récupéré
+		 * @param  string  $name Le nom du fichier à récupérer
+		 * @return ?string       Le fichier récupéré
 		 */
 		public final function getFile($name) {
 

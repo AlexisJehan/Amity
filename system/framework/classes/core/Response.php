@@ -392,8 +392,8 @@
 		/**
 		 * Retourne le header correspondant à la clé renseignée
 		 *
-		 * @param  string $key La clé du header à récupérer
-		 * @return string      Le contenu du header qui correspond à la clé
+		 * @param  string  $key La clé du header à récupérer
+		 * @return ?string      Le contenu du header qui correspond à la clé
 		 */
 		public function getHeader($key) {
 
