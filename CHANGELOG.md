@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.0 (unreleased)
+
+### Improvements
+- Improve compatibility in _CLI_ mode
+
 ## [v0.4.1](https://github.com/AlexisJehan/Amity/releases/tag/v0.4.1) (2023-01-27)
 
 ### Improvements

@@ -30,12 +30,13 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/core/responses/pages/errors
-	 * @version    05/07/2015
+	 * @version    12/04/2023
 	 * @since      20/03/2015
 	 */
 	class Error403Page extends ErrorPage {
 		/*
 		 * CHANGELOG:
+		 * 12/04/2023: Amélioration de la compatibilité en mode « CLI »
 		 * 05/07/2015: Meilleure implémentation
 		 * 20/03/2015: Version initiale
 		 */
@@ -46,7 +47,7 @@
 		public function indexAction() {
 
 			// Si l'erreur a été spécifiée dans l'URL on redirige vers l'accueil
-			if (FALSE !== strpos($_SERVER['REQUEST_URI'], 'error403')) {
+			if (isset($_SERVER['REQUEST_URI']) && FALSE !== strpos($_SERVER['REQUEST_URI'], 'error403')) {
 				$this->redirect('home');
 
 			// Sinon on affiche l'erreur

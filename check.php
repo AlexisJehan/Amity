@@ -94,8 +94,10 @@
 		),
 	);
 
+	$serverSoftware = isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : '';
+
 	// Apache
-	$useApache = 0 === strpos($_SERVER['SERVER_SOFTWARE'], 'Apache');
+	$useApache = 0 === strpos($serverSoftware, 'Apache');
 	$useApacheModRewrite = function_exists('apache_get_modules') && in_array('mod_rewrite', apache_get_modules());
 
 	// PHP
@@ -206,7 +208,7 @@
 <?php
 		if (!$useApache):
 ?>
-				<li>Un serveur <strong>Apache</strong> est nécessaire, le serveur actuel est le suivant : <code><?php echo $_SERVER['SERVER_SOFTWARE']; ?></code></li>
+				<li>Un serveur <strong>Apache</strong> est nécessaire, le serveur actuel est le suivant : <code><?php echo $serverSoftware; ?></code></li>
 <?php
 		elseif (!$useApacheModRewrite):
 ?>

@@ -31,12 +31,13 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/core
-	 * @version    02/08/2021
+	 * @version    12/04/2023
 	 * @since      05/05/2015
 	 */
 	class Request {
 		/*
 		 * CHANGELOG:
+		 * 12/04/2023: Amélioration de la compatibilité en mode « CLI »
 		 * 02/08/2021: Possibilité de forcer l'usage de HTTPS
 		 * 29/12/2015: Correction d'une exception pouvant se produire lors de la présence de deux slashs d'affilé dans l'URL
 		 * 26/07/2015: Compatibilité avec la nouvelle méthode « getTypeName() » qui indique le nom public du type du contrôleur
@@ -120,8 +121,11 @@
 						$route = $_SERVER['REDIRECT_URL'];
 
 					// Sinon on les récupère depuis le classique « REQUEST_URI »
-					} else {
+					} else if (isset($_SERVER['REQUEST_URI'])) {
 						$route = $_SERVER['REQUEST_URI'];
+
+					} else {
+						$route = '';
 					}
 				}
 

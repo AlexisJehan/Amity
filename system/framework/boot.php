@@ -31,11 +31,12 @@
 	 * de l'application, et instancie l'autoloader ainsi que les services optionnels ou obligatoires.
 	 *
 	 * @package framework
-	 * @version 29/08/2022
+	 * @version 12/04/2023
 	 * @since   01/08/2014
 	 */
 	/*
 	 * CHANGELOG:
+	 * 12/04/2023: Amélioration de la compatibilité en mode « CLI »
 	 * 29/08/2022: Ajout systématique de la langue dans l'URL lors de l'utilisation du service multi-lingue
 	 * 02/08/2021: Possibilité de forcer l'usage de HTTPS
 	 * 01/07/2020: Ajout de la personnalisation d'options à la connexion à la base de données
@@ -105,7 +106,6 @@
 
 	// Charset en UTF-8 (« text/html » pour interpréter les éventuels messages du débugueur)
 	header('Content-type: text/html; charset=utf-8');
-	//header('Content-Type: text/plain; charset=utf-8');
 
 	// Ajout d'un timezone si aucun n'est spécifié pour la fonction de date
 	if (!ini_get('date.timezone')) {
@@ -129,7 +129,7 @@
 	 *
 	 * @package framework
 	 */
-	define('BASE_URL', ((!empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . rtrim(str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '\\/'));
+	define('BASE_URL', FALSE !== http_response_code() ? ((!empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . rtrim(str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '\\/') : NULL);
 
 	/**
 	 * Chemin vers le dossier de l'application
@@ -221,7 +221,8 @@
 			// Un identifiant de serveur peut être un nom de serveur ou une adresse IP, s'ils sont plusieurs ils doivent être séparés
 			// par un « | »
 			$key = explode('|', $key);
-			if (in_array($_SERVER['SERVER_NAME'], $key) || in_array($_SERVER['SERVER_ADDR'], $key)) {
+			if (in_array(isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost', $key)
+				|| in_array(isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '127.0.0.1', $key)) {
 
 				// On ajoute chaque entrée spécifique à la configuration globale
 				foreach ($value as $key => $value) {
@@ -464,5 +465,5 @@
 	 **************************************************************************/
 
 	// Suppression des variables de l'application par sécurité
-	unset($config, $hooks, $key, $value);
+	unset($autoloader, $config, $hooks, $key, $value);
 ?>

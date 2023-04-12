@@ -30,12 +30,13 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/core
-	 * @version    25/01/2023
+	 * @version    12/04/2023
 	 * @since      11/06/2015
 	 */
 	abstract class Response implements IController {
 		/*
 		 * CHANGELOG:
+		 * 12/04/2023: Amélioration de la compatibilité en mode « CLI »
 		 * 25/01/2023: Compatibilité avec PHP 8.0, « is_callable() » ne fonctionne plus avec une méthode non-statique
 		 * 26/02/2016: Changement du rendu en adéquation avec le nouveau fonctionnement de la classe « Template »
 		 * 11/11/2015: Possibilité de personnaliser le nom du template de rendu à utiliser
@@ -148,7 +149,9 @@
 		public function __construct(FrontController $frontController) {
 			$this->frontController = $frontController;
 			$this->request = $frontController->getRequest();
-			$this->protocol = $_SERVER['SERVER_PROTOCOL'];
+			if (isset($_SERVER['SERVER_PROTOCOL'])) {
+				$this->protocol = $_SERVER['SERVER_PROTOCOL'];
+			}
 		}
 
 		/**
