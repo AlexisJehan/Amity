@@ -28,23 +28,24 @@
 	 *
 	 * Ce script permet de vérifier si Amity peut fonctionner correctement sur l'environnement courant.
 	 *
-	 * @version 25/01/2023
+	 * @version 12/04/2023
 	 * @since   01/07/2014
 	 */
 	/*
 	 * CHANGELOG:
+	 * 12/04/2023: Refactorisation
 	 * 25/01/2023: Mise à jour des extensions avec « bartlett/php-compatinfo^6.5 »
 	 * 01/07/2014: Version initiale
 	 */
 
-	// Version d'Amity à tester
+	// Version d'Amity
 	$amityVersion = '0.4.1';
 
-	// Version minimale de PHP requise
-	$phpMinVersion = '5.3';
+	// Version de PHP minimum
+	$phpMinimumVersion = '5.3';
 
-	// Extensions obligatoires
-	$requiredExtensions = array(
+	// Extensions de PHP requises
+	$phpRequiredExtensions = array(
 		'core',
 		'date',
 		'pcre',
@@ -55,70 +56,111 @@
 		'zlib',
 	);
 
-	// Extensions facultatives
-	$optionalExtensions = array(
-		'curl'      => 'WebRequest',
-		'gd'        => 'Image',
-		'intl'      => 'LanguageService',
-		'json'      => 'Json',
-		//'mbstring'  => 'Logger',														// Optionnel
-		//'mysql'     => array('MySQLDatabaseService', 'SpecificMySQLDatabaseService'),	// Déprécié depuis PHP 5.5, supprimé depuis PHP 7.0
-		'mysqli'    => array('MySQLiDatabaseService', 'SpecificMySQLiDatabaseService'),
-		'pdo'       => 'PDODatabaseService',
-		'simplexml' => 'Xml',
+	// Extensions de PHP optionnelles avec les classes dépendantes
+	$phpOptionalExtensionsClasses = array(
+		'curl' => array(
+			'WebRequest',
+		),
+		'gd' => array(
+			'Image',
+		),
+		'intl' => array(
+			'LanguageService',
+		),
+		'json' => array(
+			'Json',
+		),
+
+		// Optionnelle
+		/*'mbstring' => array(
+			'Logger', 
+		),*/
+
+		// Dépréciée depuis PHP 5.5, supprimée depuis PHP 7.0
+		/*'mysql' => array( 
+			'MySQLDatabaseService',
+			'SpecificMySQLDatabaseService',
+		),*/
+
+		'mysqli' => array(
+			'MySQLiDatabaseService',
+			'SpecificMySQLiDatabaseService',
+		),
+		'pdo' => array(
+			'PDODatabaseService',
+		),
+		'simplexml' => array(
+			'Xml',
+		),
 	);
 
-	// Apache et l'URL rewriting
-	$serverSoftware = $_SERVER['SERVER_SOFTWARE'];
-	$useApache = 0 === strpos($serverSoftware, 'Apache');
-	$useModRewrite = function_exists('apache_get_modules') && in_array('mod_rewrite', apache_get_modules());
+	// Apache
+	$useApache = 0 === strpos($_SERVER['SERVER_SOFTWARE'], 'Apache');
+	$useApacheModRewrite = function_exists('apache_get_modules') && in_array('mod_rewrite', apache_get_modules());
 
-	// Version de PHP
-	$phpVersion = PHP_VERSION;
-	$useValidPhpVersion = 0 <= version_compare($phpVersion, $phpMinVersion);
+	// PHP
+	$phpMissingRequiredExtensions = array_diff(
+		$phpRequiredExtensions,
+		array_filter($phpRequiredExtensions, 'extension_loaded')
+	);
+	$phpMissingOptionalExtensions = array_diff(
+		array_keys($phpOptionalExtensionsClasses),
+		array_filter(array_keys($phpOptionalExtensionsClasses), 'extension_loaded')
+	);
+	$phpUnusableOptionalExtensionsClasses = array_intersect_key(
+		$phpOptionalExtensionsClasses,
+		array_flip($phpMissingOptionalExtensions)
+	);
+	$usePhpValidVersion = version_compare(PHP_VERSION, $phpMinimumVersion, '>=');
+	$usePhpAllRequiredExtensions = 0 === count($phpMissingRequiredExtensions);
+	$usePhpAllOptionalExtensions = 0 === count($phpMissingOptionalExtensions);
 
-	// Extensions obligatoires
-	$missingRequiredExtensions = array_diff($requiredExtensions, array_filter($requiredExtensions, 'extension_loaded'));
-	$useAllRequiredExtensions = 0 === count($missingRequiredExtensions);
-
-	// Extensions facultatives
-	$missingOptionalExtensions = array_diff(array_keys($optionalExtensions), array_filter(array_keys($optionalExtensions), 'extension_loaded'));
-	$unusableOptionalExtensions = array_intersect_key($optionalExtensions, array_flip($missingOptionalExtensions));
-	$useAllOptionalExtensions = 0 === count($missingOptionalExtensions);
-
-	// Status global
-	if ((!$useApache || ($useApache && $useModRewrite)) && $useValidPhpVersion && $useAllRequiredExtensions && $useAllOptionalExtensions) {
+	if (
+		$useApache
+			&& $useApacheModRewrite
+			&& $usePhpValidVersion
+			&& $usePhpAllRequiredExtensions
+			&& $usePhpAllOptionalExtensions
+	) {
 		$status = 'good';
-	} else if ((!$useApache || ($useApache && $useModRewrite)) && $useValidPhpVersion && $useAllRequiredExtensions && !$useAllOptionalExtensions) {
+	} else if (
+		$useApache
+			&& $useApacheModRewrite
+			&& $usePhpValidVersion
+			&& $usePhpAllRequiredExtensions
+			&& !$usePhpAllOptionalExtensions
+	) {
 		$status = 'quite';
-	} else if (!($useApache && $useModRewrite && $useValidPhpVersion && $useAllRequiredExtensions)) {
+	} else {
 		$status = 'bad';
 	}
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 	<head>
 		<meta charset="utf-8"/>
 		<link rel="icon" type="image/png" href="assets/images/logo-amity.png"/>
 		<link rel="stylesheet" href="assets/css/stylesheet.css"/>
 		<style>
-p.good {
+.status-good,
+.status-quite,
+.status-bad {
+	font-weight: bold;
+}
+
+.status-good {
 	color: green;
-	font-weight: bold;
 }
 
-p.quite {
+.status-quite {
 	color: orange;
-	font-weight: bold;
 }
 
-p.bad {
+.status-bad {
 	color: red;
-	font-weight: bold;
 }
 
-p.details,
-ul.details li {
+.status-details {
 	text-align: left;
 }
 		</style>
@@ -128,49 +170,62 @@ ul.details li {
 <?php
 	if ('good' === $status):
 ?>
-		<p class="good">Félicitations ! Votre environnement est entièrement compatible avec <i>Amity <?php echo $amityVersion; ?></i>.</p>
+		<p class="status-good">
+			Félicitations !<br/>
+			Votre environnement est entièrement compatible avec <em>Amity <?php echo $amityVersion; ?></em>
+		</p>
 <?php
 	elseif ('quite' === $status):
 ?>
-		<p class="quite">Votre environnement est partiellement compatible avec <i>Amity <?php echo $amityVersion; ?></i>.</p>
-		<p class="details"><i>Amity</i> peut fonctionner correctement, mais la ou les extensions suivantes sont absentes et font que certaines classes ne peuvent être utilisées:</p>
-		<ul class="details">
+		<p class="status-quite">
+			Ouf&mldr;<br/>
+			Votre environnement est partiellement compatible avec <em>Amity <?php echo $amityVersion; ?></em>
+		</p>
+		<div class="status-details">
+			<p>Les extensions de <em>PHP</em> suivantes ne sont pas disponibles, certaines classes ne peuvent pas être utilisées :</p>
+			<ul>
 <?php
-		foreach ($unusableOptionalExtensions as $extension => $class):
+		foreach ($phpUnusableOptionalExtensionsClasses as $extension => $classes):
 ?>
-			<li>L'extension <b><?php echo $extension; ?></b>, utilisée par la ou les classes suivantes: <i><?php echo is_array($class) ? implode(', ', $class) : $class; ?></i>.</li>
+				<li>L'extension <strong><code><?php echo $extension; ?></code></strong>, utilisée par les classes suivantes : <code><?php echo implode(', ', $classes); ?></code></li>
 <?php
 		endforeach;
 ?>
-		</ul>
+			</ul>
+		</div>
 <?php
 	elseif ('bad' === $status):
 ?>
-		<p class="bad">Votre environnement n'est pas compatible avec <i>Amity <?php echo $amityVersion; ?></i>...</p>
-		<p class="details">Voici le ou les problèmes de compatibilité détectés:</p>
-		<ul class="details">
+		<p class="status-bad">
+			Dommage&mldr;<br/>
+			Votre environnement n'est pas compatible avec <em>Amity <?php echo $amityVersion; ?></em>
+		</p>
+		<div class="status-details">
+			<p>Les problèmes de compatibilité suivants ont été détectés :</p>
+			<ul>
 <?php
 		if (!$useApache):
 ?>
-			<li><i>Amity</i> nécessite un serveur <b>Apache</b> pour fonctionner, le serveur actuel est <i><?php echo $serverSoftware; ?></i>.</li>
+				<li>Un serveur <strong>Apache</strong> est nécessaire, le serveur actuel est le suivant : <code><?php echo $_SERVER['SERVER_SOFTWARE']; ?></code></li>
 <?php
-		elseif (!$useModRewrite):
+		elseif (!$useApacheModRewrite):
 ?>
-			<li><i>Amity</i> nécessite l'activation du module <b>mod_rewrite</b> du serveur <i>Apache</i> pour fonctionner.</li>
-<?php
-		endif;
-		if (!$useValidPhpVersion):
-?>
-			<li><i>Amity</i> nécessite au minimum <b>PHP <?php echo $phpMinVersion; ?></b> pour fonctionner, vous utilisez <i>PHP <?php echo $phpVersion; ?></i>.</li>
+				<li>L'activation du module <strong><code>mod_rewrite</code></strong> du serveur <em>Apache</em> est nécessaire</li>
 <?php
 		endif;
-		if (!$useAllRequiredExtensions):
+		if (!$usePhpValidVersion):
 ?>
-			<li><i>Amity</i> nécessite l'activation de la ou des extensions suivantes: <b><?php echo implode(', ', $missingRequiredExtensions); ?></b>.</li>
+				<li>La <strong>version de PHP</strong> minimum nécessaire est <code><?php echo $phpMinimumVersion; ?></code>, la version actuelle est <code><?php echo PHP_VERSION; ?></code></li>
+<?php
+		endif;
+		if (!$usePhpAllRequiredExtensions):
+?>
+				<li>Les <strong>extensions de PHP</strong> suivantes sont nécessaires : <code><?php echo implode(', ', $phpMissingRequiredExtensions); ?></code></li>
 <?php
 		endif;
 ?>
-		</ul>
+			</ul>
+		</div>
 <?php
 	endif;
 ?>
