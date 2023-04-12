@@ -298,7 +298,7 @@
 			// On ajoute enfin le titre de la page ainsi que son contenu, ce dernier n'étant pas échappé
 			$template
 				->bind('title', $title)
-				->bindHtml('content', implode(PHP_EOL, (array) $content));
+				->bind('content', implode(PHP_EOL, (array) $content), FALSE);
 
 			// On retourne le rendu généré par le template
 			$this->setContent($template->render());

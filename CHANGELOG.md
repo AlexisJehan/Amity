@@ -2,6 +2,9 @@
 
 ## v0.5.0 (unreleased)
 
+### Breaking changes
+- Remove the `bindHtml()` method from the `Template` class
+
 ### Improvements
 - Improve compatibility in _CLI_ mode
 

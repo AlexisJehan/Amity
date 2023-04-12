@@ -30,12 +30,13 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/utils
-	 * @version    28/10/2021
+	 * @version    12/04/2023
 	 * @since      05/06/2014
 	 */
 	final class Template {
 		/*
 		 * CHANGELOG:
+		 * 12/04/2023: Suppression de la méthode « bindHtml() »
 		 * 28/10/2021: Correction de l'échappement
 		 * 26/02/2016: L'échappement des caractères se fait désormais par défaut, et une nouvelle méthode pour ne pas le faire pour le HTML est aussi disponible
 		 * 13/02/2016: Changement d'association des valeurs, ces dernières n'étant plus disponibles en tant qu'attributs de classe mais désormais en variables locales grâce à la fonction « extract() »
@@ -110,18 +111,6 @@
 		 */
 		public function bind($name, $value, $escape = TRUE) {
 			$this->variables[$name] = $escape ? $this->escape($value) : $value;
-			return $this;
-		}
-
-		/**
-		 * Association d'un contenu HTML dans le template, ce dernier n'étant pas échappé
-		 *
-		 * @param  string   $name    Le nom de la variable
-		 * @param  string   $content Le contenu HTML
-		 * @return Template          L'instance courante
-		 */
-		public function bindHtml($name, $content) {
-			$this->bind($name, $content, FALSE);
 			return $this;
 		}
 
