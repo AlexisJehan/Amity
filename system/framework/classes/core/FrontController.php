@@ -103,10 +103,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param string $controllerClass La classe du contrôleur vers lequel s'orienter
-		 * @param string $actionMethod    La méthode de l'action du nouveau contrôleur
-		 * @param array  $args            Les arguments de l'action [si non renseignés alors correspond aux arguments de la requête]
 		 */
 		public final function forward($controllerClass = 'HomePage', $actionMethod = 'indexAction', array $args = NULL) {
 

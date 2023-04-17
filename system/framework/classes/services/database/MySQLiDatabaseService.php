@@ -78,15 +78,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string  $host     Le nom de l'hôte
-		 * @param  string  $port     Le port de connexion
-		 * @param  string  $database Le nom de la base de données
-		 * @param  string  $user     Le nom de l'utilisateur
-		 * @param  string  $password Le mot de passe
-		 * @param  string  $encoding L'encodage de connexion
-		 * @param  array   $options  Les options de connexion
-		 * @return boolean           Vrai si la connexion a été effectuée
 		 */
 		protected final function __connect($host, $port, $database, $user, $password, $encoding, array $options) {
 			$this->connection = mysqli_init();
@@ -118,8 +109,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return boolean Vrai si la déconnexion a été effectuée
 		 */
 		protected final function __disconnect() {
 			if (!$this->connection->close()) {
@@ -130,9 +119,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string          $query La requête SQL à exécuter
-		 * @return DatabaseService        L'instance courante
 		 */
 		public function query($query) {
 			$this->query = $query;
@@ -147,11 +133,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string          $key   L'identifiant de la variable dans la requête
-		 * @param  string          $value La valeur à associer
-		 * @param  integer         $type  Le drapeau du type de la variable [vide par défaut]
-		 * @return DatabaseService        L'instance courante
 		 */
 		public function bind($key, $value, $type = NULL) {
 
@@ -229,9 +210,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  integer $fetch La méthode de récupération [« DatabaseService::FETCH_ASSOC » par défaut]
-		 * @return array          La ligne de résultat
 		 */
 		public final function row($fetch = self::FETCH_ASSOC) {
 
@@ -271,9 +249,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  integer $fetch La méthode de récupération [« DatabaseService::FETCH_ASSOC » par défaut]
-		 * @return array          Les lignes de résultats
 		 */
 		public final function rows($fetch = self::FETCH_ASSOC) {
 			$table = array();
@@ -287,9 +262,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  integer $number Le numéro de la colonne
-		 * @return mixed           La cellule
 		 */
 		public final function column($number = 0) {
 
@@ -304,9 +276,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  integer $number Le numéro de la colonne
-		 * @return array           Les cellules
 		 */
 		public final function columns($number = 0) {
 			$table = array();
@@ -325,8 +294,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return integer Le nombre de lignes retournées ou altérées
 		 */
 		public function count() {
 			return $this->connection->affected_rows;
@@ -334,9 +301,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  boolean         $enabled Activation si vrai [« TRUE » par défaut]
-		 * @return DatabaseService          L'instance courante
 		 */
 		public final function autoCommit($enabled = TRUE) {
 			if (!$this->connection->autocommit($enabled)) {
@@ -347,8 +311,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return DatabaseService L'instance courante
 		 */
 		public final function beginTransaction() {
 			if (!$this->connection->begin_transaction()) {
@@ -359,8 +321,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return DatabaseService L'instance courante
 		 */
 		public final function commit() {
 			if (!$this->connection->commit()) {
@@ -371,8 +331,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return DatabaseService L'instance courante
 		 */
 		public final function rollback() {
 			if (!$this->connection->rollback()) {
@@ -383,8 +341,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom spécifique du service utilisé
 		 */
 		public function getAccessName() {
 			return 'MySQLi';

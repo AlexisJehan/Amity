@@ -42,15 +42,11 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @var string
 		 */
 		protected static $extension = '.lang.php';
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom du fichier de cache
 		 */
 		protected function getCacheName() {
 			return 'languages';

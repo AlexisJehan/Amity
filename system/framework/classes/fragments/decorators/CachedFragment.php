@@ -42,9 +42,7 @@
 		 */
 
 		/**
-		 * Redéfinition de la méthode d'obtention du contenu avec prise en compte du cache
-		 *
-		 * @return string Contenu du fragment crée ou récupéré du cache
+		 * {@inheritdoc}
 		 */
 		public function get() {
 

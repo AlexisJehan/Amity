@@ -47,7 +47,7 @@
 		protected $rate = 50;
 
 		/**
-		 * {@inheritdoc}, on affiche le contenu du fichier de façon ralentie
+		 * {@inheritdoc}
 		 */
 		protected function sendDownload() {
 			flush();

@@ -70,9 +70,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string          $query La requête SQL à exécuter
-		 * @return DatabaseService        L'instance courante
 		 */
 		public function query($query) {
 
@@ -93,11 +90,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string          $key   L'identifiant de la variable dans la requête
-		 * @param  string          $value La valeur à associer
-		 * @param  integer         $type  Le drapeau du type de la variable [vide par défaut]
-		 * @return DatabaseService        L'instance courante
 		 */
 		public function bind($key, $value, $type = NULL) {
 
@@ -170,8 +162,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return integer Le nombre de lignes retournées ou altérées
 		 */
 		public function count() {
 			return $this->count;
@@ -179,8 +169,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom spécifique du service utilisé
 		 */
 		public function getAccessName() {
 			return 'Specific MySQLi';

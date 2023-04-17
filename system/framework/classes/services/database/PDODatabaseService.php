@@ -50,16 +50,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string  $host     Le nom de l'hôte
-		 * @param  string  $port     Le port de connexion
-		 * @param  string  $database Le nom de la base de données
-		 * @param  string  $user     Le nom de l'utilisateur
-		 * @param  string  $password Le mot de passe
-		 * @param  string  $encoding L'encodage de connexion
-		 * @param  array   $options  Les options de connexion
-		 * @param  string  $driver   Le driver spécifique à la base de données [« mysql » par défaut]
-		 * @return boolean           Vrai si la connexion a été effectuée
 		 */
 		protected function __connect($host, $port, $database, $user, $password, $encoding, array $options, $driver = 'mysql') {
 
@@ -108,8 +98,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return boolean Vrai si la déconnexion a été effectuée
 		 */
 		protected function __disconnect() {
 			$this->statement = NULL;
@@ -119,9 +107,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string          $query La requête SQL à exécuter
-		 * @return DatabaseService        L'instance courante
 		 */
 		public function query($query) {
 			try {
@@ -134,11 +119,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string          $key   L'identifiant de la variable dans la requête
-		 * @param  string          $value La valeur à associer
-		 * @param  integer         $type  Le drapeau du type de la variable [vide par défaut]
-		 * @return DatabaseService        L'instance courante
 		 */
 		public function bind($key, $value, $type = NULL) {
 
@@ -176,9 +156,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  integer $fetch La méthode de récupération [« DatabaseService::FETCH_ASSOC » par défaut]
-		 * @return array          La ligne de résultat
 		 */
 		public function row($fetch = self::FETCH_ASSOC) {
 			try {
@@ -190,9 +167,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  integer $fetch La méthode de récupération [« DatabaseService::FETCH_ASSOC » par défaut]
-		 * @return array          Les lignes de résultats
 		 */
 		public function rows($fetch = self::FETCH_ASSOC) {
 			try {
@@ -204,9 +178,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  integer $number Le numéro de la colonne
-		 * @return mixed           La cellule
 		 */
 		public function column($number = 0) {
 			try {
@@ -218,9 +189,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  integer $number Le numéro de la colonne
-		 * @return array           Les cellules
 		 */
 		public function columns($number = 0) {
 			try {
@@ -232,8 +200,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return integer Le nombre de lignes retournées ou altérées
 		 */
 		public function count() {
 			return $this->statement->rowCount();
@@ -241,9 +207,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  boolean         $enabled Activation si vrai [« TRUE » par défaut]
-		 * @return DatabaseService          L'instance courante
 		 */
 		public function autoCommit($enabled = TRUE) {
 			$this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT , $enabled);
@@ -252,8 +215,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return DatabaseService L'instance courante
 		 */
 		public function beginTransaction() {
 			$this->connection->beginTransaction();
@@ -262,8 +223,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return DatabaseService L'instance courante
 		 */
 		public function commit() {
 			$this->connection->commit();
@@ -272,8 +231,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return DatabaseService L'instance courante
 		 */
 		public function rollback() {
 			$this->connection->rollBack();
@@ -282,8 +239,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom spécifique du service utilisé
 		 */
 		public function getAccessName() {
 			return 'PDO [' . $this->connection->getAttribute(PDO::ATTR_DRIVER_NAME) . ']';

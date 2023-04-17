@@ -42,9 +42,7 @@
 		 */
 
 		/**
-		 * Tentative de récupération d'un template spécifique à la langue de l'utilisateur
-		 *
-		 * @return string Le nom du template
+		 * {@inheritdoc}
 		 */
 		public function getTemplateName() {
 
@@ -76,9 +74,7 @@
 		}
 
 		/**
-		 * Redéfinition de la méthode d'obtention du nom du cache, pour ne pas confondre deux contenus de langues différentes
-		 *
-		 * @return string Le nom du cache
+		 * {@inheritdoc}
 		 */
 		public function getCacheName() {
 

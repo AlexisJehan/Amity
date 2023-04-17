@@ -58,8 +58,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return array Les associations
 		 */
 		public function getBinding() {
 			return $this->fragment->getBinding();
@@ -67,8 +65,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom du template
 		 */
 		public function getTemplateName() {
 			return $this->fragment->getTemplateName();
@@ -76,8 +72,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom du fichier de cache
 		 */
 		public function getCacheName() {
 			return $this->fragment->getCacheName();
@@ -85,8 +79,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return integer La durée de mise en cache
 		 */
 		public function getCacheDuration() {
 			return $this->fragment->getCacheDuration();

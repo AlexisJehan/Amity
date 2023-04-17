@@ -78,8 +78,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom du fichier de cache
 		 */
 		protected function getCacheName() {
 			return 'classes';

@@ -51,9 +51,9 @@
 		/**
 		 * Forwarding vers l'action d'un autre contrôleur
 		 *
-		 * @param string $controller Le nom du contrôleur vers lequel s'orienter
-		 * @param string $action     Le nom de l'action du nouveau contrôleur
+		 * @param string $controllerClass La classe du contrôleur vers lequel s'orienter
+		 * @param string $actionMethod    La méthode de l'action du nouveau contrôleur
 		 */
-		public function forward($controller, $action);
+		public function forward($controllerClass, $actionMethod);
 	}
 ?>

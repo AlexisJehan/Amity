@@ -42,9 +42,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @param  string          $query La requête SQL à exécuter
-		 * @return DatabaseService        L'instance courante
 		 */
 		public function query($query) {
 			$this->query = $query;
@@ -82,8 +79,6 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom spécifique du service utilisé
 		 */
 		public function getAccessName() {
 			return 'Specific MySQL';

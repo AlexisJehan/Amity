@@ -44,15 +44,11 @@
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @var string
 		 */
 		protected static $extension = '.phtml';
 
 		/**
 		 * {@inheritdoc}
-		 *
-		 * @return string Le nom du fichier de cache
 		 */
 		protected function getCacheName() {
 			return 'templates';
