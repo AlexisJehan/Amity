@@ -63,9 +63,10 @@
 
 				// FIXME À ajouter seulement si le contenu est du HTML, sinon ne pas mettre ou adapter le type du commentaire
 				// Ajout d'une ligne de commentaire indiquant le temps restant avant la prochaine mise à jour du contenu
-				$header = '<!-- Cached content, generated on ' . date('d/m/Y H:i:s', filemtime($cache->getFile())) . ($cacheDuration > 0 ? ', next update in ' . ($cacheDuration - time() + filemtime($cache->getFile())) . ' seconds' : '') . ' -->';
+				$header = '<!-- Start of cached content, generated on ' . date('d/m/Y H:i:s', filemtime($cache->getFile())) . ($cacheDuration > 0 ? ', next update in ' . ($cacheDuration - time() + filemtime($cache->getFile())) . ' seconds' : '') . ' -->';
+				$footer = '<!-- End of cached content -->';
 
-				return PHP_EOL . $header . PHP_EOL . $content;
+				return $header . PHP_EOL . $content . PHP_EOL . $footer;
 			}
 
 			// Sinon, on retourne le contenu du fragment décoré sans rien faire

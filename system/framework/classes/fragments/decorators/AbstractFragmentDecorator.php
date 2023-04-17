@@ -66,6 +66,13 @@
 		/**
 		 * {@inheritdoc}
 		 */
+		public function getEscaping() {
+			return $this->fragment->getEscaping();
+		}
+
+		/**
+		 * {@inheritdoc}
+		 */
 		public function getTemplateName() {
 			return $this->fragment->getTemplateName();
 		}

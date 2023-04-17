@@ -30,12 +30,13 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/utils
-	 * @version    12/04/2023
+	 * @version    17/04/2023
 	 * @since      05/06/2014
 	 */
 	final class Template {
 		/*
 		 * CHANGELOG:
+		 * 17/04/2023: Ajout de la méthode « indent() »
 		 * 12/04/2023: Suppression de la méthode « bindHtml() »
 		 * 28/10/2021: Correction de l'échappement
 		 * 26/02/2016: L'échappement des caractères se fait désormais par défaut, et une nouvelle méthode pour ne pas le faire pour le HTML est aussi disponible
@@ -69,7 +70,7 @@
 		protected $file;
 
 		/**
-		 * Tableau de variables à associer au template
+		 * Tableau des variables à associer au template
 		 *
 		 * @var array
 		 */
@@ -115,13 +116,18 @@
 		}
 
 		/**
-		 * Association de plusieurs variables dans le fichier de template
+		 * Association de plusieurs variables dans le template
 		 *
 		 * @param  array    $variables Les variables à associer
 		 * @param  boolean  $escapeAll Booléen indiquant si on doit échapper les valeurs ou non [« TRUE » par défaut]
 		 * @return Template            L'instance courante
 		 */
 		public function bindArray(array $variables, $escapeAll = TRUE) {
+
+			// Si le tableau est vide on ne fait rien
+			if (empty($variables)) {
+				return $this;
+			}
 
 			// Le tableau doit être associatif
 			if ($variables === array_values($variables)) {
@@ -140,12 +146,7 @@
 		 * @return string             Le rendu généré
 		 */
 		public function render(array $variables = array(), $escapeAll = TRUE) {
-
-			// Si une association est renseignée on la fait avant de remplir le template
-			if (!empty($variables)) {
-				$this->bindArray($variables, $escapeAll);
-			}
-
+			$this->bindArray($variables, $escapeAll);
 			ob_start();
 			extract($this->variables);
 			require ($this->file);
@@ -153,10 +154,26 @@
 		}
 
 		/**
+		 * Indentation d'une variable
+		 *
+		 * @param  mixed   $variable La variable à indenter
+		 * @param  integer $level    Le niveau d'indentation [« 1 » par défaut]
+		 * @param  string  $string   La chaîne de caractères d'indentation [tabulation par défaut]
+		 * @return mixed             La variable indentée
+		 */
+		public function indent($variable, $level = 1, $string = "\t") {
+			if (is_string($variable) && 0 < $level) {
+				$indentation = str_repeat($string, $level);
+				$variable = $indentation . preg_replace('/([\r\n?|\n])/', '$1' . $indentation, $variable) . PHP_EOL;
+			}
+			return $variable;
+		}
+
+		/**
 		 * Échappe les caractères HTML d'une variable récursivement
 		 *
-		 * @param  string $variable La variable à échapper
-		 * @return string           La variable échappée
+		 * @param  mixed $variable La variable à échapper
+		 * @return mixed           La variable échappée
 		 */
 		public function escape($variable) {
 
@@ -184,8 +201,8 @@
 		/**
 		 * Dé-échappement les caractères HTML d'une variable récursivement
 		 *
-		 * @param  string $variable La variable à dé-échapper
-		 * @return string           La variable dé-échappée
+		 * @param  mixed $variable La variable à dé-échapper
+		 * @return mixed           La variable dé-échappée
 		 */
 		public function unescape($variable) {
 

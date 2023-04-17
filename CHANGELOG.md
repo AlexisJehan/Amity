@@ -3,7 +3,11 @@
 ## v0.5.0 (unreleased)
 
 ### Breaking changes
+- Remove `escape()` and `unescape()` methods from the `Fragment` class
 - Remove the `bindHtml()` method from the `Template` class
+
+### New features
+- Add the `indent()` method in the `Template` class
 
 ### Improvements
 - Improve compatibility in _CLI_ mode

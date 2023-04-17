@@ -31,67 +31,58 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/fragments
-	 * @version    29/12/2015
+	 * @version    17/04/2023
 	 * @since      16/12/2014
 	 */
 	abstract class Fragment {
 		/*
 		 * CHANGELOG:
+		 * 17/04/2023: Suppression des méthodes « escape() » et « unescape() »
 		 * 29/12/2015: Ajout des méthodes d'échappement de la classe « Template »
 		 * 05/08/2015: Ajout des méthodes de cache, et suppression de l'interface « ICachedFragment »
 		 * 16/12/2014: Version initiale
 		 */
 
 		/**
-		 * Tableau d'association de valeurs au fragment
+		 * Tableau des variables à associer au fragment
 		 *
 		 * @var array
 		 */
 		protected $binding = array();
 
 		/**
-		 * Association d'une clé à une valeur
+		 * Tableau de l'échappement des variables à associer au fragment
 		 *
-		 * @param  string   $key   La clé
-		 * @param  mixed    $value La valeur associée
-		 * @return Fragment        L'instance courante
+		 * @var array
 		 */
-		protected final function bind($key, $value) {
-			$this->binding[$key] = $value;
+		protected $escaping = array();
+
+		/**
+		 * Association d'une variable dans le fragment
+		 *
+		 * @param  string   $name   Le nom de la variable
+		 * @param  mixed    $value  La valeur de la variable
+		 * @param  boolean  $escape Booléen indiquant si on doit échapper la valeur ou non [« TRUE » par défaut]
+		 * @return Fragment         L'instance courante
+		 */
+		protected final function bind($name, $value, $escape = TRUE) {
+			$this->binding[$name] = $value;
+			$this->escaping[$name] = $escape;
 			return $this;
 		}
 
 		/**
-		 * Association de plusieurs clés à leurs valeurs respectives
+		 * Association de plusieurs variables dans fragment
 		 *
-		 * @param  array    $binding Tableau associant des clés à leurs valeurs
-		 * @return Fragment          L'instance courante
+		 * @param  array    $variables Les variables à associer
+		 * @param  boolean  $escapeAll Booléen indiquant si on doit échapper les valeurs ou non [« TRUE » par défaut]
+		 * @return Fragment            L'instance courante
 		 */
-		protected final function bindArray(array $binding) {
-			foreach ($binding as $key => $value) {
-				$this->binding[$key] = $value;
+		protected final function bindArray(array $variables, $escapeAll = TRUE) {
+			foreach ($variables as $name => $value) {
+				$this->bind($name, $value, $escapeAll);
 			}
 			return $this;
-		}
-
-		/**
-		 * Échappe les caractères HTML d'une variable
-		 *
-		 * @param  string $variable La variable à échapper
-		 * @return string           La variable échappée
-		 */
-		public function escape($variable) {
-			return htmlspecialchars($variable, ENT_COMPAT, 'UTF-8', FALSE);
-		}
-
-		/**
-		 * Dé-échappement les caractères HTML d'une variable
-		 *
-		 * @param  string $variable La variable à dé-échapper
-		 * @return string           La variable dé-échappée
-		 */
-		public function unescape($variable) {
-			return htmlspecialchars_decode($variable, ENT_COMPAT);
 		}
 
 		/**
@@ -100,10 +91,13 @@
 		 * @return string Le contenu généré
 		 */
 		protected final function render() {
-			return Template::load(
-				$this->getTemplateName(),
-				$this->getBinding()
-			);
+			$template = new Template($this->getTemplateName());
+			$binding = $this->getBinding();
+			$escaping = $this->getEscaping();
+			foreach ($binding as $name => $value) {
+				$template->bind($name, $value, $escaping[$name]);
+			}
+			return $template->render();
 		}
 
 		/**
@@ -116,12 +110,21 @@
 		}
 
 		/**
-		 * Retourne l'ensemble des associations
+		 * Retourne le tableau des variables à associer au fragment
 		 *
-		 * @return array Les associations
+		 * @return array Le tableau des variables
 		 */
 		public function getBinding() {
 			return $this->binding;
+		}
+
+		/**
+		 * Retourne le tableau de l'échappement des variables à associer au fragment
+		 *
+		 * @return array Le tableau de l'échappement des variables
+		 */
+		public function getEscaping() {
+			return $this->escaping;
 		}
 
 		/**
