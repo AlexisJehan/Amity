@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.5.0 (unreleased)
+## [v0.5.0](https://github.com/AlexisJehan/Amity/releases/tag/v0.5.0) (2023-04-19)
 
 ### Breaking changes
 - Rename the `Template::is()` method to `Template::exists()`
