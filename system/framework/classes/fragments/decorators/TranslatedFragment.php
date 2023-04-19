@@ -54,7 +54,7 @@
 				$name = $this->fragment->getTemplateName() . '.' . $language;
 
 				// Si le template existe, le nom correspond bien à un template traduit et on le retourne
-				if (Template::is($name)) {
+				if (Template::exists($name)) {
 					return $name;
 
 				// Sinon, si la langue est du style « fr-FR » on tente avec seulement la première partie, soit « fr »
@@ -63,7 +63,7 @@
 					$name = $this->fragment->getTemplateName() . '.' . $language;
 
 					// Si le template existe, le nom correspond bien à un template traduit avec la première partie de la langue et on le retourne
-					if (Template::is($name)) {
+					if (Template::exists($name)) {
 						return $name;
 					}
 				}

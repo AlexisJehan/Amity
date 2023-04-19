@@ -30,12 +30,13 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/utils
-	 * @version    17/04/2023
+	 * @version    19/04/2023
 	 * @since      05/06/2014
 	 */
 	final class Template {
 		/*
 		 * CHANGELOG:
+		 * 19/04/2023: Renommage de la méthode statique « is() » en « exists() »
 		 * 17/04/2023: Ajout de la méthode « indent() »
 		 * 12/04/2023: Suppression de la méthode « bindHtml() »
 		 * 28/10/2021: Correction de l'échappement
@@ -251,7 +252,7 @@
 		 * @param  string  $name Le nom du template
 		 * @return boolean       Vrai si le template existe
 		 */
-		public static function is($name) {
+		public static function exists($name) {
 			return NULL !== self::$loader->getFile($name);
 		}
 

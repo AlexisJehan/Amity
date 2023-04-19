@@ -3,11 +3,12 @@
 ## v0.5.0 (unreleased)
 
 ### Breaking changes
-- Remove `escape()` and `unescape()` methods from the `Fragment` class
-- Remove the `bindHtml()` method from the `Template` class
+- Rename the `Template::is()` method to `Template::exists()`
+- Remove `Fragment->escape()` and `Fragment->unescape()` methods
+- Remove the `Template->bindHtml()` method
 
 ### New features
-- Add the `indent()` method in the `Template` class
+- Add the `Template->indent()` method
 
 ### Improvements
 - Improve compatibility in _CLI_ mode
