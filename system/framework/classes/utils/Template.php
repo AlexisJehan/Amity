@@ -165,7 +165,7 @@
 		public function indent($variable, $level = 1, $string = "\t") {
 			if (is_string($variable) && 0 < $level) {
 				$indentation = str_repeat($string, $level);
-				$variable = $indentation . preg_replace('/([\r\n?|\n])/', '$1' . $indentation, $variable) . PHP_EOL;
+				$variable = $indentation . preg_replace('/([\r\n|\r|\n])/', '$1' . $indentation, $variable) . PHP_EOL;
 			}
 			return $variable;
 		}
