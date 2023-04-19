@@ -76,7 +76,7 @@
 		 * @param boolean $compress Booléen indiquant si on doit compresser le contenu pour un gain de place au détriment des performances [« FALSE » par défaut]
 		 */
 		public function __construct($filename, $duration = -1, $hashname = FALSE, $compress = FALSE) {
-			parent::__construct($filename, $duration, $hashname, $compress);
+			parent::__construct($filename, $duration, $hashname);
 			$this->compress = $compress;
 		}
 
@@ -143,6 +143,8 @@
 			if ($this->buffering) {
 				$content = ob_get_clean();
 				$this->buffering = FALSE;
+			} else {
+				$content = NULL;
 			}
 
 			// On retourne le contenu capturé puis stocké

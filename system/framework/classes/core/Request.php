@@ -230,14 +230,14 @@
 						$this->controllerClass = $controllerClass;
 						array_shift($route);
 						array_shift($route);
-
 					} else {
 						$foundFlag = FALSE;
 					}
-
 				} else {
 					$foundFlag = FALSE;
 				}
+			} else {
+				$foundFlag = FALSE;
 			}
 
 			// S'il y a encore au moins un élément, on peut supposer qu'il s'agisse de l'action du contrôleur déterminé

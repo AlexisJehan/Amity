@@ -49,9 +49,24 @@
 		protected $statement;
 
 		/**
+		 * Driver de connexion à la base de données
+		 *
+		 * @var string
+		 */
+		protected $driver;
+
+		/**
 		 * {@inheritdoc}
 		 */
-		protected function __connect($host, $port, $database, $user, $password, $encoding, array $options, $driver = 'mysql') {
+		public function __construct($host, $port, $database, $user, $password, $encoding = 'utf8', array $options = array(), $driver = 'mysql') {
+			parent::__construct($host, $port, $database, $user, $password, $encoding, $options);
+			$this->driver = $driver;
+		}
+
+		/**
+		 * {@inheritdoc}
+		 */
+		protected function __connect($host, $port, $database, $user, $password, $encoding, array $options) {
 
 			// Paramètres par défaut
 			$settings = array(
@@ -61,7 +76,7 @@
 			);
 
 			// Pour les versions inférieures de MySQL, on définit le charset manuellement
-			if ('mysql' === $driver && defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
+			if ('mysql' === $this->driver && defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
 				$settings[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES ' . $encoding;
 			}
 
@@ -69,7 +84,7 @@
 
 			// Tentative de connexion via le DSN généré avec les paramètres
 			try {
-				$this->connection = new PDO($driver . ':host=' . $host . (!empty($port) ? ';port=' . $port : '') . ';dbname=' . $database . ';charset=' . $encoding, $user, $password, $settings);
+				$this->connection = new PDO($this->driver . ':host=' . $host . (!empty($port) ? ';port=' . $port : '') . ';dbname=' . $database . ';charset=' . $encoding, $user, $password, $settings);
 			} catch (PDOException $exception) {
 
 				// Impossible de se connecter à la base de données (serveur indisponible par exemple)
@@ -82,14 +97,14 @@
 			}
 
 			// Seconde tentative du forçage de charset avec les serveurs MySQL
-			if ('mysql' === $driver && !defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
+			if ('mysql' === $this->driver && !defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
 				$this->connection->exec('SET NAMES ' . $encoding);
 			}
 
 			// Bug: La désactivation de l'émulation des requêtes préparées produit une exception lors de l'utilisation d'un même placeholder nommé plusieurs fois
 			// Exemple: SELECT * FROM users WHERE name = :login OR email = :login
 			//                                           ------            ------
-			/*if ('mysql' === $driver) {
+			/*if ('mysql' === $this->driver) {
 				$this->connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, version_compare($this->connection->getAttribute(PDO::ATTR_SERVER_VERSION), '5.1.17', '<'));
 			}*/
 

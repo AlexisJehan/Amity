@@ -175,6 +175,7 @@
 
 			// On récupère chaque variable pour les afficher textuellement
 			$variables = func_get_args();
+			$content = array();
 			foreach ($variables as $variable) {
 				$content[] = $this->variable($variable);
 			}
@@ -356,7 +357,8 @@
 			$content[] = '<div class="debug trace"><i><u>' . __('Trace') . '</u></i>:';
 
 			// Pour chaque appel de la trace, on ajoute le contenu spécifique stylisé
-			foreach ($trace as $index => $call) {
+			$index = 1;
+			foreach ($trace as $call) {
 				$file = isset($call['file']) ? __('%s on line %s:', '<b>' . path($call['file']) . '</b>', '<b>' . $call['line'] . '</b>') : '<b>{internal function}</b>';
 				$class = isset($call['class']) ? $call['class'] : '';
 				$type = isset($call['type']) ? $call['type']  : '';
@@ -365,9 +367,10 @@
 				$content[] = '<span>#' . $index . ' ' . $file;
 				$content[] = '     <b>' . $class . $type . $function . '</b>(' . $args . ')';
 				$content[] = '</span>';
+				++$index;
 			}
 
-			$content[] = '<span>#' . ($index + 1) . ' <b>{main}</b></span>';
+			$content[] = '<span>#' . $index . ' <b>{main}</b></span>';
 			return implode(PHP_EOL, $content) . '</div>';
 		}
 
