@@ -30,12 +30,13 @@
 	 *
 	 * @package    framework
 	 * @subpackage classes/utils
-	 * @version    19/04/2023
+	 * @version    24/04/2023
 	 * @since      05/06/2014
 	 */
 	final class Template {
 		/*
 		 * CHANGELOG:
+		 * 24/04/2023: Correction de l'expression régulière de l'indentation
 		 * 19/04/2023: Renommage de la méthode statique « is() » en « exists() »
 		 * 17/04/2023: Ajout de la méthode « indent() »
 		 * 12/04/2023: Suppression de la méthode « bindHtml() »
@@ -165,7 +166,7 @@
 		public function indent($variable, $level = 1, $string = "\t") {
 			if (is_string($variable) && 0 < $level) {
 				$indentation = str_repeat($string, $level);
-				$variable = $indentation . preg_replace('/([\r\n|\r|\n])/', '$1' . $indentation, $variable) . PHP_EOL;
+				$variable = $indentation . preg_replace('/(\r\n|\r|\n)/', '$1' . $indentation, $variable) . PHP_EOL;
 			}
 			return $variable;
 		}
