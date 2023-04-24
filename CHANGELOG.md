@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.5.1](https://github.com/AlexisJehan/Amity/releases/tag/v0.5.1) (2023-04-24)
+
+### Bug fixes
+- Fix the regular expression of the `Template->indent()` method
+
 ## [v0.5.0](https://github.com/AlexisJehan/Amity/releases/tag/v0.5.0) (2023-04-19)
 
 ### Breaking changes

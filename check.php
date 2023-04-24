@@ -39,7 +39,7 @@
 	 */
 
 	// Version d'Amity
-	$amityVersion = '0.5.0';
+	$amityVersion = '0.5.1';
 
 	// Version de PHP minimum
 	$phpMinimumVersion = '5.3';
