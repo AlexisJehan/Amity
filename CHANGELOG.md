@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.5.2 (unreleased)
+## [0.5.2](https://github.com/AlexisJehan/Amity/releases/tag/v0.5.2) (2023-11-06)
 
 ### Bug fixes
 - Fix the _CLI_ mode detection with _PHP 5.3_
