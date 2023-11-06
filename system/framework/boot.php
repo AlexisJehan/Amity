@@ -36,6 +36,7 @@
 	 */
 	/*
 	 * CHANGELOG:
+	 * 06/11/2023: Correction de la détection du mode « CLI » avec PHP 5.3
 	 * 12/04/2023: Amélioration de la compatibilité en mode « CLI »
 	 * 29/08/2022: Ajout systématique de la langue dans l'URL lors de l'utilisation du service multi-lingue
 	 * 02/08/2021: Possibilité de forcer l'usage de HTTPS
@@ -129,7 +130,7 @@
 	 *
 	 * @package framework
 	 */
-	define('BASE_URL', FALSE !== http_response_code() ? ((!empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . rtrim(str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '\\/') : NULL);
+	define('BASE_URL', isset($_SERVER['HTTP_HOST'], $_SERVER['SCRIPT_NAME']) ? ((!empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . rtrim(str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '\\/') : '.');
 
 	/**
 	 * Chemin vers le dossier de l'application
