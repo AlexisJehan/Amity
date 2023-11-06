@@ -93,7 +93,7 @@
 		 * Modifie la valeur à écrire en JSON
 		 *
 		 * @param  mixed $value La nouvelle valeur
-		 * @return Ajax         L'instance courante
+		 * @return Json         L'instance courante
 		 */
 		public function setValue($value) {
 			$this->value = $value;

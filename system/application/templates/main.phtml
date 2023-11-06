@@ -40,8 +40,8 @@
 		<meta charset="utf-8"/>
 		<meta name="generator" content="<?php echo __NAME__ . ' ' . __VERSION__; ?>"/>
 		<link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/images/logo-amity.png"/>
-		<link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/stylesheet.css"/>
-		<title><?php echo 'home' !== $controller ? $title . ' &ndash; ' . APP_NAME : APP_NAME; ?></title>
+		<link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/stylesheet.css?<?php echo filemtime(ASSETS_DIR . '/css/stylesheet.css'); ?>"/>
+		<title><?php echo ('home' !== $controller ? $title . ' &ndash; ' : '') . APP_NAME; ?></title>
 	</head>
 	<body>
 		<header>
@@ -49,7 +49,7 @@
 		</header>
 		<main>
 <?php
-	echo $content;
+	echo $this->indent(trim($content), 3);
 ?>
 		</main>
 		<footer>
@@ -61,6 +61,6 @@
 	endif;
 ?>
 		</footer>
-		<script src="<?php echo ASSETS_URL; ?>/js/script.js"></script>
+		<script src="<?php echo ASSETS_URL; ?>/js/script.js?<?php echo filemtime(ASSETS_DIR . '/js/script.js'); ?>"></script>
 	</body>
 </html>

@@ -162,8 +162,8 @@
 		/**
 		 * Modifie le realm (message d'authentification)
 		 *
-		 * @param  string             $realm Le nouveau realm
-		 * @return AuthenticationPage        L'instance courante
+		 * @param  string         $realm Le nouveau realm
+		 * @return Authentication        L'instance courante
 		 */
 		public function setRealm($realm) {
 			$this->realm = $realm;

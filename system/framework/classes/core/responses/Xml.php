@@ -127,7 +127,7 @@
 		 * Modifie la valeur à écrire en XML
 		 *
 		 * @param  mixed $value La nouvelle valeur
-		 * @return Ajax         L'instance courante
+		 * @return Xml          L'instance courante
 		 */
 		public function setValue($value) {
 			$this->value = $value;
