@@ -1,4 +1,6 @@
-<image src="assets/images/logo-amity.png" align="right" width="200"/>
+<p align="center">
+	<img src="assets/images/logo-amity.png" alt="Logo" width="200"/>
+</p>
 
 # Amity
 [![release](https://img.shields.io/github/v/release/AlexisJehan/Amity?display_name=tag)](https://github.com/AlexisJehan/Amity/releases/latest)
